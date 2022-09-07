@@ -17,8 +17,8 @@ export default NextAuth({
             },
             token: "https://auth.fit.cvut.cz/oauth/token",
             userinfo: "https://auth.fit.cvut.cz/oauth/userinfo",
-            clientSecret: "Q5vSQeBcPjetzBkLqd0W9v6RStKr1gS2",
-            clientId: "c8e3af38-4b9c-412c-a9f8-da70d5f0c407",
+            clientSecret: process.env.CTU_CLIENT_SECRET,
+            clientId: process.env.CTU_CLIENT_ID,
             idToken: false,
             profile(profile) {
                 console.log(profile)

@@ -72,7 +72,9 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
             return this.fetchDiagram("/newDiagram.bpmn");
         }
 
-        return this.displayDiagram(this.state.xml);
+        //Fix this if somehow
+        if (this.state.xml)
+            return this.displayDiagram(this.state.xml);
     }
 
     componentWillUnmount() {

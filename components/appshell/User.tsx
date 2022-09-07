@@ -1,14 +1,17 @@
 import React from 'react';
-import {IconChevronRight, IconChevronLeft} from '@tabler/icons';
-import {UnstyledButton, Group, Avatar, Text, Box, useMantineTheme} from '@mantine/core';
-import {signIn, useSession} from "next-auth/react";
+import {IconChevronRight, IconChevronLeft, IconLogout, IconLogin} from '@tabler/icons';
+import {Button,UnstyledButton, Group, Avatar, Text, Box, useMantineTheme} from '@mantine/core';
+import {signIn, signOut, useSession} from "next-auth/react";
 
 export default function User() {
     const theme = useMantineTheme();
     const {data: session} = useSession();
 
+    let actionButton;
     if (!session)
-        return (
+        actionButton = <Button onClick={() => signIn()} leftIcon={<IconLogin/>} variant="white">Přihlásit se</Button>;
+    else
+        actionButton = (
             <UnstyledButton
                 sx={{
                     display: 'block',
@@ -22,10 +25,29 @@ export default function User() {
                             theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
                     },
                 }}
-                onClick={() => signIn()}
-            >Log in</UnstyledButton>
+            >
+                <Group>
+                    <Avatar
+                        src={session.user?.image}
+
+                    />
+                    <Box sx={{flex: 1}}>
+                        <Text size="sm" weight={500}>
+                            {session.user?.name}
+                        </Text>
+                        <Text color="dimmed" size="xs">
+                            {session.user?.email}
+                        </Text>
+                    </Box>
+                    <UnstyledButton onClick={() => signOut()}>
+                        <IconLogout color="red"/>
+                    </UnstyledButton>
+
+                </Group>
+            </UnstyledButton>
         )
-    else
+
+
         return (
             <Box
                 sx={{
@@ -35,37 +57,7 @@ export default function User() {
                     }`,
                 }}
             >
-                <UnstyledButton
-                    sx={{
-                        display: 'block',
-                        width: '100%',
-                        padding: theme.spacing.xs,
-                        borderRadius: theme.radius.sm,
-                        color: theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
-
-                        '&:hover': {
-                            backgroundColor:
-                                theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-                        },
-                    }}
-                >
-                    <Group>
-                        <Avatar
-                            src={session.user?.image}
-
-                        />
-                        <Box sx={{flex: 1}}>
-                            <Text size="sm" weight={500}>
-                                {session.user?.name}
-                            </Text>
-                            <Text color="dimmed" size="xs">
-                                {session.user?.email}
-                            </Text>
-                        </Box>
-
-                        {theme.dir === 'ltr' ? <IconChevronRight size={18}/> : <IconChevronLeft size={18}/>}
-                    </Group>
-                </UnstyledButton>
+                {actionButton}
             </Box>
-        );
+        )
 }

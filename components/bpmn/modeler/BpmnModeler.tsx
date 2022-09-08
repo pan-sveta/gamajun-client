@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 interface BpmnModelerProps {
     url?: string,
     xml?: string,
-    onXmlChange?:Dispatch<SetStateAction<string|undefined>>
+    onXmlChange(newXml:string):void,
     onLoading?: () => void,
     onShown?: (warnings: string) => void,
     onError?: (err: string) => void,
@@ -64,7 +64,6 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
             return this.handleShown(warnings);
         });
 
-        console.log(!this.props.xml)
         if (this.props.url) {
             return this.fetchDiagram(this.props.url);
         }
@@ -98,8 +97,6 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
     }
 
     displayDiagram(diagramXML: string) {
-        console.log("FOO")
-        console.log(diagramXML)
         this.bpmnViewer.importXML(diagramXML);
     }
 
@@ -150,7 +147,7 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
     render() {
         return (
             <div>
-                <div className="react-bpmn-diagram-container" style={{height: "50vh"}} ref={this.containerRef}></div>
+                <div className="react-bpmn-diagram-container" style={{height: "65vh"}} ref={this.containerRef}></div>
             </div>
         );
     }

@@ -5,6 +5,7 @@ import {useForm} from "@mantine/form";
 import RichTextEditor from '../../components/input/RichTextEditor';
 import {IconAdjustmentsAlt, IconDeviceFloppy, IconPaint, IconSettings} from "@tabler/icons";
 import {useSession} from "next-auth/react";
+import {log} from "util";
 
 const BpmnModeler = dynamic(() => import("../../components/bpmn/modeler/BpmnModeler"), {
     loading: () => <Loader variant="bars"/>,
@@ -12,7 +13,8 @@ const BpmnModeler = dynamic(() => import("../../components/bpmn/modeler/BpmnMode
 });
 
 const Index: NextPage = () => {
-    const { data } = useSession()
+    const { data: sessionData } = useSession()
+
 
     const form = useForm({
         initialValues: {
@@ -27,15 +29,24 @@ const Index: NextPage = () => {
         },
     });
 
-    form.onSubmit(values => {
+    let createCall = (values:any) => {
 
-    })
+        fetch("http://localhost:8080/assignments", {
+            method: "POST",
+            headers: {
+                "Authorization": `Bearer ${sessionData.accessToken}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(values)
+        }).then(res => console.log(res))
+            .catch(err => console.log(err))
+    };
 
     // @ts-ignore
     // @ts-ignore
     return (
         <div>
-            <form onSubmit={form.onSubmit((values) => console.log(values))}>
+            <form onSubmit={form.onSubmit((values) => createCall(values))}>
             <Grid align={"center"}>
                 <Grid.Col span={6}>
                     <h1>Zadání</h1>

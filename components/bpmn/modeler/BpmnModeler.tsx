@@ -8,6 +8,7 @@ import BpmnJS from 'gamajun-bpmn-js/dist/gamajun-modeler.bundled';
 import "bpmn-js/dist/assets/diagram-js.css"
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css"
 import dynamic from "next/dynamic";
+import {EmptyDiagram} from "./EmptyDiagram";
 
 interface BpmnModelerProps {
     url?: string,
@@ -39,7 +40,7 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
     componentDidMount() {
         const container = this.containerRef.current;
 
-        this.bpmnViewer = new BpmnJS({container});
+        this.bpmnViewer = new BpmnJS({container: "#alah"});
         this.eventBus = this.bpmnViewer.get("eventBus");
 
         this.eventBus.on('commandStack.changed', async () => {
@@ -68,7 +69,10 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
             return this.fetchDiagram(this.props.url);
         }
         else if (!this.props.xml) {
-            return this.fetchDiagram("/newDiagram.bpmn");
+            this.setState({xml: EmptyDiagram()});
+        }
+        else{
+            this.setState({xml: this.props.xml});
         }
 
         //Fix this if somehow
@@ -147,7 +151,7 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
     render() {
         return (
             <div>
-                <div className="react-bpmn-diagram-container" style={{height: "65vh"}} ref={this.containerRef}></div>
+                <div className="react-bpmn-diagram-container" id={"alah"} style={{height: "65vh"}} ref={this.containerRef}></div>
             </div>
         );
     }

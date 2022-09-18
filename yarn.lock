@@ -233,14 +233,14 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.1.tgz#b520529ec21d8e5945a1851dfd1c32e94e39ff45"
   integrity sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==
 
-"@mantine/core@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-5.2.5.tgz#15b7e474d1d13a57460d427b25c9a577f448ff27"
-  integrity sha512-fvGRmRbbK6z0eHgPVnozdBAARNTRP7Xrr9SF+KSI2Jyd1TUFmqODVbrb7PQT7eTSl50EIQRsoxfpDC1ARrM1Gw==
+"@mantine/core@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@mantine/core/-/core-5.3.3.tgz#dbdd3c18eabe4dd90962992365eb22c90a4671af"
+  integrity sha512-q44jPxOfd0YFaWgZua3DtEByNbpums1tfNPdaK6aYh/dXS80e9acZtY9F7LD/aKs0+YK6RNlVgP0bMxDaLF0xg==
   dependencies:
     "@floating-ui/react-dom-interactions" "0.6.6"
-    "@mantine/styles" "5.2.5"
-    "@mantine/utils" "5.2.5"
+    "@mantine/styles" "5.3.3"
+    "@mantine/utils" "5.3.3"
     "@radix-ui/react-scroll-area" "1.0.0"
     react-textarea-autosize "8.3.4"
 
@@ -259,10 +259,17 @@
     fast-deep-equal "^3.1.3"
     klona "^2.0.5"
 
-"@mantine/hooks@^5.2.5":
-  version "5.2.5"
-  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.2.5.tgz#c9d032bde426919b75b7c36afbe6b1b7f9f7615a"
-  integrity sha512-FLSITrq5bJ1oRAhYq8w8oDxC4FDpsiHEDJdnVD00WCmZ/Cc9vR5RSTYLhQqiB76Gw702X9WtEHy55yaHTng6Ug==
+"@mantine/hooks@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.3.3.tgz#3baec5f620316e2395bd88624dd323a2f5dab0f8"
+  integrity sha512-90GD3pX7CanPHC35qxuVr7jNJBS9/bLJiofPUuqdKyW547D8RLRRNofoelQ7y2wKiaLhHC2oV1wUPOAk/6Oz8Q==
+
+"@mantine/modals@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@mantine/modals/-/modals-5.3.3.tgz#ad2c2f928c7f604e2b7ceae24d763662118e3978"
+  integrity sha512-UNQx6l0NKB2i34+L8Qh2zzoseUYdMy/M83ZuxrfJyYV+oPDNILbdmAqyldHg+QUDi0+tZS/8NC6rYS1rMzQdfA==
+  dependencies:
+    "@mantine/utils" "5.3.3"
 
 "@mantine/next@^5.2.5":
   version "5.2.5"
@@ -279,6 +286,13 @@
   dependencies:
     "@mantine/utils" "5.2.5"
     react-transition-group "4.4.2"
+
+"@mantine/nprogress@^5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-5.3.3.tgz#487d68d102ae404b21adf803985972484e8638a3"
+  integrity sha512-B3DVt+DYMbB/g+Ls/2CZbGYN0naUNYjtqD45GHIJ/JqPOrncXd/aCGxzWq/RLkeQD7xDluZIe3R4tSN8GJ/KGg==
+  dependencies:
+    "@mantine/utils" "5.3.3"
 
 "@mantine/rte@^5.2.5":
   version "5.2.5"
@@ -305,10 +319,23 @@
     clsx "1.1.1"
     csstype "3.0.9"
 
+"@mantine/styles@5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-5.3.3.tgz#163f15eb2ccb6f29abdf9ebf17bc76fd816ebaae"
+  integrity sha512-+ZBxJYNa0tMvLh4qp15vYdF/VEBCWu8Z3zRjNpss7Cnqu7L58noi/BNbxSWrN26O0lKrF9aIj/oE+Q43pIXUKw==
+  dependencies:
+    clsx "1.1.1"
+    csstype "3.0.9"
+
 "@mantine/utils@5.2.5":
   version "5.2.5"
   resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.2.5.tgz#4fc31808addb8596aaef91bbdb384122364297e3"
   integrity sha512-tKRbHrK027wYzzu0PSP71WT3bikcaX/jKdVETihKytYgM2rW6jJ3iDnhS1cBi35o4q67WMsLkpOgIGoY+lTQPw==
+
+"@mantine/utils@5.3.3":
+  version "5.3.3"
+  resolved "https://registry.yarnpkg.com/@mantine/utils/-/utils-5.3.3.tgz#0006bd3aef7dc5f955517d02da611cb499c7e07c"
+  integrity sha512-UoIBNjsXI2j1Sv4oslhOhGORE0pkbwpJ42+55dVQjTXRzDsloYNssyad1xO+kS8icF0y3HV3i+nz3B8b04W00A==
 
 "@next/env@12.2.5":
   version "12.2.5"

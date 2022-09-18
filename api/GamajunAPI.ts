@@ -1,6 +1,7 @@
 import {getSession} from "next-auth/react";
 import {GetServerSidePropsContext} from "next/types";
 import {Assignment, AssignmentFromJSON} from "../types/gamajun.ts";
+import {throws} from "assert";
 
 export const getGamajunAccessToken = async (context: GetServerSidePropsContext): Promise<string> => {
     const session = await getSession(context);
@@ -23,7 +24,12 @@ export const getAssignment = async (id: string, token: string): Promise<Assignme
         method: "GET",
         headers: await gamajunHeaders(token),
     })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            else
+                return res.json()
+        })
         .then(json => AssignmentFromJSON(json));
 }
 
@@ -32,7 +38,12 @@ export const getAllAssignments = async (token: string): Promise<Array<Assignment
         method: "GET",
         headers: await gamajunHeaders(token),
     })
-        .then(res => res.json())
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            else
+                return res.json()
+        })
         .then(arr => arr.map((ass: Array<any>) => AssignmentFromJSON(ass)));
 }
 
@@ -44,7 +55,13 @@ export const createAssignment = async (assignment: Assignment, token: string): P
             "Content-Type": "application/json"
         },
         body: JSON.stringify(assignment)
-    }).then(res => res.json())
+    })
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            else
+                return res.json()
+        })
         .then(json => AssignmentFromJSON(json));
 }
 
@@ -56,18 +73,31 @@ export const updateAssignment = async (assignment: Assignment, token: string): P
             "Content-Type": "application/json"
         },
         body: JSON.stringify(assignment)
-    }).then(res => res.json())
+    })
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            else
+                return res.json()
+        })
         .then(json => AssignmentFromJSON(json));
 }
 
-export const deleteAssignment = async (assignmentId: string, token: string): Promise<Assignment> => {
+export const deleteAssignment = async (assignmentId: string, token: string): Promise<void> => {
     return fetch(`https://gamajun-api.stepanek.app/assignments/${assignmentId}`, {
         method: "DELETE",
         headers: {
             "Authorization": `Bearer ${token}`,
             "Content-Type": "application/json"
         }
-    }).then();
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            }
+            else
+                return;
+        })
 }
 
 

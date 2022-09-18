@@ -2,12 +2,10 @@ import React, {Dispatch, SetStateAction, useEffect, useRef, useState} from 'reac
 
 // @ts-ignore
 import BpmnJS from 'gamajun-bpmn-js/dist/gamajun-modeler.bundled';
-//const BpmnJS = dynamic(() => import("gamajun-bpmn-js/dist/gamajun-modeler.bundled"));
 
 //BPMN-js css
 import "bpmn-js/dist/assets/diagram-js.css"
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css"
-import dynamic from "next/dynamic";
 import {EmptyDiagram} from "./EmptyDiagram";
 
 interface BpmnModelerProps {
@@ -21,7 +19,6 @@ interface BpmnModelerProps {
 interface BpmnModelerState {
     xml?: string
 }
-
 
 export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnModelerState> {
     state: BpmnModelerState = {};
@@ -58,7 +55,7 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
                 return this.handleError(error);
             }
 
-            this.bpmnViewer.get('canvas').zoom('fit-viewport');
+            console.log("FUCK")
 
             return this.handleShown(warnings);
         });
@@ -89,6 +86,7 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
 
     setEmptyDiagram(){
         this.setState({ xml: EmptyDiagram() });
+        this.handleXmlChange(EmptyDiagram());
     }
 
     displayDiagram(diagramXML: string) {

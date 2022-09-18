@@ -1,7 +1,7 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
 import {getAllAssignments, getGamajunAccessToken} from "../../api/GamajunAPI";
 import {getSession} from "next-auth/react";
-import {Group, Stack, Table, Button} from "@mantine/core";
+import {Group, Stack, Table, Button, Title} from "@mantine/core";
 import Link from "next/link";
 import {Assignment} from "../../types/gamajun.ts";
 import Box from "next-auth/providers/box";
@@ -22,15 +22,16 @@ const AllAssignments: NextPage = ({assignments}: InferGetServerSidePropsType<typ
 
     return (
         <Stack>
+            <Title order={1}>Zadání</Title>
             <Group position="right">
                 <Link href={"/assignments/new"}>
                     <Button leftIcon={<IconPlus/>} color={"green"}>Nové zadání</Button>
                 </Link>
             </Group>
-            <Table striped highlightOnHover>
+            <Table fontSize={"md"} striped highlightOnHover>
                 <thead>
                 <tr>
-                    <th>Název</th>
+                    <th>Id</th>
                     <th>Popis</th>
                     <th>Autor</th>
                 </tr>

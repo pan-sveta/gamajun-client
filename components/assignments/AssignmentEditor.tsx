@@ -21,7 +21,8 @@ interface AssignmentEditorProps {
 }
 
 const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
-    const {data: sessionData} = useSession()
+    const {data: sessionData} = useSession();
+    const token = String(sessionData?.accessToken);
     const router = useRouter();
 
     const form = useForm<Assignment>({
@@ -40,14 +41,16 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
     });
 
     let submit = (values: any) => {
-        if(assignment?.id)
-            updateAssignment(values, String(sessionData?.accessToken)).then();
+        if (assignment?.id)
+            updateAssignment(values, token).then();
         else
-            createAssignment(values, String(sessionData?.accessToken)).then(assignment => router.push(`/assignments/${assignment.id}`));
+            createAssignment(values, token).then(assignment => router.push(`/assignments/${assignment.id}`));
     };
 
     const handleDeleteAssignment = () => {
-        deleteAssignment(assignment?.id,sessionData?.accessToken).then(res => router.push(`/assignments`));
+        const id = assignment?.id;
+        if (id)
+            deleteAssignment(id, token).then(res => router.push(`/assignments`));
     };
 
     return (
@@ -63,7 +66,8 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
                     <Grid.Col span={6}>
                         <Group position={"right"}>
                             <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green">Uložit</Button>
-                            {assignment?.id ? <Button onClick={() => handleDeleteAssignment()} leftIcon={<IconTrash/>} color="red">Odstranit</Button> : null}
+                            {assignment?.id ? <Button onClick={() => handleDeleteAssignment()} leftIcon={<IconTrash/>}
+                                                      color="red">Odstranit</Button> : null}
                         </Group>
                     </Grid.Col>
                 </Grid>
@@ -79,7 +83,8 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
                             <TextInput label={"Název"} placeholder="Stavba mostu" {...form.getInputProps('title')} />
                             <Text>Popis</Text>
                             <RichTextEditor title={"Hello"} {...form.getInputProps('description')} />
-                            <TextInput label={"Autor"} readOnly={true} disabled={true} {...form.getInputProps('author')} />
+                            <TextInput label={"Autor"} readOnly={true}
+                                       disabled={true} {...form.getInputProps('author')} />
                         </Stack>
                     </Tabs.Panel>
                     <Tabs.Panel value="diagram" pt="xs">

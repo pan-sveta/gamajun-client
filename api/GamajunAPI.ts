@@ -1,6 +1,6 @@
 import {getSession} from "next-auth/react";
 import {GetServerSidePropsContext} from "next/types";
-import {Assignment, AssignmentFromJSON} from "../types/gamajun.ts";
+import {Assignment, AssignmentFromJSON, Exam, ExamFromJSON} from "../types/gamajun.ts";
 import {throws} from "assert";
 
 export const getGamajunAccessToken = async (context: GetServerSidePropsContext): Promise<string> => {
@@ -101,3 +101,51 @@ export const deleteAssignment = async (assignmentId: string, token: string): Pro
 }
 
 
+
+
+
+export const getAllExams = async (token: string): Promise<Array<Exam>> => {
+    return fetch("https://gamajun-api.stepanek.app/exams", {
+        method: "GET",
+        headers: await gamajunHeaders(token),
+    })
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            else
+                return res.json()
+        })
+        //.then(arr => arr.map((ass: Array<any>) => ExamFromJSON(ass)));
+}
+
+export const createExam = async (exam: Exam, token: string): Promise<Exam> => {
+    return fetch("https://gamajun-api.stepanek.app/exams", {
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(exam)
+    })
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            else
+                return res.json()
+        })
+        .then(json => ExamFromJSON(json));
+}
+
+export const getExam = async (id: string, token: string): Promise<Exam> => {
+    return fetch(`https://gamajun-api.stepanek.app/exams/${id}`, {
+        method: "GET",
+        headers: await gamajunHeaders(token),
+    })
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            else
+                return res.json()
+        })
+        //.then(json => ExamFromJSON(json));
+}

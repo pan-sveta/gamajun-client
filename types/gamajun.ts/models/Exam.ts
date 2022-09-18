@@ -46,10 +46,22 @@ export interface Exam {
     author?: string;
     /**
      * 
-     * @type {Set<Assignment>}
+     * @type {Date}
      * @memberof Exam
      */
-    assignments?: Set<Assignment>;
+    accessibleFrom?: Date;
+    /**
+     * 
+     * @type {Date}
+     * @memberof Exam
+     */
+    accessibleTo?: Date;
+    /**
+     * 
+     * @type {Array<Assignment>}
+     * @memberof Exam
+     */
+    assignments?: Array<Assignment>;
 }
 
 /**
@@ -74,7 +86,9 @@ export function ExamFromJSONTyped(json: any, ignoreDiscriminator: boolean): Exam
         'id': !exists(json, 'id') ? undefined : json['id'],
         'title': !exists(json, 'title') ? undefined : json['title'],
         'author': !exists(json, 'author') ? undefined : json['author'],
-        'assignments': !exists(json, 'assignments') ? undefined : (new Set((json['assignments'] as Array<any>).map(AssignmentFromJSON))),
+        'accessibleFrom': !exists(json, 'accessibleFrom') ? undefined : (new Date(json['accessibleFrom'])),
+        'accessibleTo': !exists(json, 'accessibleTo') ? undefined : (new Date(json['accessibleTo'])),
+        'assignments': !exists(json, 'assignments') ? undefined : ((json['assignments'] as Array<any>).map(AssignmentFromJSON)),
     };
 }
 
@@ -90,7 +104,9 @@ export function ExamToJSON(value?: Exam | null): any {
         'id': value.id,
         'title': value.title,
         'author': value.author,
-        'assignments': value.assignments === undefined ? undefined : (Array.from(value.assignments as Set<any>).map(AssignmentToJSON)),
+        'accessibleFrom': value.accessibleFrom === undefined ? undefined : (value.accessibleFrom.toISOString()),
+        'accessibleTo': value.accessibleTo === undefined ? undefined : (value.accessibleTo.toISOString()),
+        'assignments': value.assignments === undefined ? undefined : ((value.assignments as Array<any>).map(AssignmentToJSON)),
     };
 }
 

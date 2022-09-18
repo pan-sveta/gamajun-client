@@ -35,9 +35,11 @@ export default NextAuth({
         async jwt({token, user, account}) {
             // Initial sign in
             if (account && user) {
+                console.log("NASTAVUJU")
+                console.log(account.expires_at)
                 return {
                     accessToken: account.access_token,
-                    accessTokenExpires: Date.now() + account.expires_at * 1000,
+                    accessTokenExpires: account.expires_at * 1000,
                     refreshToken: account.refresh_token,
                     user,
                 }

@@ -11,7 +11,6 @@ import dynamic from "next/dynamic";
 import {EmptyDiagram} from "./EmptyDiagram";
 
 interface BpmnModelerProps {
-    url?: string,
     xml?: string,
     onXmlChange(newXml:string):void,
     onLoading?: () => void,
@@ -20,7 +19,6 @@ interface BpmnModelerProps {
 }
 
 interface BpmnModelerState {
-    url?: string,
     xml?: string
 }
 
@@ -40,7 +38,7 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
     componentDidMount() {
         const container = this.containerRef.current;
 
-        this.bpmnViewer = new BpmnJS({container: "#alah"});
+        this.bpmnViewer = new BpmnJS({container});
         this.eventBus = this.bpmnViewer.get("eventBus");
 
         this.eventBus.on('commandStack.changed', async () => {
@@ -65,19 +63,12 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
             return this.handleShown(warnings);
         });
 
-        if (this.props.url) {
-            return this.fetchDiagram(this.props.url);
+        if (!this.props.xml) {
+            return this.setEmptyDiagram();
         }
-        else if (!this.props.xml) {
-            this.setState({xml: EmptyDiagram()});
+        else {
+            return this.displayDiagram(this.props.xml);
         }
-        else{
-            this.setState({xml: this.props.xml});
-        }
-
-        //Fix this if somehow
-        if (this.state.xml)
-            return this.displayDiagram(this.state.xml);
     }
 
     componentWillUnmount() {
@@ -86,10 +77,6 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
 
     componentDidUpdate(prevProps: Readonly<BpmnModelerProps>, prevState: Readonly<BpmnModelerState>) {
         const {props, state} = this;
-
-        if (props.url && props.url !== prevProps.url) {
-            return this.fetchDiagram(props.url);
-        }
 
         const currentXML = props.xml || state.xml;
 
@@ -100,20 +87,12 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
         }
     }
 
-    displayDiagram(diagramXML: string) {
-        this.bpmnViewer.importXML(diagramXML);
+    setEmptyDiagram(){
+        this.setState({ xml: EmptyDiagram() });
     }
 
-    fetchDiagram(url: string) {
-        this.handleLoading();
-
-        fetch(url)
-            .then(response => response.text())
-            .then(newXml => {
-                this.setState({xml: newXml});
-                this.handleXmlChange(newXml);
-            })
-            .catch(err => this.handleError(err));
+    displayDiagram(diagramXML: string) {
+        this.bpmnViewer.importXML(diagramXML);
     }
 
     handleLoading() {
@@ -151,8 +130,9 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
     render() {
         return (
             <div>
-                <div className="react-bpmn-diagram-container" id={"alah"} style={{height: "65vh"}} ref={this.containerRef}></div>
+                <div className="react-bpmn-diagram-container" style={{height: "65vh"}} ref={this.containerRef}></div>
             </div>
         );
     }
 }
+

@@ -32,8 +32,11 @@ const AllAssignments: NextPage = ({assignments}: InferGetServerSidePropsType<typ
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const token = await GetGamajunAccessToken(context);
+    console.log(token)
 
     const assignments = await GetAllAssignments(token);
+
+    console.log(assignments)
 
     return {
         props: {

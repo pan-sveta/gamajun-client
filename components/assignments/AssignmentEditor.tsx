@@ -14,7 +14,12 @@ const BpmnModeler = dynamic(() => {
     ssr: false
 });
 
-const AssignmentEditor = ({assignemnt}) => {
+interface AssignmentEditorProps {
+    assignemnt: Array<any>,
+    isNew: boolean
+}
+
+const AssignmentEditor = ({assignemnt,isNew}:AssignmentEditorProps) => {
     const {data: sessionData} = useSession()
 
 
@@ -33,7 +38,6 @@ const AssignmentEditor = ({assignemnt}) => {
 
     let createCall = (values: any) => {
         CreateAssignment(values, String(sessionData?.accessToken)).then(r => console.log("CREATED"));
-
     };
 
     return (<div>
@@ -67,6 +71,7 @@ const AssignmentEditor = ({assignemnt}) => {
                 <Tabs.Panel value="diagram" pt="xs">
                     <BpmnModeler xml={form.values.xml}
                                  onXmlChange={(newXml) => form.setFieldValue<string>('xml', newXml)}/>
+                    <div>{JSON.stringify(form.values.xml)}</div>
                 </Tabs.Panel>
                 <Tabs.Panel value="settings" pt="xs">
                     <Text>TBA</Text>

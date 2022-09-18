@@ -1,47 +1,55 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import {GetAllAssignments, GetGamajunAccessToken} from "../../api/GamajunAPI";
+import {getAllAssignments, getGamajunAccessToken} from "../../api/GamajunAPI";
 import {getSession} from "next-auth/react";
-import {Table} from "@mantine/core";
+import {Group, Stack, Table, Button} from "@mantine/core";
 import Link from "next/link";
+import {Assignment} from "../../types/gamajun.ts";
+import Box from "next-auth/providers/box";
+import {IconPlus} from "@tabler/icons";
 
 const AllAssignments: NextPage = ({assignments}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
 
-    const rows = assignments.map((element) => (
-        <Link href={`/assignments/${element.id}`}>
-            <tr key={element.id}>
-                <td>{element.id}</td>
-                <td>{element.title}</td>
-                <td>{element.description}</td>
+    const rows = assignments.map((assignment: Assignment) => (
+        <Link key={assignment.id} href={`/assignments/${assignment.id}`}>
+            <tr key={assignment.id}>
+                <td>{assignment.id}</td>
+                <td>{assignment.title}</td>
+                <td>{assignment.author}</td>
             </tr>
         </Link>
     ));
 
     return (
-        <Table>
-            <thead>
-            <tr>
-                <th>Název</th>
-                <th>Popis</th>
-            </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-        </Table>
+        <Stack>
+            <Group position="right">
+                <Link href={"/assignments/new"}>
+                    <Button leftIcon={<IconPlus/>} color={"green"}>Nové zadání</Button>
+                </Link>
+            </Group>
+            <Table striped highlightOnHover>
+                <thead>
+                <tr>
+                    <th>Název</th>
+                    <th>Popis</th>
+                    <th>Autor</th>
+                </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+            </Table>
+        </Stack>
     );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const token = await GetGamajunAccessToken(context);
-    console.log(token)
+    const token = await getGamajunAccessToken(context);
 
-    const assignments = await GetAllAssignments(token);
-
-    console.log(assignments)
+    const assignments = await getAllAssignments(token);
 
     return {
         props: {
             assignments: assignments
-        }, // will be passed to the page component as props
+        },
     }
 }
 

@@ -1,0 +1,9 @@
+.openapi-generator-ignore
+apis/AssignmentControllerApi.ts
+apis/ExamControllerApi.ts
+apis/index.ts
+index.ts
+models/Assignment.ts
+models/Exam.ts
+models/index.ts
+runtime.ts

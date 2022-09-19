@@ -48,6 +48,32 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
         onConfirm: () => handleDeleteAssignment(),
     });
 
+    const handleDeleteAssignment = () => {
+        const id = assignment?.id;
+        if (id) {
+            deleteAssignment(id, token)
+                .then(() => {
+                    showNotification({
+                        title: "Odstranění proběhlo úspěšně",
+                        message: `Zadání "${assignment?.title}"`,
+                        color: "green",
+                        icon: <IconCheck/>,
+                    });
+                    router.push(`/assignments`);
+                })
+                .catch(err => {
+                    console.log(err)
+                    showNotification({
+                        title: "Odstranění se nezdařilo",
+                        message: err.message,
+                        color: "red",
+                        icon: <IconX/>,
+                        autoClose: false
+                    })
+                });
+        }
+    };
+
     const form = useForm<Assignment>({
         initialValues: {
             id: assignment?.id,
@@ -102,32 +128,6 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
                 }));
         }
     }
-
-    const handleDeleteAssignment = () => {
-        const id = assignment?.id;
-        if (id) {
-            deleteAssignment(id, token)
-                .then(() => {
-                    showNotification({
-                        title: "Odstranění proběhlo úspěšně",
-                        message: `Zadání "${assignment?.title}"`,
-                        color: "green",
-                        icon: <IconCheck/>,
-                    });
-                    router.push(`/assignments`);
-                })
-                .catch(err => {
-                    console.log(err)
-                    showNotification({
-                        title: "Odstranění se nezdařilo",
-                        message: err.message,
-                        color: "red",
-                        icon: <IconX/>,
-                        autoClose: false
-                    })
-                });
-        }
-    };
 
     return (
         <div>

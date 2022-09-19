@@ -149,3 +149,38 @@ export const getExam = async (id: string, token: string): Promise<Exam> => {
         })
         //.then(json => ExamFromJSON(json));
 }
+
+export const updateExam = async (exam: Exam, token: string): Promise<Exam> => {
+    return fetch(`https://gamajun-api.stepanek.app/exams/${exam.id}`, {
+        method: "PUT",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(exam)
+    })
+        .then(res => {
+            if (!res.ok)
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            else
+                return res.json()
+        })
+        .then(json => ExamFromJSON(json));
+}
+
+export const deleteExam = async (examId: string, token: string): Promise<void> => {
+    return fetch(`https://gamajun-api.stepanek.app/exams/${examId}`, {
+        method: "DELETE",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(`Request failed: HTTP code ${res.status}`);
+            }
+            else
+                return;
+        })
+}

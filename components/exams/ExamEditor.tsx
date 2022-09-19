@@ -21,9 +21,17 @@ import {useForm} from "@mantine/form";
 import {string} from "prop-types";
 import {lowerFirst} from "@mantine/hooks";
 import {IconCheck, IconDeviceFloppy, IconTrash, IconX} from "@tabler/icons";
-import {createAssignment, createExam, updateAssignment} from "../../api/GamajunAPI";
+import {
+    createAssignment,
+    createExam,
+    deleteAssignment,
+    deleteExam,
+    updateAssignment,
+    updateExam
+} from "../../api/GamajunAPI";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
+import {openConfirmModal} from "@mantine/modals";
 
 
 interface ExamEditorProps {
@@ -35,6 +43,45 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
     const {data: sessionData} = useSession();
     const token = String(sessionData?.accessToken);
     const router = useRouter();
+
+    const openDeleteModal = () => openConfirmModal({
+        title: 'Odstranit',
+        children: (
+            <Text size="sm">
+                Opravdu si přejete odstranit zkoušku &apos;{exam?.title}&apos;?
+            </Text>
+        ),
+        labels: {confirm: 'Potvrdit', cancel: 'Zrušit'},
+        confirmProps: {color: 'red'},
+        onCancel: () => console.log('Cancel'),
+        onConfirm: () => handleDeleteExam(),
+    });
+
+    const handleDeleteExam = () => {
+        const id = exam?.id;
+        if (id) {
+            deleteExam(id, token)
+                .then(() => {
+                    showNotification({
+                        title: "Odstranění proběhlo úspěšně",
+                        message: `Zkouška "${exam?.title}"`,
+                        color: "green",
+                        icon: <IconCheck/>,
+                    });
+                    router.push(`/exams`);
+                })
+                .catch(err => {
+                    console.log(err)
+                    showNotification({
+                        title: "Odstranění se nezdařilo",
+                        message: err.message,
+                        color: "red",
+                        icon: <IconX/>,
+                        autoClose: false
+                    })
+                });
+        }
+    };
 
     const formo = useForm<Exam>({
         initialValues: {
@@ -87,16 +134,16 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
     }
 
     let submit = (values: any) => {
-        /*if (assignment?.id)
-            updateAssignment(values, token)
+        if (exam?.id)
+            updateExam(values, token)
                 .then(assignment => {
                     showNotification({
                         title: "Aktualizace proběhla úspěšně",
-                        message: `Zadání "${assignment?.title}"`,
+                        message: `Zkouška "${assignment?.title}"`,
                         color: "green",
                         icon: <IconCheck/>,
                     })
-                    router.push(`/assignments`)
+                    router.push(`/exams`)
                 })
                 .catch(err => showNotification({
                     title: "Aktualizace se nezdařila",
@@ -105,12 +152,12 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
                     icon: <IconX/>,
                     autoClose: false
                 }));
-        else {*/
+        else {
             createExam(values, token)
                 .then(exam => {
                     showNotification({
                         title: "Zkouška úspěšně vytvořena",
-                        message: `Zadání "${exam?.title}"`,
+                        message: `Zkouška "${exam?.title}"`,
                         color: "green",
                         icon: <IconCheck/>
                     });
@@ -123,7 +170,7 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
                     icon: <IconX/>,
                     autoClose: false
                 }));
-        //}
+        }
     }
 
     return (
@@ -137,6 +184,8 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
                     <Grid.Col span={6}>
                         <Group position={"right"}>
                             <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green">Uložit</Button>
+                            {exam?.id ? <Button onClick={() => openDeleteModal()} leftIcon={<IconTrash/>}
+                                                      color="red">Odstranit</Button> : null}
                         </Group>
                     </Grid.Col>
                 </Grid>

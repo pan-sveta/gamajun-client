@@ -1,22 +1,19 @@
-import {Button, Center, Grid, Group, Loader, Stack, Tabs, Text, TextInput} from "@mantine/core";
+import {Button, Grid, Group, Loader, Stack, Tabs, Text, TextInput} from "@mantine/core";
 import {
-    IconAdjustmentsAlt, IconCheck, IconCircleCheck,
-    IconCross,
-    IconDeviceFloppy,
+    IconAdjustmentsAlt, IconCheck, IconDeviceFloppy,
     IconPaint,
     IconSettings,
-    IconTrash,
     IconX
 } from "@tabler/icons";
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
 import {useSession} from "next-auth/react";
 import {useForm} from "@mantine/form";
-import {createAssignment, deleteAssignment, updateAssignment} from "../../api/GamajunAPI";
+import {createAssignment, updateAssignment} from "../../api/GamajunAPI";
 import {Assignment} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
-import {openConfirmModal} from "@mantine/modals";
 import {showNotification} from "@mantine/notifications";
+import DeleteAssignmentButton from "./DeleteAssignmentButton";
 
 // @ts-ignore
 const BpmnModeler = dynamic(() => {
@@ -34,45 +31,6 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
     const {data: sessionData} = useSession();
     const token = String(sessionData?.accessToken);
     const router = useRouter();
-
-    const openDeleteModal = () => openConfirmModal({
-        title: 'Odstranit',
-        children: (
-            <Text size="sm">
-                Opravdu si přejete odstranit zadání &apos;{assignment?.title}&apos;?
-            </Text>
-        ),
-        labels: {confirm: 'Potvrdit', cancel: 'Zrušit'},
-        confirmProps: {color: 'red'},
-        onCancel: () => console.log('Cancel'),
-        onConfirm: () => handleDeleteAssignment(),
-    });
-
-    const handleDeleteAssignment = () => {
-        const id = assignment?.id;
-        if (id) {
-            deleteAssignment(id, token)
-                .then(() => {
-                    showNotification({
-                        title: "Odstranění proběhlo úspěšně",
-                        message: `Zadání "${assignment?.title}"`,
-                        color: "green",
-                        icon: <IconCheck/>,
-                    });
-                    router.push(`/assignments`);
-                })
-                .catch(err => {
-                    console.log(err)
-                    showNotification({
-                        title: "Odstranění se nezdařilo",
-                        message: err.message,
-                        color: "red",
-                        icon: <IconX/>,
-                        autoClose: false
-                    })
-                });
-        }
-    };
 
     const form = useForm<Assignment>({
         initialValues: {
@@ -142,8 +100,7 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
                     <Grid.Col span={6}>
                         <Group position={"right"}>
                             <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green">Uložit</Button>
-                            {assignment?.id ? <Button onClick={() => openDeleteModal()} leftIcon={<IconTrash/>}
-                                                      color="red">Odstranit</Button> : null}
+                            <DeleteAssignmentButton assignment={assignment}/>
                         </Group>
                     </Grid.Col>
                 </Grid>

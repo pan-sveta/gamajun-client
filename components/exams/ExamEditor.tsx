@@ -1,38 +1,14 @@
 import {useSession} from "next-auth/react";
 import {Assignment, Exam} from "../../types/gamajun.ts";
-import {
-    Button,
-    Grid,
-    Group,
-    Stack,
-    Text,
-    TextInput,
-    Title,
-    TransferList,
-    TransferListData,
-    TransferListItem
-} from "@mantine/core";
-import Box from "next-auth/providers/box";
-import assignments from "../../pages/assignments";
-import {useEffect, useState} from "react";
+import {Button, Grid, Group, Stack, Text, TextInput, TransferList, TransferListData, TransferListItem} from "@mantine/core";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import 'dayjs/locale/cs';
 import {useForm} from "@mantine/form";
-import {string} from "prop-types";
-import {lowerFirst} from "@mantine/hooks";
-import {IconCheck, IconDeviceFloppy, IconTrash, IconX} from "@tabler/icons";
-import {
-    createAssignment,
-    createExam,
-    deleteAssignment,
-    deleteExam,
-    updateAssignment,
-    updateExam
-} from "../../api/GamajunAPI";
+import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
+import {createExam, updateExam} from "../../api/GamajunAPI";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
-import {openConfirmModal} from "@mantine/modals";
-
+import DeleteExamButton from "./DeleteExamButton";
 
 interface ExamEditorProps {
     exam?: Exam,
@@ -43,45 +19,6 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
     const {data: sessionData} = useSession();
     const token = String(sessionData?.accessToken);
     const router = useRouter();
-
-    const openDeleteModal = () => openConfirmModal({
-        title: 'Odstranit',
-        children: (
-            <Text size="sm">
-                Opravdu si přejete odstranit zkoušku &apos;{exam?.title}&apos;?
-            </Text>
-        ),
-        labels: {confirm: 'Potvrdit', cancel: 'Zrušit'},
-        confirmProps: {color: 'red'},
-        onCancel: () => console.log('Cancel'),
-        onConfirm: () => handleDeleteExam(),
-    });
-
-    const handleDeleteExam = () => {
-        const id = exam?.id;
-        if (id) {
-            deleteExam(id, token)
-                .then(() => {
-                    showNotification({
-                        title: "Odstranění proběhlo úspěšně",
-                        message: `Zkouška "${exam?.title}"`,
-                        color: "green",
-                        icon: <IconCheck/>,
-                    });
-                    router.push(`/exams`);
-                })
-                .catch(err => {
-                    console.log(err)
-                    showNotification({
-                        title: "Odstranění se nezdařilo",
-                        message: err.message,
-                        color: "red",
-                        icon: <IconX/>,
-                        autoClose: false
-                    })
-                });
-        }
-    };
 
     const formo = useForm<Exam>({
         initialValues: {
@@ -120,9 +57,7 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
             .map(assignment => TransferListItemFromAssignment(assignment))
             .filter(tli => !selectedTli.map(y => y.value).includes(tli.value)) as Array<TransferListItem>;
 
-        const transferList: TransferListData = [allTli, selectedTli];
-
-        return transferList;
+        return [allTli, selectedTli];
     }
 
     function write(value: TransferListData): void {
@@ -184,8 +119,7 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
                     <Grid.Col span={6}>
                         <Group position={"right"}>
                             <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green">Uložit</Button>
-                            {exam?.id ? <Button onClick={() => openDeleteModal()} leftIcon={<IconTrash/>}
-                                                      color="red">Odstranit</Button> : null}
+                            <DeleteExamButton exam={exam} />
                         </Group>
                     </Grid.Col>
                 </Grid>

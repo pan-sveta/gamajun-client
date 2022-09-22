@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import {btoa} from "buffer";
+import {isUserAdmin} from "../../../services/admin";
 
 export default NextAuth({
     // Configure one or more authentication providers
@@ -40,28 +41,28 @@ export default NextAuth({
         async jwt({token, user, account}) {
             // Initial sign in
             if (account && user) {
+                const x: boolean = await isUserAdmin(user.username || "N/A", account.access_token || "N/A");
+                console.log(x)
                 return {
                     accessToken: account.access_token,
                     accessTokenExpires: account.expires_at ? account.expires_at * 1000 : account.expires_at,
                     refreshToken: account.refresh_token,
+                    isAdmin: x,
                     user,
                 }
             }
-
-            console.log(Date.now())
-            console.log(token.accessTokenExpires)
 
             if (Date.now() < token.accessTokenExpires) {
                 return token
             }
 
-            // Access token has expired, try to update it
             return refreshAccessToken(token)
         },
         async session({session, token}) {
             // TODO: FIX?
             // @ts-ignore
             session.user = token.user
+            session.isAdmin = token.isAdmin
             session.accessToken = token.accessToken
             session.error = token.error
 
@@ -73,11 +74,6 @@ export default NextAuth({
     }
 })
 
-/**
- * Takes a token, and returns a new token with updated
- * `accessToken` and `accessTokenExpires`. If an error occurs,
- * returns the old token and an error property
- */
 async function refreshAccessToken(token: any) {
     try {
         console.log("REFRESHING")

@@ -1,7 +1,9 @@
+apis/AdminControllerApi.ts
 apis/AssignmentControllerApi.ts
 apis/ExamControllerApi.ts
 apis/index.ts
 index.ts
+models/Admin.ts
 models/Assignment.ts
 models/Exam.ts
 models/index.ts

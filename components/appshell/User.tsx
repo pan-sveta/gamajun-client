@@ -1,7 +1,9 @@
 import React from 'react';
 import {IconChevronRight, IconChevronLeft, IconLogout, IconLogin} from '@tabler/icons';
-import {Button,UnstyledButton, Group, Avatar, Text, Box, useMantineTheme} from '@mantine/core';
+import {Button, UnstyledButton, Group, Avatar, Text, Box, useMantineTheme} from '@mantine/core';
 import {signIn, signOut, useSession} from "next-auth/react";
+import Image from "next/image";
+import {log} from "util";
 
 export default function User() {
     const theme = useMantineTheme();
@@ -27,10 +29,7 @@ export default function User() {
                 }}
             >
                 <Group>
-                    <Avatar
-                        src={session.user?.image}
-
-                    />
+                    <Avatar src={session.user?.image}/>
                     <Box sx={{flex: 1}}>
                         <Text size="sm" weight={500}>
                             {session.user?.name}
@@ -48,16 +47,16 @@ export default function User() {
         )
 
 
-        return (
-            <Box
-                sx={{
-                    paddingTop: theme.spacing.sm,
-                    borderTop: `1px solid ${
-                        theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
-                    }`,
-                }}
-            >
-                {actionButton}
-            </Box>
-        )
+    return (
+        <Box
+            sx={{
+                paddingTop: theme.spacing.sm,
+                borderTop: `1px solid ${
+                    theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[2]
+                }`,
+            }}
+        >
+            {actionButton}
+        </Box>
+    )
 }

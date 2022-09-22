@@ -1,5 +1,4 @@
 import NextAuth from "next-auth"
-import AppleProvider from "next-auth/providers/apple";
 import {btoa} from "buffer";
 
 export default NextAuth({
@@ -12,7 +11,7 @@ export default NextAuth({
             authorization: {
                 url: "https://auth.fit.cvut.cz/oauth/authorize",
                 params: {
-                    scope: "cvut:cpages:common:read"
+                    scope: "urn:ctu:oauth:umapi.read cvut:umapi:read"
                 }
 
             },
@@ -21,31 +20,37 @@ export default NextAuth({
             clientSecret: process.env.CTU_CLIENT_SECRET,
             clientId: process.env.CTU_CLIENT_ID,
             idToken: false,
-            profile(profile) {
+            async profile(profile, tokens) {
+                let userMap = await fetchUserMap(profile.username, tokens.access_token || "NO TOKEN");
+                //let photo = await fetchUserPhoto(profile.username, tokens.token_type || "NO TOKEN");
+                //console.log(photo)
+
                 return {
                     id: profile.username,
-                    name: profile.username,
+                    name: userMap.fullName,
+                    username: profile.username,
                     email: profile.email,
-                    picture: `https://avatars.dicebear.com/api/pixel-art/${profile.username}.svg`
+                    image: `https://avatars.dicebear.com/api/pixel-art/${profile.username}.svg`,
                 }
             },
         }
     ],
     callbacks: {
+
         async jwt({token, user, account}) {
             // Initial sign in
             if (account && user) {
-                console.log("NASTAVUJU")
-                console.log(account.expires_at)
                 return {
                     accessToken: account.access_token,
-                    accessTokenExpires: account.expires_at * 1000,
+                    accessTokenExpires: account.expires_at ? account.expires_at * 1000 : account.expires_at,
                     refreshToken: account.refresh_token,
                     user,
                 }
             }
 
-            // Return previous token if the access token has not expired yet
+            console.log(Date.now())
+            console.log(token.accessTokenExpires)
+
             if (Date.now() < token.accessTokenExpires) {
                 return token
             }
@@ -54,6 +59,8 @@ export default NextAuth({
             return refreshAccessToken(token)
         },
         async session({session, token}) {
+            // TODO: FIX?
+            // @ts-ignore
             session.user = token.user
             session.accessToken = token.accessToken
             session.error = token.error
@@ -71,7 +78,7 @@ export default NextAuth({
  * `accessToken` and `accessTokenExpires`. If an error occurs,
  * returns the old token and an error property
  */
-async function refreshAccessToken(token) {
+async function refreshAccessToken(token: any) {
     try {
         console.log("REFRESHING")
 
@@ -106,4 +113,68 @@ async function refreshAccessToken(token) {
             error: "RefreshAccessTokenError",
         }
     }
+}
+
+async function fetchUserMap(username: string, token: string): Promise<UserMapResponse> {
+
+    console.log("Fetching user amn")
+
+    const url = `https://kosapi.fit.cvut.cz/usermap/v1/people/${username}`;
+
+    return fetch(url, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        },
+        method: "GET",
+    }).then((response) => {
+            if (!response.ok) {
+                throw new Error("Userman fetch failed: HTTP " + response.status);
+            }
+
+            return response.json();
+        }
+    )
+}
+
+async function fetchUserPhoto(username: string, token: string): Promise<Blob> {
+
+    const url = `https://kosapi.fit.cvut.cz/usermap/v1/people/${username}/photo`;
+
+    return fetch(url, {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "image/png",
+            "Content-type": "image/png",
+        },
+        method: "GET",
+    }).then((response) => {
+            if (!response.ok) {
+                throw new Error("User profile image fetch failed: HTTP " + response.status);
+            }
+
+            return response.blob();
+        }
+    )
+}
+
+interface UserMapResponse {
+    "username": string,
+    "personalNumber": number,
+    "kosPersonId": number,
+    "firstName": string,
+    "lastName": string,
+    "fullName": string,
+    "emails": Array<string>,
+    "preferredEmail": string,
+    "departments": Array<Department>,
+    "rooms": Array<string>,
+    "phones": Array<string>,
+    "roles": Array<string>,
+    "technicalRoles": Array<string>
+}
+
+interface Department {
+    "code": number,
+    "nameCs": String,
+    "nameEn": String
 }

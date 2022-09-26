@@ -1,6 +1,18 @@
 import {getSession} from "next-auth/react";
 import {GetServerSidePropsContext} from "next/types";
-import {Admin, AdminFromJSON, Assignment, AssignmentFromJSON, Exam, ExamFromJSON} from "../types/gamajun.ts";
+import {
+    Admin,
+    AdminFromJSON,
+    Assignment,
+    AssignmentFromJSON,
+    Exam,
+    ExamFromJSON,
+    ExamSubmission, ExamSubmissionCheckpointCommand,
+    ExamSubmissionFromJSON, ExamSubmissionSubmitCommand,
+    ExamSubmissionToJSON,
+    StudentExamSubmissionDTO,
+    StudentExamSubmissionDTOFromJSON
+} from "../types/gamajun.ts";
 import {GamajunApiError} from "./GamajunApiError";
 
 export const getGamajunAccessToken = async (context: GetServerSidePropsContext): Promise<string> => {
@@ -39,7 +51,7 @@ const post = async (endpoint: string, body: any, token: string): Promise<Respons
     return fetch(`https://gamajun-api.stepanek.app${endpoint}`, {
         method: "POST",
         headers: await gamajunHeaders(token),
-        body: body
+        body: JSON.stringify(body)
     })
 }
 
@@ -47,7 +59,7 @@ const put = async (endpoint: string, body: any, token: string): Promise<Response
     return fetch(`https://gamajun-api.stepanek.app${endpoint}`, {
         method: "PUT",
         headers: await gamajunHeaders(token),
-        body: body
+        body: JSON.stringify(body)
     })
 }
 
@@ -106,7 +118,7 @@ export const deleteAssignment = async (assignmentId: string, token: string): Pro
 //Exams
 
 export const createExam = async (exam: Exam, token: string): Promise<Exam> => {
-    return put("/exams", JSON.stringify(exam), token)
+    return post("/exams", JSON.stringify(exam), token)
         .then(res => jsonIfOk(res))
         .then(json => ExamFromJSON(json));
 }
@@ -134,6 +146,16 @@ export const deleteExam = async (examId: string, token: string): Promise<void> =
         .then(res => checkIfOk(res))
 }
 
+export const getOpenedExams = async (token: string): Promise<Array<any>> => {
+    return get(`/exams/opened`, token)
+        .then(res => jsonArrayIfOk(res))
+}
+
+export const createExamSubmission = async (examId: string, token: string): Promise<ExamSubmission> => {
+    return post(`/exams/${examId}/submission`, {}, token)
+        .then(res => jsonIfOk(res))
+        .then(json => ExamSubmissionFromJSON(json))
+}
 //Admin
 
 export const createAdmin = async (admin: Admin, token: string): Promise<Admin> => {
@@ -163,4 +185,31 @@ export const updateAdmin = async (admin: Admin, token: string): Promise<Admin> =
 export const deleteAdmin = async (adminId: string, token: string): Promise<void> => {
     return del(`/admins/${adminId}`, token)
         .then(res => checkIfOk(res))
+}
+
+
+//Submissions
+
+export const submitSubmission = async (submissionId: string, examSubmission: ExamSubmissionSubmitCommand, token: string): Promise<StudentExamSubmissionDTO> => {
+    return put(`/submissions/${submissionId}/submit`, examSubmission, token)
+        .then(res => jsonIfOk(res))
+        .then(json => StudentExamSubmissionDTOFromJSON(json));
+}
+
+export const checkpointSubmission = async (submissionId: string, examSubmission: ExamSubmissionCheckpointCommand, token: string): Promise<StudentExamSubmissionDTO> => {
+    return put(`/submissions/${submissionId}/checkpoint`, examSubmission, token)
+        .then(res => jsonIfOk(res))
+        .then(json => StudentExamSubmissionDTOFromJSON(json));
+}
+
+export const getSubmission = async (submissionId: string, token: string): Promise<any> => {
+    return get(`/submissions/${submissionId}`, token)
+        .then(res => jsonArrayIfOk(res))
+    //.then(json => StudentExamSubmissionDTOFromJSON(json));
+}
+
+export const getMySubmissions = async (token: string): Promise<Array<any>> => {
+    return get("/submissions/my", token)
+        .then(res => jsonArrayIfOk(res))
+    //.then(arr => arr.map((ass) => StudentExamSubmissionDTOFromJSON(ass)));
 }

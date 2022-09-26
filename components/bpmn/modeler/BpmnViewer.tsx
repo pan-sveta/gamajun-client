@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react';
 
 // @ts-ignore
-import BpmnJS from 'gamajun-bpmn-js/dist/gamajun-modeler.bundled';
+import BpmnJS from 'bpmn-js/dist/bpmn-viewer.production.min';
 
 //BPMN-js css
 import "bpmn-js/dist/assets/diagram-js.css"
@@ -10,7 +10,6 @@ import {EmptyDiagram} from "./EmptyDiagram";
 
 interface BpmnModelerProps {
     xml?: string,
-    onXmlChange(newXml:string):void,
     onLoading?: () => void,
     onShown?: (warnings: string) => void,
     onError?: (err: string) => void,
@@ -20,7 +19,7 @@ interface BpmnModelerState {
     xml?: string
 }
 
-export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnModelerState> {
+export default class BpmnViewer extends React.Component<BpmnModelerProps,BpmnModelerState> {
     state: BpmnModelerState = {};
     private readonly containerRef: React.RefObject<any>;
     private bpmnViewer: any;
@@ -45,7 +44,7 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
             );
 
             this.setState({xml: result.xml})
-            this.handleXmlChange(result.xml);
+
         });
 
         this.bpmnViewer.on('import.done', (event: any) => {
@@ -84,7 +83,6 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
 
     setEmptyDiagram(){
         this.setState({ xml: EmptyDiagram() });
-        this.handleXmlChange(EmptyDiagram());
     }
 
     displayDiagram(diagramXML: string) {
@@ -112,14 +110,6 @@ export default class BpmnModeler extends React.Component<BpmnModelerProps,BpmnMo
 
         if (onShown) {
             onShown(warnings);
-        }
-    }
-
-    handleXmlChange(newXml: string) {
-        const {onXmlChange} = this.props;
-
-        if (onXmlChange) {
-            onXmlChange(newXml);
         }
     }
 

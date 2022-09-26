@@ -7,6 +7,7 @@ const AllExams: NextPage = ({exam,assignments}: InferGetServerSidePropsType<type
 
     //Fix protože next neumí ze SSP poslat date type, tak to posílám jako JSON a typuju až tady
     // @ts-ignore
+    //TODO: FiX
     exam = ExamFromJSON(exam);
 
     return (

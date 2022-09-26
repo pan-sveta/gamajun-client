@@ -16,11 +16,18 @@
 import * as runtime from '../runtime';
 import type {
   Exam,
+  ExamSubmission,
 } from '../models';
 import {
     ExamFromJSON,
     ExamToJSON,
+    ExamSubmissionFromJSON,
+    ExamSubmissionToJSON,
 } from '../models';
+
+export interface BeginExamRequest {
+    examId: string;
+}
 
 export interface CreatExamRequest {
     exam: Exam;
@@ -65,6 +72,34 @@ export class ExamControllerApi extends runtime.BaseAPI {
      */
     async allExams(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Exam>> {
         const response = await this.allExamsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async beginExamRaw(requestParameters: BeginExamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExamSubmission>> {
+        if (requestParameters.examId === null || requestParameters.examId === undefined) {
+            throw new runtime.RequiredError('examId','Required parameter requestParameters.examId was null or undefined when calling beginExam.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/exams/{examId}/submission`.replace(`{${"examId"}}`, encodeURIComponent(String(requestParameters.examId))),
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ExamSubmissionFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async beginExam(requestParameters: BeginExamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExamSubmission> {
+        const response = await this.beginExamRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -151,6 +186,30 @@ export class ExamControllerApi extends runtime.BaseAPI {
      */
     async getExam(requestParameters: GetExamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Exam> {
         const response = await this.getExamRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async openedExamsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Exam>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/exams/opened`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ExamFromJSON));
+    }
+
+    /**
+     */
+    async openedExams(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Exam>> {
+        const response = await this.openedExamsRaw(initOverrides);
         return await response.value();
     }
 

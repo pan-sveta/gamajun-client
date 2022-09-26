@@ -61,10 +61,8 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
     }
 
     function write(value: TransferListData): void {
-        console.log(value[1])
         const assignments = value[1].map(tli => AssignmentFromTransferListItem(tli));
         let x = new Set<Assignment>(assignments);
-        console.log(x)
         formo.setFieldValue('assignments', assignments)
     }
 

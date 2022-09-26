@@ -26,7 +26,6 @@ const DeleteExamButton = ({exam}: DeleteExamButtonProps) => {
         ),
         labels: {confirm: 'Potvrdit', cancel: 'Zrušit'},
         confirmProps: {color: 'red'},
-        onCancel: () => console.log('Cancel'),
         onConfirm: () => handleDeleteExam(),
     });
 
@@ -44,7 +43,6 @@ const DeleteExamButton = ({exam}: DeleteExamButtonProps) => {
                     router.push(`/exams`);
                 })
                 .catch(err => {
-                    console.log(err)
                     showNotification({
                         title: "Odstranění se nezdařilo",
                         message: err.message,

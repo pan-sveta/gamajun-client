@@ -47,8 +47,9 @@ export default function MainLink({icon, color, label, uri}: MainLinkProps) {
 }
 
 const data = [
-    {icon: <IconTemplate size={16}/>, color: 'blue', label: 'Zadání', uri: '/assignments'},
-    {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Zkoušky', uri: '/exams'},
+    {icon: <IconTemplate size={16}/>, color: 'blue', label: 'Správce zadání', uri: '/assignments'},
+    {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Správce zkoušek', uri: '/exams'},
+    {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Zkoušky', uri: '/exams/my'},
     {icon: <IconSettings size={16}/>, color: 'violet', label: 'Nastavení', uri: '/settings'}
 ];
 

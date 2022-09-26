@@ -42,7 +42,6 @@ export default NextAuth({
             // Initial sign in
             if (account && user) {
                 const x: boolean = await isUserAdmin(user.username || "N/A", account.access_token || "N/A");
-                console.log(x)
                 return {
                     accessToken: account.access_token,
                     accessTokenExpires: account.expires_at ? account.expires_at * 1000 : account.expires_at,
@@ -102,8 +101,6 @@ async function refreshAccessToken(token: any) {
             refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
         }
     } catch (error) {
-        console.log(error)
-
         return {
             ...token,
             error: "RefreshAccessTokenError",
@@ -112,9 +109,6 @@ async function refreshAccessToken(token: any) {
 }
 
 async function fetchUserMap(username: string, token: string): Promise<UserMapResponse> {
-
-    console.log("Fetching user amn")
-
     const url = `https://kosapi.fit.cvut.cz/usermap/v1/people/${username}`;
 
     return fetch(url, {

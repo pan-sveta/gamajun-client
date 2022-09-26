@@ -8,6 +8,7 @@ import {IconPlus} from "@tabler/icons";
 const Exams: NextPage = ({exams}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     //Fix protože next neumí ze SSP poslat date type, tak to posílám jako JSON a typuju až tady
     // @ts-ignore
+    //TODO: FIX
     exams = exams.map(exam => ExamFromJSON(exam));
 
     const rows = exams.map((exams: Exam) => (
@@ -16,8 +17,8 @@ const Exams: NextPage = ({exams}: InferGetServerSidePropsType<typeof getServerSi
                 <td>{exams.id}</td>
                 <td>{exams.title}</td>
                 <td>{exams.author}</td>
-                <td>{exams.accessibleFrom?.toLocaleDateString()}</td>
-                <td>{exams.accessibleFrom?.toLocaleDateString()}</td>
+                <td>{exams.accessibleFrom?.toLocaleString()}</td>
+                <td>{exams.accessibleTo?.toLocaleString()}</td>
             </tr>
         </Link>
     ));

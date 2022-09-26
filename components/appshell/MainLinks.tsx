@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-    IconGitPullRequest,
-    IconAlertCircle,
-    IconMessages,
-    IconDatabase,
-    IconTemplate,
-    IconCertificate, IconSettings
-} from '@tabler/icons';
-import {ThemeIcon, UnstyledButton, Group, Text} from '@mantine/core';
+import {IconCertificate, IconSettings, IconTemplate} from '@tabler/icons';
+import {Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import Link from "next/link";
 
 interface MainLinkProps {

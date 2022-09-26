@@ -1,9 +1,7 @@
 import React from 'react';
-import {IconChevronRight, IconChevronLeft, IconLogout, IconLogin} from '@tabler/icons';
-import {Button, UnstyledButton, Group, Avatar, Text, Box, useMantineTheme} from '@mantine/core';
+import {IconLogin, IconLogout} from '@tabler/icons';
+import {Avatar, Box, Button, Group, Text, UnstyledButton, useMantineTheme} from '@mantine/core';
 import {signIn, signOut, useSession} from "next-auth/react";
-import Image from "next/image";
-import {log} from "util";
 
 export default function User() {
     const theme = useMantineTheme();

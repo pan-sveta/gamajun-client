@@ -1,9 +1,6 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import {getAllAssignments, getAssignment, getGamajunAccessToken} from "../../api/GamajunAPI";
-import {getSession} from "next-auth/react";
-import {Table} from "@mantine/core";
-import Link from "next/link";
 import AssignmentEditor from "../../components/assignments/AssignmentEditor";
+import {getAssignment} from "../../api/GamajunAPIServer";
 
 const AllAssignments: NextPage = ({assignment}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
@@ -13,9 +10,8 @@ const AllAssignments: NextPage = ({assignment}: InferGetServerSidePropsType<type
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const token = await getGamajunAccessToken(context);
 
-    const assignment = await getAssignment(String(context?.params?.assignmentId) ,token);
+    const assignment = await getAssignment(String(context?.params?.assignmentId),context);
 
     return {
         props: {

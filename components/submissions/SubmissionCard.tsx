@@ -1,11 +1,6 @@
-import {createStyles, Card, Image, Text, Badge,Button, Stack, useMantineTheme} from '@mantine/core';
-import {Exam, ExamSubmission} from "../../types/gamajun.ts";
-import {IconPlayerPlay, IconReport, IconSearch, IconX} from "@tabler/icons";
-import Box from "next-auth/providers/box";
-import {useSession} from "next-auth/react";
-import {createExamSubmission} from "../../api/GamajunAPI";
-import {showNotification} from "@mantine/notifications";
-import {useRouter} from "next/router";
+import {Badge, Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
+import {ExamSubmission} from "../../types/gamajun.ts";
+import {IconPlayerPlay, IconSearch} from "@tabler/icons";
 import Link from "next/link";
 
 const useStyles = createStyles((theme) => ({
@@ -40,7 +35,6 @@ interface SubmissionCardProps {
 const SubmissionCard = ({examSubmission}: SubmissionCardProps) => {
     const {classes} = useStyles();
     const theme = useMantineTheme();
-    const {data: sessionData} = useSession();
 
     const statusBadge = () => {
         switch (examSubmission.examSubmissionState) {

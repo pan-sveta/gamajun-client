@@ -1,11 +1,10 @@
 import {openConfirmModal} from "@mantine/modals";
 import {Button, Text} from "@mantine/core";
-import {deleteExam} from "../../api/GamajunAPI";
+import {deleteExam} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
 import {Exam} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
-import {useSession} from "next-auth/react";
 
 interface DeleteExamButtonProps {
     exam?: Exam
@@ -13,9 +12,6 @@ interface DeleteExamButtonProps {
 
 const DeleteExamButton = ({exam}: DeleteExamButtonProps) => {
     const router = useRouter();
-
-    const {data: sessionData} = useSession();
-    const token = String(sessionData?.accessToken);
 
     const openDeleteModal = () => openConfirmModal({
         title: 'Odstranit',
@@ -32,7 +28,7 @@ const DeleteExamButton = ({exam}: DeleteExamButtonProps) => {
     const handleDeleteExam = () => {
         const id = exam?.id;
         if (id) {
-            deleteExam(id, token)
+            deleteExam(id)
                 .then(() => {
                     showNotification({
                         title: "Odstranění proběhlo úspěšně",

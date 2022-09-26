@@ -1,8 +1,8 @@
-import NextAuth from "next-auth"
+import NextAuth, {NextAuthOptions} from "next-auth"
 import {btoa} from "buffer";
 import {isUserAdmin} from "../../../services/admin";
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
     providers: [
         {
@@ -41,6 +41,7 @@ export default NextAuth({
         async jwt({token, user, account}) {
             // Initial sign in
             if (account && user) {
+                console.log(account)
                 const x: boolean = await isUserAdmin(user.username || "N/A", account.access_token || "N/A");
                 return {
                     accessToken: account.access_token,
@@ -51,8 +52,10 @@ export default NextAuth({
                 }
             }
 
+            console.log(Date.now())
+            console.log(token.accessTokenExpires)
             if (Date.now() < token.accessTokenExpires) {
-                return token
+                return token;
             }
 
             return refreshAccessToken(token)
@@ -71,7 +74,9 @@ export default NextAuth({
     pages: {
         signIn: '/auth/signin',
     }
-})
+}
+
+export default NextAuth(authOptions);
 
 async function refreshAccessToken(token: any) {
     try {
@@ -118,7 +123,7 @@ async function fetchUserMap(username: string, token: string): Promise<UserMapRes
         method: "GET",
     }).then((response) => {
             if (!response.ok) {
-                throw new Error("Userman fetch failed: HTTP " + response.status);
+                throw new Error("Username fetch failed: HTTP " + response.status);
             }
 
             return response.json();

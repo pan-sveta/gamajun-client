@@ -1,11 +1,20 @@
-import {useSession} from "next-auth/react";
 import {Assignment, Exam} from "../../types/gamajun.ts";
-import {Button, Grid, Group, Stack, Text, TextInput, TransferList, TransferListData, TransferListItem} from "@mantine/core";
+import {
+    Button,
+    Grid,
+    Group,
+    Stack,
+    Text,
+    TextInput,
+    TransferList,
+    TransferListData,
+    TransferListItem
+} from "@mantine/core";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import 'dayjs/locale/cs';
 import {useForm} from "@mantine/form";
 import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
-import {createExam, updateExam} from "../../api/GamajunAPI";
+import {createExam, updateExam} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import DeleteExamButton from "./DeleteExamButton";
@@ -16,8 +25,6 @@ interface ExamEditorProps {
 }
 
 const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
-    const {data: sessionData} = useSession();
-    const token = String(sessionData?.accessToken);
     const router = useRouter();
 
     const formo = useForm<Exam>({
@@ -68,7 +75,7 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
 
     let submit = (values: any) => {
         if (exam?.id)
-            updateExam(values, token)
+            updateExam(values,)
                 .then(assignment => {
                     showNotification({
                         title: "Aktualizace proběhla úspěšně",
@@ -86,7 +93,7 @@ const ExamEditor = ({exam, assignments}: ExamEditorProps) => {
                     autoClose: false
                 }));
         else {
-            createExam(values, token)
+            createExam(values)
                 .then(exam => {
                     showNotification({
                         title: "Zkouška úspěšně vytvořena",

@@ -1,18 +1,12 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import {getAllAssignments, getExam, getGamajunAccessToken, getSubmission} from "../../api/GamajunAPI";
-import ExamEditor from "../../components/exams/ExamEditor";
-import {
-    ExamFromJSON,
-    ExamSubmissionFromJSON,
-    StudentExamSubmissionDTO,
-    StudentExamSubmissionDTOFromJSON
-} from "../../types/gamajun.ts";
+import {StudentExamSubmissionDTO, StudentExamSubmissionDTOFromJSON} from "../../types/gamajun.ts";
 import SubmissionEditor from "../../components/submissions/SubmissionEditor";
 import SubmissionViewer from "../../components/submissions/SubmissionViewer";
+import {getSubmission} from "../../api/GamajunAPIServer";
 
 const AllExams: NextPage = ({submission}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
-    //Fix protože next neumí ze SSP poslat date type, tak to posílám jako JSON a typuju až tady
+    //Fix protože next neumí ze SSP poslat date type, tak to posílám jako JSON a tipuji až tady
     // @ts-ignore
     //TODO: FiX
     let submissionConverted: StudentExamSubmissionDTO = StudentExamSubmissionDTOFromJSON(submission);
@@ -24,9 +18,7 @@ const AllExams: NextPage = ({submission}: InferGetServerSidePropsType<typeof get
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const token = await getGamajunAccessToken(context);
-
-    const submission = await getSubmission(String(context?.params?.submissionId), token);
+    const submission = await getSubmission(String(context?.params?.submissionId), context);
 
     return {
         props: {

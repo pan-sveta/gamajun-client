@@ -1,12 +1,12 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import {getAllAssignments, getAllExams, getGamajunAccessToken} from "../../api/GamajunAPI";
-import {Assignment, Exam, ExamFromJSON} from "../../types/gamajun.ts";
+import {Exam, ExamFromJSON} from "../../types/gamajun.ts";
 import Link from "next/link";
 import {Button, Group, Stack, Table, Title} from "@mantine/core";
 import {IconPlus} from "@tabler/icons";
+import {getAllExams} from "../../api/GamajunAPIServer";
 
 const Exams: NextPage = ({exams}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    //Fix protože next neumí ze SSP poslat date type, tak to posílám jako JSON a typuju až tady
+    //Fix protože next neumí ze SSP poslat date type, tak to posílám jako JSON a tipuji až tady
     // @ts-ignore
     //TODO: FIX
     exams = exams.map(exam => ExamFromJSON(exam));
@@ -48,9 +48,7 @@ const Exams: NextPage = ({exams}: InferGetServerSidePropsType<typeof getServerSi
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const token = await getGamajunAccessToken(context);
-
-    const exams = await getAllExams(token);
+    const exams = await getAllExams(context);
 
     return {
         props: {

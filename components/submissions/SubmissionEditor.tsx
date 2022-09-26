@@ -1,19 +1,11 @@
-import {
-    Assignment,
-    ExamSubmission,
-    ExamSubmissionSubmitCommand,
-    StudentExamSubmissionDTO
-} from "../../types/gamajun.ts";
-import {createStyles, Card, Image, Text, Badge, Button, Stack, useMantineTheme, Loader, Group} from '@mantine/core';
+import {ExamSubmissionSubmitCommand, StudentExamSubmissionDTO} from "../../types/gamajun.ts";
+import {Button, Group, Loader} from '@mantine/core';
 import {useForm} from "@mantine/form";
-import {checkpointSubmission, createAssignment, submitSubmission, updateAssignment} from "../../api/GamajunAPI";
+import {submitSubmission} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconX, IconZoomCheck} from "@tabler/icons";
-import {router} from "next/client";
-import {useSession} from "next-auth/react";
 import dynamic from "next/dynamic";
 import {useRouter} from "next/router";
-import {useEffect} from "react";
 
 const BpmnModeler = dynamic(() => {
     return import("../../components/bpmn/modeler/BpmnModeler");
@@ -27,8 +19,6 @@ interface SubmissionEditorProps {
 }
 
 const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
-    const {data: sessionData} = useSession();
-    const token = String(sessionData?.accessToken);
     const router = useRouter();
 
     const formo = useForm<ExamSubmissionSubmitCommand>({
@@ -44,7 +34,7 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
         if (!submission.id)
             return;
 
-        submitSubmission(submission.id, values, token)
+        submitSubmission(submission.id, values)
             .then(assignment => {
                 showNotification({
                     title: "Zkouška byla úspěšně odevzdána",

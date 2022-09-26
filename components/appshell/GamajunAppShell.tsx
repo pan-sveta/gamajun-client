@@ -1,12 +1,12 @@
 import {
+    ActionIcon,
     AppShell,
+    Burger,
     Group,
     Header,
-    ActionIcon,
+    MediaQuery,
     Navbar,
     useMantineColorScheme,
-    Burger,
-    MediaQuery,
     useMantineTheme
 } from "@mantine/core";
 import {IconMoonStars, IconSun} from "@tabler/icons";

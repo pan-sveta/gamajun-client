@@ -1,7 +1,6 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import AssignmentEditor from "../../components/assignments/AssignmentEditor";
 import ExamEditor from "../../components/exams/ExamEditor";
-import {getAllAssignments, getAllExams, getGamajunAccessToken} from "../../api/GamajunAPI";
+import {getAllAssignments} from "../../api/GamajunAPIServer";
 
 
 const New: NextPage = ({assignments}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -12,9 +11,7 @@ const New: NextPage = ({assignments}: InferGetServerSidePropsType<typeof getServ
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const token = await getGamajunAccessToken(context);
-
-    const assignments = await getAllAssignments(token);
+    const assignments = await getAllAssignments(context);
 
     return {
         props: {

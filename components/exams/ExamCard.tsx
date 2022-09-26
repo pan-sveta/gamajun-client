@@ -1,9 +1,7 @@
-import {createStyles, Card, Image, Text, Group, RingProgress, Button, Stack, useMantineTheme} from '@mantine/core';
+import {Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
 import {Exam} from "../../types/gamajun.ts";
 import {IconAlertTriangle, IconReport, IconX} from "@tabler/icons";
-import Box from "next-auth/providers/box";
-import {useSession} from "next-auth/react";
-import {createExamSubmission} from "../../api/GamajunAPI";
+import {createExamSubmission} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 
@@ -39,8 +37,6 @@ interface ExamCardProps {
 const ExamCard = ({exam}: ExamCardProps) => {
     const {classes} = useStyles();
     const theme = useMantineTheme();
-    const {data: sessionData} = useSession();
-    const token = String(sessionData?.accessToken);
     const router = useRouter();
 
     const createSubmission = () => {
@@ -56,7 +52,7 @@ const ExamCard = ({exam}: ExamCardProps) => {
             return;
         }
 
-        createExamSubmission(exam.id, token)
+        createExamSubmission(exam.id)
             .then((examSubmission) => {
                 router.push(`/submissions/${examSubmission.id}`)
             })

@@ -1,19 +1,12 @@
 import ExamCard from "../../components/exams/ExamCard";
 import {GetServerSideProps, InferGetServerSidePropsType} from "next";
-import {getGamajunAccessToken, getMySubmissions, getOpenedExams} from "../../api/GamajunAPI";
-import {
-    Exam,
-    ExamFromJSON,
-    ExamSubmissionFromJSON,
-    StudentExamDTO, StudentExamSubmissionDTO,
-    StudentExamSubmissionDTOFromJSON
-} from "../../types/gamajun.ts";
+import {Exam, ExamFromJSON, StudentExamSubmissionDTO, StudentExamSubmissionDTOFromJSON} from "../../types/gamajun.ts";
 import SubmissionCard from "../../components/submissions/SubmissionCard";
 import {Stack} from "@mantine/core";
+import {getMySubmissions, getOpenedExams} from "../../api/GamajunAPIServer";
 
 const MyExams = ({openedExams, mySubmissions}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    //Fix protože next neumí ze SSR poslat date type, tak to posílám jako JSON a typuju až tady
-
+    //Fix protože next neumí ze SSR poslat date type, tak to posílám jako JSON a tipuji až tady
     let openedExamsConverted: Array<Exam> = openedExams.map((exam: any) => ExamFromJSON(exam));
     let mySubmissionsConverted: Array<StudentExamSubmissionDTO> = mySubmissions.map((submission: any) => StudentExamSubmissionDTOFromJSON(submission));
 
@@ -44,10 +37,9 @@ const MyExams = ({openedExams, mySubmissions}: InferGetServerSidePropsType<typeo
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const token = await getGamajunAccessToken(context);
+    const openedExams = await getOpenedExams(context);
+    const mySubmissions = await getMySubmissions(context);
 
-    const openedExams = await getOpenedExams(token);
-    const mySubmissions = await getMySubmissions(token);
 
     return {
         props: {

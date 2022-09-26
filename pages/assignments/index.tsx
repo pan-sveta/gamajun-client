@@ -1,11 +1,9 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import {getAllAssignments, getGamajunAccessToken} from "../../api/GamajunAPI";
-import {getSession} from "next-auth/react";
-import {Group, Stack, Table, Button, Title} from "@mantine/core";
+import {Button, Group, Stack, Table, Title} from "@mantine/core";
 import Link from "next/link";
 import {Assignment} from "../../types/gamajun.ts";
-import Box from "next-auth/providers/box";
 import {IconPlus} from "@tabler/icons";
+import {getAllAssignments} from "../../api/GamajunAPIServer";
 
 const AllAssignments: NextPage = ({assignments}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
@@ -43,9 +41,8 @@ const AllAssignments: NextPage = ({assignments}: InferGetServerSidePropsType<typ
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const token = await getGamajunAccessToken(context);
 
-    const assignments = await getAllAssignments(token);
+    const assignments = await getAllAssignments(context);
 
     return {
         props: {

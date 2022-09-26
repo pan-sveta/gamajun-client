@@ -1,11 +1,10 @@
 import {openConfirmModal} from "@mantine/modals";
 import {Button, Text} from "@mantine/core";
-import {deleteAssignment} from "../../api/GamajunAPI";
+import {deleteAssignment} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
 import {Assignment} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
-import {useSession} from "next-auth/react";
 
 interface DeleteAssignmentButtonProps{
     assignment?: Assignment
@@ -13,8 +12,6 @@ interface DeleteAssignmentButtonProps{
 
 const DeleteAssignmentButton = ({assignment}:DeleteAssignmentButtonProps) => {
     const router = useRouter();
-    const {data: sessionData} = useSession();
-    const token = String(sessionData?.accessToken);
 
     const openDeleteModal = () => openConfirmModal({
         title: 'Odstranit',
@@ -31,7 +28,7 @@ const DeleteAssignmentButton = ({assignment}:DeleteAssignmentButtonProps) => {
     const handleDeleteAssignment = () => {
         const id = assignment?.id;
         if (id) {
-            deleteAssignment(id, token)
+            deleteAssignment(id)
                 .then(() => {
                     showNotification({
                         title: "Odstranění proběhlo úspěšně",

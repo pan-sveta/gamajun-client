@@ -1,15 +1,9 @@
 import {Button, Grid, Group, Loader, Stack, Tabs, Text, TextInput} from "@mantine/core";
-import {
-    IconAdjustmentsAlt, IconCheck, IconDeviceFloppy,
-    IconPaint,
-    IconSettings,
-    IconX
-} from "@tabler/icons";
+import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings, IconX} from "@tabler/icons";
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
-import {useSession} from "next-auth/react";
 import {useForm} from "@mantine/form";
-import {createAssignment, updateAssignment} from "../../api/GamajunAPI";
+import {createAssignment, updateAssignment} from "../../api/GamajunAPIClient";
 import {Assignment} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
@@ -28,8 +22,6 @@ interface AssignmentEditorProps {
 }
 
 const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
-    const {data: sessionData} = useSession();
-    const token = String(sessionData?.accessToken);
     const router = useRouter();
 
     const form = useForm<Assignment>({
@@ -49,7 +41,7 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
 
     let submit = (values: any) => {
         if (assignment?.id)
-            updateAssignment(values, token)
+            updateAssignment(values)
                 .then(assignment => {
                     showNotification({
                         title: "Aktualizace proběhla úspěšně",
@@ -67,7 +59,7 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
                     autoClose: false
                 }));
         else {
-            createAssignment(values, token)
+            createAssignment(values)
                 .then(assignment => {
                     showNotification({
                         title: "Zadání úspěšně vytvořeno",
@@ -106,7 +98,7 @@ const AssignmentEditor = ({assignment}: AssignmentEditorProps) => {
                 </Grid>
                 <Tabs defaultValue="properties">
                     <Tabs.List>
-                        <Tabs.Tab value="properties" icon={<IconAdjustmentsAlt size={14}/>}>Vlasnosti</Tabs.Tab>
+                        <Tabs.Tab value="properties" icon={<IconAdjustmentsAlt size={14}/>}>Vlastnosti</Tabs.Tab>
                         <Tabs.Tab value="diagram" icon={<IconPaint size={14}/>}>Referenční řešení</Tabs.Tab>
                         <Tabs.Tab value="settings" icon={<IconSettings size={14}/>}>Nastavení</Tabs.Tab>
                     </Tabs.List>

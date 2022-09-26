@@ -1,6 +1,6 @@
 import {getProviders, signIn} from "next-auth/react"
-import {Center, Container, Button, Stack, ThemeIcon} from "@mantine/core";
-import {IconSchool, IconShieldLock} from "@tabler/icons";
+import {Button, Stack} from "@mantine/core";
+import {IconSchool} from "@tabler/icons";
 import Image from "next/image";
 
 export default function SignIn({providers}) {

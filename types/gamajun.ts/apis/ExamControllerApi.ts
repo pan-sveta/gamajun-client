@@ -14,16 +14,8 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  Exam,
-  ExamSubmission,
-} from '../models';
-import {
-    ExamFromJSON,
-    ExamToJSON,
-    ExamSubmissionFromJSON,
-    ExamSubmissionToJSON,
-} from '../models';
+import type {Exam, ExamSubmission,} from '../models';
+import {ExamFromJSON, ExamSubmissionFromJSON, ExamToJSON,} from '../models';
 
 export interface BeginExamRequest {
     examId: string;

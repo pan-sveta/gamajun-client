@@ -14,8 +14,13 @@
 
 
 import * as runtime from '../runtime';
-import type {Assignment,} from '../models';
-import {AssignmentFromJSON, AssignmentToJSON,} from '../models';
+import type {
+  Assignment,
+} from '../models';
+import {
+    AssignmentFromJSON,
+    AssignmentToJSON,
+} from '../models';
 
 export interface CreatAssignmentRequest {
     assignment: Assignment;

@@ -12,11 +12,19 @@
  * Do not edit the class manually.
  */
 
-import {exists} from '../runtime';
-import type {StudentAssignmentDTO} from './StudentAssignmentDTO';
-import {StudentAssignmentDTOFromJSON, StudentAssignmentDTOToJSON,} from './StudentAssignmentDTO';
-import type {StudentExamDTO} from './StudentExamDTO';
-import {StudentExamDTOFromJSON, StudentExamDTOToJSON,} from './StudentExamDTO';
+import { exists, mapValues } from '../runtime';
+import type { StudentAssignmentDTO } from './StudentAssignmentDTO';
+import {
+    StudentAssignmentDTOFromJSON,
+    StudentAssignmentDTOFromJSONTyped,
+    StudentAssignmentDTOToJSON,
+} from './StudentAssignmentDTO';
+import type { StudentExamDTO } from './StudentExamDTO';
+import {
+    StudentExamDTOFromJSON,
+    StudentExamDTOFromJSONTyped,
+    StudentExamDTOToJSON,
+} from './StudentExamDTO';
 
 /**
  * 

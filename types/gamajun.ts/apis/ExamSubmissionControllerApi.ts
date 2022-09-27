@@ -15,16 +15,20 @@
 
 import * as runtime from '../runtime';
 import type {
-    ExamSubmission,
-    ExamSubmissionCheckpointCommand,
-    ExamSubmissionSubmitCommand,
-    StudentExamSubmissionDTO,
+  ExamSubmission,
+  ExamSubmissionCheckpointCommand,
+  ExamSubmissionSubmitCommand,
+  StudentExamSubmissionDTO,
 } from '../models';
 import {
-    ExamSubmissionCheckpointCommandToJSON,
     ExamSubmissionFromJSON,
+    ExamSubmissionToJSON,
+    ExamSubmissionCheckpointCommandFromJSON,
+    ExamSubmissionCheckpointCommandToJSON,
+    ExamSubmissionSubmitCommandFromJSON,
     ExamSubmissionSubmitCommandToJSON,
     StudentExamSubmissionDTOFromJSON,
+    StudentExamSubmissionDTOToJSON,
 } from '../models';
 
 export interface CheckpointExamSubmissionsRequest {

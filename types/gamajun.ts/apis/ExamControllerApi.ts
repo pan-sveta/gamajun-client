@@ -14,8 +14,19 @@
 
 
 import * as runtime from '../runtime';
-import type {Exam, ExamSubmission,} from '../models';
-import {ExamFromJSON, ExamSubmissionFromJSON, ExamToJSON,} from '../models';
+import type {
+  Exam,
+  StudentExamDTO,
+  StudentExamSubmissionDTO,
+} from '../models';
+import {
+    ExamFromJSON,
+    ExamToJSON,
+    StudentExamDTOFromJSON,
+    StudentExamDTOToJSON,
+    StudentExamSubmissionDTOFromJSON,
+    StudentExamSubmissionDTOToJSON,
+} from '../models';
 
 export interface BeginExamRequest {
     examId: string;
@@ -69,7 +80,7 @@ export class ExamControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async beginExamRaw(requestParameters: BeginExamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ExamSubmission>> {
+    async beginExamRaw(requestParameters: BeginExamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<StudentExamSubmissionDTO>> {
         if (requestParameters.examId === null || requestParameters.examId === undefined) {
             throw new runtime.RequiredError('examId','Required parameter requestParameters.examId was null or undefined when calling beginExam.');
         }
@@ -85,12 +96,12 @@ export class ExamControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ExamSubmissionFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => StudentExamSubmissionDTOFromJSON(jsonValue));
     }
 
     /**
      */
-    async beginExam(requestParameters: BeginExamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ExamSubmission> {
+    async beginExam(requestParameters: BeginExamRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<StudentExamSubmissionDTO> {
         const response = await this.beginExamRaw(requestParameters, initOverrides);
         return await response.value();
     }
@@ -183,7 +194,7 @@ export class ExamControllerApi extends runtime.BaseAPI {
 
     /**
      */
-    async openedExamsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<Exam>>> {
+    async openedExamsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<StudentExamDTO>>> {
         const queryParameters: any = {};
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -195,12 +206,12 @@ export class ExamControllerApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(ExamFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(StudentExamDTOFromJSON));
     }
 
     /**
      */
-    async openedExams(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<Exam>> {
+    async openedExams(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<StudentExamDTO>> {
         const response = await this.openedExamsRaw(initOverrides);
         return await response.value();
     }

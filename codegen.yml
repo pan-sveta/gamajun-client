@@ -1,0 +1,11 @@
+schema: http://localhost:8080/graphql
+documents: './client/**/*.graphql'
+generates:
+  ./client/generated/generated-types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+    config:
+      withRefetchFn: true
+      withResultType: true

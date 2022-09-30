@@ -3,14 +3,17 @@ import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
 import {useForm} from "@mantine/form";
+import {createAssignment, updateAssignment} from "../../api/GamajunAPIClient";
+import {Assignment} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
-import {
-    Assignment,
-    refetchAssignmentsQuery, UpdateAssignmentInput,
-    useUpdateAssignmentMutation
-} from "../../client/generated/generated-types";
 import DeleteAssignmentButton from "./DeleteAssignmentButton";
+import {
+    CreateAssignmentInput,
+    refetchAssignmentsQuery,
+    useCreateAssignmentMutation
+} from "../../client/generated/generated-types";
+import GamajunLoader from "../common/GamajunLoader";
 
 // @ts-ignore
 const BpmnModeler = dynamic(() => {
@@ -20,23 +23,18 @@ const BpmnModeler = dynamic(() => {
     ssr: false
 });
 
-interface AssignmentEditor {
-    assignment: Assignment
-}
-
-const AssignmentEditor = ({assignment}: AssignmentEditor) => {
+const AssignmentCreator = () => {
     const router = useRouter();
 
-    const [updateAssignment, {loading, error}] = useUpdateAssignmentMutation({
+    const [createAssignment, {loading, error}] = useCreateAssignmentMutation({
         refetchQueries: [refetchAssignmentsQuery()],
     });
 
-    const form = useForm<UpdateAssignmentInput>({
+    const form = useForm<CreateAssignmentInput>({
         initialValues: {
-            id: assignment.id,
-            title: assignment.title,
-            description: assignment.description,
-            xml: assignment.xml,
+            title: "",
+            description: "",
+            xml: "",
         },
         validate: {
             title: (value: string) => (value.length < 5 ? 'Název musí být alespoň 5 znaků dlouhý' : null),
@@ -45,23 +43,23 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
         },
     });
 
-    let submit = (input: UpdateAssignmentInput) => {
-        updateAssignment({
+    let submit = (input: CreateAssignmentInput) => {
+        createAssignment({
             variables: {
                 input: input
             }
         })
             .then(assignment => {
                 showNotification({
-                    title: "Zadání úspěšně aktualizováno",
-                    message: `Zadání "${assignment?.data?.updateAssignment?.title}"`,
+                    title: "Zadání úspěšně vytvořeno",
+                    message: `Zadání "${assignment?.data?.createAssignment?.title}"`,
                     color: "green",
                     icon: <IconCheck/>
                 });
-                router.push(`/assignments`)
+                router.push(`/assignments/${assignment?.data?.createAssignment?.id}`)
             })
             .catch(err => showNotification({
-                title: "Nepodařilo se aktualizovat zadání",
+                title: "Nepodařilo se vytvořit zadání",
                 message: err.message,
                 color: "red",
                 icon: <IconX/>,
@@ -83,7 +81,6 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                     <Grid.Col span={6}>
                         <Group position={"right"}>
                             <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green" loading={loading}>Uložit</Button>
-                            <DeleteAssignmentButton assignment={assignment}/>
                         </Group>
                     </Grid.Col>
                 </Grid>
@@ -95,7 +92,6 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                     </Tabs.List>
                     <Tabs.Panel value="properties" pt="xs">
                         <Stack>
-                            <TextInput label={"Id"} {...form.getInputProps('id')} disabled={true} readOnly={true}/>
                             <TextInput label={"Název"}
                                        placeholder="Stavba mostu" {...form.getInputProps('title')} />
                             <Text>Popis</Text>
@@ -115,4 +111,4 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
         </div>);
 }
 
-export default AssignmentEditor
+export default AssignmentCreator

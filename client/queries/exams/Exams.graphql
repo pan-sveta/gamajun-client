@@ -1,0 +1,9 @@
+query Exams{
+    exams {
+        id
+        title
+        accessibleFrom
+        accessibleTo
+        author
+    }
+}

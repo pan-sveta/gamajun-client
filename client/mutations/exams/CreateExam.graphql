@@ -1,0 +1,16 @@
+mutation CreateExam($input: CreateExamInput!) {
+    createExam(input: $input){
+        id
+        title
+        accessibleFrom
+        accessibleTo
+        author
+        assignments {
+            id
+            title
+            description
+            xml
+            author
+        }
+    }
+}

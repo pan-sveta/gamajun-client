@@ -3,15 +3,21 @@ import {Button, Text} from "@mantine/core";
 import {deleteExam} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
-import {Exam} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
+import {Exam, refetchExamsQuery, useDeleteExamMutation} from "../../client/generated/generated-types";
 
 interface DeleteExamButtonProps {
-    exam?: Exam
+    exam: Exam
 }
 
 const DeleteExamButton = ({exam}: DeleteExamButtonProps) => {
     const router = useRouter();
+    const [deleteExam, {loading, error}] = useDeleteExamMutation({
+        variables: {
+            id: exam.id
+        },
+        refetchQueries: [refetchExamsQuery()]
+    });
 
     const openDeleteModal = () => openConfirmModal({
         title: 'Odstranit',
@@ -28,7 +34,7 @@ const DeleteExamButton = ({exam}: DeleteExamButtonProps) => {
     const handleDeleteExam = () => {
         const id = exam?.id;
         if (id) {
-            deleteExam(id)
+            deleteExam()
                 .then(() => {
                     showNotification({
                         title: "Odstranění proběhlo úspěšně",

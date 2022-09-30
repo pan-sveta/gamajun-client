@@ -1,0 +1,8 @@
+query OpenedExams{
+    openedExams {
+        id
+        title
+        accessibleFrom
+        accessibleTo
+    }
+}

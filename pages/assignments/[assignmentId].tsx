@@ -1,23 +1,31 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
 import AssignmentEditor from "../../components/assignments/AssignmentEditor";
 import {getAssignment} from "../../api/GamajunAPIServer";
+import {useAssignmentByIdQuery} from "../../client/generated/generated-types";
+import {useRouter} from "next/router";
+import GamajunLoader from "../../components/common/GamajunLoader";
 
-const AllAssignments: NextPage = ({assignment}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const AllAssignments: NextPage = () => {
+    const router = useRouter();
+    const {assignmentId} = router.query
+
+    const {data, loading, error} = useAssignmentByIdQuery({
+        variables: {
+            id: typeof assignmentId === 'string' ? assignmentId : "NO ID"
+        }
+    })
+
+    if (loading)
+        return <GamajunLoader/>
+
+    let assignment = data?.assignmentById;
+
+    if (!assignment)
+        return <div>ERROR</div>
 
     return (
-       <AssignmentEditor assignment={assignment}/>
+        <AssignmentEditor assignment={assignment}/>
     );
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-
-    const assignment = await getAssignment(String(context?.params?.assignmentId),context);
-
-    return {
-        props: {
-            assignment: assignment
-        }, // will be passed to the page component as props
-    }
 }
 
 export default AllAssignments

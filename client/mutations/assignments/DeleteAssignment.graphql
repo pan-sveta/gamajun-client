@@ -1,0 +1,3 @@
+mutation DeleteAssignment($id: String!) {
+    deleteAssignment(id: $id)
+}

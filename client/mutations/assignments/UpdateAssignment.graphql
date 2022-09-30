@@ -1,0 +1,9 @@
+mutation UpdateAssignment($input: UpdateAssignmentInput!) {
+    updateAssignment(input: $input){
+        id
+        title
+        description
+        author
+        xml
+    }
+}

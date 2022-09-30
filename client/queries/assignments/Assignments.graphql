@@ -1,0 +1,3 @@
+query Assignments{
+    assignments {id title description author xml }
+}

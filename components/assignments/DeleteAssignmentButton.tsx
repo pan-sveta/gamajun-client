@@ -3,15 +3,22 @@ import {Button, Text} from "@mantine/core";
 import {deleteAssignment} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
-import {Assignment} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
+import {Assignment, refetchAssignmentsQuery, useDeleteAssignmentMutation} from "../../client/generated/generated-types";
 
-interface DeleteAssignmentButtonProps{
-    assignment?: Assignment
+interface DeleteAssignmentButtonProps {
+    assignment: Assignment
 }
 
-const DeleteAssignmentButton = ({assignment}:DeleteAssignmentButtonProps) => {
+const DeleteAssignmentButton = ({assignment}: DeleteAssignmentButtonProps) => {
     const router = useRouter();
+
+
+    const [deleteAssignment, {loading, error}] = useDeleteAssignmentMutation({
+        refetchQueries: [refetchAssignmentsQuery()],
+    });
+
+
 
     const openDeleteModal = () => openConfirmModal({
         title: 'Odstranit',
@@ -26,9 +33,13 @@ const DeleteAssignmentButton = ({assignment}:DeleteAssignmentButtonProps) => {
     });
 
     const handleDeleteAssignment = () => {
-        const id = assignment?.id;
+        const id = assignment.id;
         if (id) {
-            deleteAssignment(id)
+            deleteAssignment({
+                variables: {
+                    id: id
+                }
+            })
                 .then(() => {
                     showNotification({
                         title: "Odstranění proběhlo úspěšně",
@@ -55,7 +66,7 @@ const DeleteAssignmentButton = ({assignment}:DeleteAssignmentButtonProps) => {
         return null;
 
     return (
-        <Button onClick={() => openDeleteModal()} leftIcon={<IconTrash/>} color="red">Odstranit</Button>
+        <Button onClick={() => openDeleteModal()} leftIcon={<IconTrash/>} color="red" loading={loading} >Odstranit</Button>
     );
 }
 

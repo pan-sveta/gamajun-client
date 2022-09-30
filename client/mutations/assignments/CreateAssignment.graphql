@@ -1,0 +1,9 @@
+mutation CreateAssignment($input: CreateAssignmentInput!) {
+    createAssignment(input: $input){
+        id
+        title
+        description
+        author
+        xml
+    }
+}

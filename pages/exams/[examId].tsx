@@ -1,30 +1,29 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
 import ExamEditor from "../../components/exams/ExamEditor";
-import {ExamFromJSON} from "../../types/gamajun.ts";
-import {getAllAssignments, getExam} from "../../api/GamajunAPIServer";
+import {useRouter} from "next/router";
+import {useAssignmentByIdQuery, useExamByIdQuery} from "../../client/generated/generated-types";
+import GamajunLoader from "../../components/common/GamajunLoader";
 
-const AllExams: NextPage = ({exam,assignments}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const AllExams: NextPage = () => {
 
-    //Fix protože next neumí ze SSP poslat date type, tak to posílám jako JSON a typuju až tady
-    // @ts-ignore
-    //TODO: FiX
-    exam = ExamFromJSON(exam);
+    const router = useRouter();
+    const {examId} = router.query
 
-    return (
-       <ExamEditor exam={exam} assignments={assignments}/>
-    );
-}
+    const {data, loading, error} = useExamByIdQuery({
+        variables: {
+            id: typeof examId === 'string' ? examId : "NO ID"
+        }
+    })
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const exam = await getExam(String(context?.params?.examId),context);
-    const assignments = await getAllAssignments(context);
+    if (loading)
+        return <GamajunLoader/>
 
-    return {
-        props: {
-            exam: exam,
-            assignments: assignments
-        }, // will be passed to the page component as props
-    }
+    let exam = data?.examById;
+
+    if (!exam)
+        return <div>{error?.message}</div>
+    else
+        return <ExamEditor exam={exam}/>;
 }
 
 export default AllExams

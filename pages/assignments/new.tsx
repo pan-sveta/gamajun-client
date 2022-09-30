@@ -1,11 +1,11 @@
 import {NextPage} from "next";
-import AssignmentEditor from "../../components/assignments/AssignmentEditor";
+import AssignmentCreator from "../../components/assignments/AssignmentCreator";
 
 
 const New: NextPage = () => {
 
     return (
-        <AssignmentEditor/>
+        <AssignmentCreator/>
     )
 
 }

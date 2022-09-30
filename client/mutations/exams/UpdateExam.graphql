@@ -1,0 +1,16 @@
+mutation UpdateExam($input: UpdateExamInput!) {
+    updateExam(input: $input){
+        id
+        title
+        accessibleFrom
+        accessibleTo
+        author
+        assignments {
+            id
+            title
+            description
+            xml
+            author
+        }
+    }
+}

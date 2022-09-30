@@ -2,6 +2,7 @@ import {Badge, Button, Card, createStyles, Text, useMantineTheme} from '@mantine
 import {ExamSubmission} from "../../types/gamajun.ts";
 import {IconPlayerPlay, IconSearch} from "@tabler/icons";
 import Link from "next/link";
+import {MySubmissionsQuery, MySubmissionsQueryResult, OpenedExamsQuery} from "../../client/generated/generated-types";
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -29,7 +30,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface SubmissionCardProps {
-    examSubmission: ExamSubmission
+    examSubmission: MySubmissionsQuery["myExamSubmissions"][0]
 }
 
 const SubmissionCard = ({examSubmission}: SubmissionCardProps) => {
@@ -39,11 +40,11 @@ const SubmissionCard = ({examSubmission}: SubmissionCardProps) => {
     const statusBadge = () => {
         switch (examSubmission.examSubmissionState) {
             case "Draft":
-                return <Badge color={"violet"}>{examSubmission.examSubmissionState}</Badge>;
+                return <Badge color={"violet"}>Rozpracované</Badge>;
             case "Submitted":
-                return <Badge color={"orange"}>{examSubmission.examSubmissionState}</Badge>;
+                return <Badge color={"orange"}>Odevzdáno</Badge>;
             case "Graded":
-                return <Badge color={"green"}>{examSubmission.examSubmissionState}</Badge>;
+                return <Badge color={"green"}>Oznámkováno</Badge>;
         }
 
     }

@@ -1,0 +1,14 @@
+query MySubmissions {
+    myExamSubmissions {
+        id
+        startedAt
+        submittedAt
+        examSubmissionState
+        exam {
+            title
+        }
+        assignment {
+            title
+        }
+    }
+}

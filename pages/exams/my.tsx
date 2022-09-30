@@ -4,49 +4,31 @@ import {Exam, ExamFromJSON, StudentExamSubmissionDTO, StudentExamSubmissionDTOFr
 import SubmissionCard from "../../components/submissions/SubmissionCard";
 import {Stack} from "@mantine/core";
 import {getMySubmissions, getOpenedExams} from "../../api/GamajunAPIServer";
+import {useOpenedExamsQuery} from "../../client/generated/generated-types";
+import OpenedExams from "../../components/exams/OpenedExams";
+import MyDraftSubmissions from "../../components/submissions/MyDraftSubmissions";
+import MySubmissions from "../../components/submissions/MySubmittedSubmissions";
 
-const MyExams = ({openedExams, mySubmissions}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-    //Fix protože next neumí ze SSR poslat date type, tak to posílám jako JSON a tipuji až tady
-    let openedExamsConverted: Array<Exam> = openedExams.map((exam: any) => ExamFromJSON(exam));
-    let mySubmissionsConverted: Array<StudentExamSubmissionDTO> = mySubmissions.map((submission: any) => StudentExamSubmissionDTOFromJSON(submission));
+const MyExams = () => {
 
-    let openedExamsCards = openedExamsConverted.map(exam => <ExamCard key={exam.id} exam={exam}/>)
-    let draftSubmissionCards = mySubmissionsConverted
+
+
+    /*let draftSubmissionCards = mySubmissionsConverted
         .filter(sub => sub.examSubmissionState === "Draft")
         .map(submission => <SubmissionCard key={submission.id} examSubmission={submission}/>)
     let completedSubmissionCards = mySubmissionsConverted
         .filter(sub => sub.examSubmissionState !== "Draft")
-        .map(submission => <SubmissionCard key={submission.id} examSubmission={submission}/>)
+        .map(submission => <SubmissionCard key={submission.id} examSubmission={submission}/>)*/
+
+
 
     return (
         <div>
-            <h2>Dostupné zkoušky</h2>
-            <Stack>
-                {openedExamsCards}
-            </Stack>
-            <h2>Moje rozdělané zkoušky</h2>
-            <Stack>
-                {draftSubmissionCards}
-            </Stack>
-            <h2>Moje hotové zkoušky</h2>
-            <Stack>
-                {completedSubmissionCards}
-            </Stack>
+            <OpenedExams/>
+            <MyDraftSubmissions/>
+            <MySubmissions/>
         </div>
     );
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const openedExams = await getOpenedExams(context);
-    const mySubmissions = await getMySubmissions(context);
-
-
-    return {
-        props: {
-            openedExams: openedExams,
-            mySubmissions: mySubmissions
-        }, // will be passed to the page component as props
-    }
 }
 
 export default MyExams

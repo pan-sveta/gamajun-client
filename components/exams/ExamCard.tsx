@@ -1,9 +1,9 @@
 import {Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
-import {Exam} from "../../types/gamajun.ts";
 import {IconAlertTriangle, IconReport, IconX} from "@tabler/icons";
 import {createExamSubmission} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
+import {Exam, OpenedExamsQuery} from "../../client/generated/generated-types";
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -31,7 +31,7 @@ const useStyles = createStyles((theme) => ({
 }));
 
 interface ExamCardProps {
-    exam: Exam
+    exam: OpenedExamsQuery["openedExams"][0]
 }
 
 const ExamCard = ({exam}: ExamCardProps) => {

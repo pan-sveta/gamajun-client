@@ -9,7 +9,7 @@ import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css"
 import {EmptyDiagram} from "./EmptyDiagram";
 
 interface BpmnModelerProps {
-    xml?: string,
+    xml?: string | null | undefined,
     onXmlChange(newXml:string):void,
     onLoading?: () => void,
     onShown?: (warnings: string) => void,

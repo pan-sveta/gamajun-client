@@ -1,0 +1,15 @@
+query ExamById($id: String!){
+    examById(id: $id) {
+        id
+        title
+        accessibleFrom
+        accessibleTo
+        author
+        assignments {
+            id
+            title
+            description
+            xml
+        }
+    }
+}

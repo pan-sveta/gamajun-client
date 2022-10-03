@@ -2,12 +2,13 @@ import {getProviders, signIn} from "next-auth/react"
 import {Button, Stack, Paper, Title} from "@mantine/core";
 import {IconSchool} from "@tabler/icons";
 import Image from "next/image";
+import React from "react";
 
 export default function SignIn({providers}) {
     return (
         <Paper>
             <Stack align={"center"} justify={"center"} shadow={"xl"} mt={"20vh"}>
-                <Image src={"/login-art.svg"} width={200} height={200} layout={"fixed"}/>
+                <Image alt={"Gamajun logo"} src={"/logo.png"} height={112} width={400} quality={100}/>
                 <Title order={1}>Vítejte v testovacím systému Gamajun</Title>
                 <Title order={2}>Pro pokračování se prosím přihlašte</Title>
                 {Object.values(providers).map((provider) => (

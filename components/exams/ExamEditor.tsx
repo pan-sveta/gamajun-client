@@ -14,7 +14,7 @@ import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import DeleteExamButton from "./DeleteExamButton";
 import {
-    Exam,
+    Exam, ExamByIdQuery,
     refetchAssignmentsQuery, refetchExamsQuery, refetchMySubmissionsQuery, refetchOpenedExamsQuery,
     UpdateExamInput,
     useUpdateExamMutation
@@ -22,7 +22,7 @@ import {
 import ExamAssignmentPicker from "./ExamAssignmentPicker";
 
 interface ExamEditorProps {
-    exam: Exam,
+    exam: ExamByIdQuery['examById'],
 }
 
 const ExamEditor = ({exam}: ExamEditorProps) => {

@@ -3,7 +3,6 @@ import {Button, Group, Loader, Stack, Table, Title} from "@mantine/core";
 import Link from "next/link";
 import {Assignment} from "../../types/gamajun.ts";
 import {IconPlus} from "@tabler/icons";
-import {getAllAssignments} from "../../api/GamajunAPIServer";
 import {useAssignmentsQuery} from "../../client/generated/generated-types";
 import AssignmentsTable from "../../components/assignments/AssignmentsTable";
 

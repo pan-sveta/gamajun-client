@@ -1,9 +1,13 @@
 import {Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
 import {IconAlertTriangle, IconReport, IconX} from "@tabler/icons";
-import {createExamSubmission} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
-import {Exam, OpenedExamsQuery} from "../../client/generated/generated-types";
+import {
+    Exam,
+    OpenedExamsQuery, refetchMySubmissionsQuery,
+    useBeginExamMutation,
+    useMySubmissionsQuery
+} from "../../client/generated/generated-types";
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -39,6 +43,10 @@ const ExamCard = ({exam}: ExamCardProps) => {
     const theme = useMantineTheme();
     const router = useRouter();
 
+    const [beginExam, {loading, error}] = useBeginExamMutation({
+        refetchQueries: [refetchMySubmissionsQuery()]
+    });
+
     const createSubmission = () => {
         if (!exam.id) {
             showNotification({
@@ -52,9 +60,13 @@ const ExamCard = ({exam}: ExamCardProps) => {
             return;
         }
 
-        createExamSubmission(exam.id)
+        beginExam({
+            variables: {
+                id: exam.id
+            }
+        })
             .then((examSubmission) => {
-                router.push(`/submissions/${examSubmission.id}`)
+                router.push(`/submissions/${examSubmission.data?.beginExam.id}`)
             })
             .catch(err => showNotification({
                 title: "Nepodařilo se zahájit zkoušku",

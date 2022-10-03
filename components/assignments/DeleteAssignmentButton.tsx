@@ -1,6 +1,5 @@
 import {openConfirmModal} from "@mantine/modals";
 import {Button, Text} from "@mantine/core";
-import {deleteAssignment} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
 import {useRouter} from "next/router";

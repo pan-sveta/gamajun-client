@@ -1,0 +1,16 @@
+query SubmissionsByExamId($id: String!){
+    examSubmissionsByExamId(examId: $id){
+        id,
+        startedAt,
+        submittedAt,
+        author,
+        exam {
+            id
+            title
+        },
+        assignment {
+            id
+            title
+        }
+    }
+}

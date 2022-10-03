@@ -1,6 +1,5 @@
 import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
 import AssignmentEditor from "../../components/assignments/AssignmentEditor";
-import {getAssignment} from "../../api/GamajunAPIServer";
 import {useAssignmentByIdQuery} from "../../client/generated/generated-types";
 import {useRouter} from "next/router";
 import GamajunLoader from "../../components/common/GamajunLoader";

@@ -1,4 +1,4 @@
-import {Loader, Table} from "@mantine/core";
+import {Loader, Skeleton, Table} from "@mantine/core";
 import {
     CreateAssignmentMutationFn, refetchAssignmentsQuery,
     useAssignmentsQuery,
@@ -27,20 +27,19 @@ const AssignmentsTable = () => {
         ));
     }
 
-    if (loading)
-        return <GamajunLoader/>;
-
     return (
-        <Table fontSize={"md"} striped highlightOnHover>
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Popis</th>
-                <th>Autor</th>
-            </tr>
-            </thead>
-            <tbody>{rows()}</tbody>
-        </Table>
+        <Skeleton visible={loading}>
+            <Table fontSize={"md"} striped highlightOnHover>
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Popis</th>
+                    <th>Autor</th>
+                </tr>
+                </thead>
+                <tbody>{rows()}</tbody>
+            </Table>
+        </Skeleton>
     );
 }
 

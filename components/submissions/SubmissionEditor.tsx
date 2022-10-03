@@ -1,11 +1,15 @@
-import {ExamSubmissionSubmitCommand, StudentExamSubmissionDTO} from "../../types/gamajun.ts";
 import {Button, Group, Loader} from '@mantine/core';
 import {useForm} from "@mantine/form";
-import {submitSubmission} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconX, IconZoomCheck} from "@tabler/icons";
 import dynamic from "next/dynamic";
 import {useRouter} from "next/router";
+import {
+    ExamSubmissionSubmitInput,
+    QueryExamSubmissionByIdArgs, refetchMySubmissionsQuery, refetchSubmissionByIdQuery,
+    SubmissionByIdQuery, SubmitExamSubmissionMutationVariables,
+    useSubmitExamSubmissionMutation
+} from "../../client/generated/generated-types";
 
 const BpmnModeler = dynamic(() => {
     return import("../../components/bpmn/modeler/BpmnModeler");
@@ -15,14 +19,19 @@ const BpmnModeler = dynamic(() => {
 });
 
 interface SubmissionEditorProps {
-    submission: StudentExamSubmissionDTO
+    submission: SubmissionByIdQuery['examSubmissionById']
 }
 
 const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
     const router = useRouter();
 
-    const formo = useForm<ExamSubmissionSubmitCommand>({
+    const [submitSubmission, {loading, error}] = useSubmitExamSubmissionMutation({
+        refetchQueries: [refetchMySubmissionsQuery()]
+    });
+
+    const formo = useForm<ExamSubmissionSubmitInput>({
         initialValues: {
+            id: submission?.id,
             xml: submission?.xml,
         },
         validate: {
@@ -30,11 +39,12 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
         },
     });
 
-    const submitExam = (values: ExamSubmissionSubmitCommand) => {
-        if (!submission.id)
-            return;
-
-        submitSubmission(submission.id, values)
+    const submitExam = (values: ExamSubmissionSubmitInput) => {
+        submitSubmission({
+            variables: {
+                input: values
+            }
+        })
             .then(assignment => {
                 showNotification({
                     title: "Zkouška byla úspěšně odevzdána",
@@ -57,10 +67,10 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
         <form onSubmit={formo.onSubmit((values) => submitExam(values))}>
 
             <Group position={"apart"}>
-                <h1>{submission.assignment?.title}</h1>
+                <h1>{submission?.assignment?.title}</h1>
                 <Button leftIcon={<IconZoomCheck/>} color={"green"} type={"submit"}>Odevzdat</Button>
             </Group>
-            {submission.assignment?.description ?
+            {submission?.assignment?.description ?
                 <div dangerouslySetInnerHTML={{__html: submission.assignment?.description}}/> : null}
             <BpmnModeler xml={formo.values.xml} onXmlChange={(newXml) => formo.setFieldValue("xml", newXml)}/>
         </form>

@@ -1,6 +1,6 @@
-import {StudentExamSubmissionDTO} from "../../types/gamajun.ts";
 import {Group, Loader, Text} from '@mantine/core';
 import dynamic from "next/dynamic";
+import {SubmissionByIdQuery} from "../../client/generated/generated-types";
 
 const BpmnViewer = dynamic(() => {
     return import("../../components/bpmn/modeler/BpmnViewer");
@@ -10,7 +10,7 @@ const BpmnViewer = dynamic(() => {
 });
 
 interface SubmissionViewerProps {
-    submission: StudentExamSubmissionDTO
+    submission: SubmissionByIdQuery['examSubmissionById']
 }
 
 const SubmissionViewer = ({submission}: SubmissionViewerProps) => {
@@ -18,12 +18,12 @@ const SubmissionViewer = ({submission}: SubmissionViewerProps) => {
         <div>
 
             <Group position={"apart"}>
-                <h1>{submission.assignment?.title}</h1>
-                <Text>Odevzdáno: {submission.submittedAt?.toLocaleDateString()}</Text>
+                <h1>{submission?.assignment?.title}</h1>
+                <Text>Odevzdáno: {submission?.submittedAt}</Text>
             </Group>
-            {submission.assignment?.description ?
+            {submission?.assignment?.description ?
                 <div dangerouslySetInnerHTML={{__html: submission.assignment?.description}}/> : null}
-            <BpmnViewer xml={submission.xml} />
+            <BpmnViewer xml={submission?.xml == null ? undefined : submission.xml} />
         </div>
     );
 }

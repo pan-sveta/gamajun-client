@@ -3,7 +3,6 @@ import {Exam, ExamFromJSON} from "../../types/gamajun.ts";
 import Link from "next/link";
 import {Button, Group, Stack, Table, Title} from "@mantine/core";
 import {IconPlus} from "@tabler/icons";
-import {getAllExams} from "../../api/GamajunAPIServer";
 import ExamsTable from "../../components/exams/ExamsTable";
 
 const Exams: NextPage = () => {

@@ -79,9 +79,10 @@ type Query {
     assignments: [Assignment!]!
     examById(id: String!): Exam!
     examSubmissionById(id: String!): ExamSubmission
-    examSubmissions: [ExamSubmission]
+    examSubmissions: [ExamSubmission!]!
+    examSubmissionsByExamId(examId: String!): [ExamSubmission!]!
     exams: [Exam!]!
-    myExamSubmissions: [ExamSubmission]
+    myExamSubmissions: [ExamSubmission!]!
     openedExams: [Exam!]!
 }
 

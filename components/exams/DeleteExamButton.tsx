@@ -1,13 +1,12 @@
 import {openConfirmModal} from "@mantine/modals";
 import {Button, Text} from "@mantine/core";
-import {deleteExam} from "../../api/GamajunAPIClient";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
 import {useRouter} from "next/router";
-import {Exam, refetchExamsQuery, useDeleteExamMutation} from "../../client/generated/generated-types";
+import {Exam, ExamByIdQuery, refetchExamsQuery, useDeleteExamMutation} from "../../client/generated/generated-types";
 
 interface DeleteExamButtonProps {
-    exam: Exam
+    exam: ExamByIdQuery['examById']
 }
 
 const DeleteExamButton = ({exam}: DeleteExamButtonProps) => {

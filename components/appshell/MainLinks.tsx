@@ -1,5 +1,5 @@
 import React from 'react';
-import {IconCertificate, IconSettings, IconTemplate} from '@tabler/icons';
+import {IconCertificate, IconReportAnalytics, IconSettings, IconTemplate} from '@tabler/icons';
 import {Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import Link from "next/link";
 
@@ -25,8 +25,7 @@ export default function MainLink({icon, color, label, uri}: MainLinkProps) {
                         backgroundColor:
                             theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
                     },
-                })}
-            >
+                })}>
                 <Group>
                     <ThemeIcon color={color} variant="light">
                         {icon}
@@ -42,7 +41,7 @@ export default function MainLink({icon, color, label, uri}: MainLinkProps) {
 const data = [
     {icon: <IconTemplate size={16}/>, color: 'blue', label: 'Správce zadání', uri: '/assignments'},
     {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Správce zkoušek', uri: '/exams'},
-    {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Zkoušky', uri: '/exams/my'},
+    {icon: <IconCertificate size={16}/>, color: 'red', label: 'Zkoušky', uri: '/exams/my'},
     {icon: <IconSettings size={16}/>, color: 'violet', label: 'Nastavení', uri: '/settings'}
 ];
 

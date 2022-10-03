@@ -3,7 +3,6 @@ import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
 import {useForm} from "@mantine/form";
-import {createAssignment, updateAssignment} from "../../api/GamajunAPIClient";
 import {Assignment} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";

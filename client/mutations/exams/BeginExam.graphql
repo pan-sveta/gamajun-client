@@ -1,0 +1,5 @@
+mutation BeginExam($id: String!) {
+    beginExam(id: $id){
+        id
+    }
+}

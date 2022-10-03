@@ -9,8 +9,8 @@ import AssignmentsTable from "../../components/assignments/AssignmentsTable";
 const AllAssignments: NextPage = () => {
     return (
         <Stack>
-            <Title order={1}>Zadání</Title>
-            <Group position="right">
+            <Group position="apart" align={"center"}>
+                <Title order={1}>Zadání</Title>
                 <Link href={"/assignments/new"}>
                     <Button leftIcon={<IconPlus/>} color={"green"}>Nové zadání</Button>
                 </Link>

@@ -6,6 +6,7 @@ import {
     Stack,
     Text,
     TextInput,
+    Paper
 } from "@mantine/core";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import {useForm} from "@mantine/form";
@@ -28,7 +29,7 @@ interface ExamEditorProps {
 const ExamEditor = ({exam}: ExamEditorProps) => {
     const router = useRouter();
 
-    const [updateExam, {loading,error}] = useUpdateExamMutation({
+    const [updateExam, {loading, error}] = useUpdateExamMutation({
         refetchQueries: [refetchExamsQuery(), refetchOpenedExamsQuery(), refetchMySubmissionsQuery()],
     });
 
@@ -45,31 +46,32 @@ const ExamEditor = ({exam}: ExamEditorProps) => {
     });
 
     let submit = (input: UpdateExamInput) => {
-            updateExam({
-                variables: {
-                    input: input
-                }
-            })
-                .then(assignment => {
-                    showNotification({
-                        title: "Aktualizace proběhla úspěšně",
-                        message: `Zkouška "${assignment.data?.updateExam?.title}"`,
-                        color: "green",
-                        icon: <IconCheck/>,
-                    })
-                    router.push(`/exams`)
+        updateExam({
+            variables: {
+                input: input
+            }
+        })
+            .then(assignment => {
+                showNotification({
+                    title: "Aktualizace proběhla úspěšně",
+                    message: `Zkouška "${assignment.data?.updateExam?.title}"`,
+                    color: "green",
+                    icon: <IconCheck/>,
                 })
-                .catch(err => showNotification({
-                    title: "Aktualizace se nezdařila",
-                    message: err.message,
-                    color: "red",
-                    icon: <IconX/>,
-                    autoClose: false
-                }));
+                router.push(`/exams`)
+            })
+            .catch(err => showNotification({
+                title: "Aktualizace se nezdařila",
+                message: err.message,
+                color: "red",
+                icon: <IconX/>,
+                autoClose: false
+            }));
     }
 
     return (
         <Stack>
+
             <form onSubmit={formo.onSubmit((values) => submit(values))}>
                 <Grid align={"center"}>
                     <Grid.Col span={6}>
@@ -78,24 +80,33 @@ const ExamEditor = ({exam}: ExamEditorProps) => {
                     </Grid.Col>
                     <Grid.Col span={6}>
                         <Group position={"right"}>
-                            <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green" loading={loading}>Uložit</Button>
-                            <DeleteExamButton exam={exam} />
+                            <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green"
+                                    loading={loading}>Uložit</Button>
+                            <DeleteExamButton exam={exam}/>
                         </Group>
                     </Grid.Col>
                 </Grid>
-                <TextInput label={"Id"} readOnly={true} disabled={true} {...formo.getInputProps('id')}/>
-                <TextInput label={"Název"} {...formo.getInputProps('title')}/>
-                <DatePicker label={"Platné od"} value={new Date(formo.values?.accessibleFrom)}
-                            onChange={(date) => date ? formo.setFieldValue('accessibleFrom', date.toISOString()) : null} locale="cs"/>
-                <TimeInput value={new Date(formo.values?.accessibleFrom)}
-                           onChange={(date) => formo.setFieldValue('accessibleFrom', date.toISOString())}/>
-                <DatePicker label={"Platné do"} value={new Date(formo.values?.accessibleTo)}
-                            onChange={(date) => date ? formo.setFieldValue('accessibleTo', date.toISOString()) : null} locale="cs"/>
-                <TimeInput value={new Date(formo.values?.accessibleTo)}
-                           onChange={(date) => formo.setFieldValue('accessibleTo', date.toISOString())}/>
-                <ExamAssignmentPicker value={formo.values?.assignmentIds} onChange={(data) => formo.setFieldValue("assignmentIds", data)}/>
-                <p>{JSON.stringify(formo.values)}</p>
+                <Paper shadow="xs" p="md" my={"md"} withBorder>
+                    <Stack>
+                        <TextInput label={"Id"} readOnly={true} disabled={true} {...formo.getInputProps('id')}/>
+                        <TextInput label={"Název"} {...formo.getInputProps('title')}/>
+                        <DatePicker label={"Platné od"} value={new Date(formo.values?.accessibleFrom)}
+                                    onChange={(date) => date ? formo.setFieldValue('accessibleFrom', date.toISOString()) : null}
+                                    locale="cs"/>
+                        <TimeInput value={new Date(formo.values?.accessibleFrom)}
+                                   onChange={(date) => formo.setFieldValue('accessibleFrom', date.toISOString())}/>
+                        <DatePicker label={"Platné do"} value={new Date(formo.values?.accessibleTo)}
+                                    onChange={(date) => date ? formo.setFieldValue('accessibleTo', date.toISOString()) : null}
+                                    locale="cs"/>
+                        <TimeInput value={new Date(formo.values?.accessibleTo)}
+                                   onChange={(date) => formo.setFieldValue('accessibleTo', date.toISOString())}/>
+                        <ExamAssignmentPicker value={formo.values?.assignmentIds}
+                                              onChange={(data) => formo.setFieldValue("assignmentIds", data)}/>
+                        <p>{JSON.stringify(formo.values)}</p>
+                    </Stack>
+                </Paper>
             </form>
+
         </Stack>
     );
 }

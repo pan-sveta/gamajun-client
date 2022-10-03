@@ -1,4 +1,4 @@
-import {Button, Group, Skeleton, Stack, Table, Title, ActionIcon} from "@mantine/core";
+import {Button, Group, Skeleton, Stack, Table, Title, ActionIcon, Paper} from "@mantine/core";
 import Link from "next/link";
 import {IconPencil, IconPlus, IconReportAnalytics} from "@tabler/icons";
 import {useExamsQuery} from "../../client/generated/generated-types";
@@ -43,21 +43,23 @@ const ExamsTable = () => {
 
     return (
         <Skeleton visible={loading}>
-            <Table fontSize={"md"} striped highlightOnHover>
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Popis</th>
-                    <th>Autor</th>
-                    <th>Dostupné od</th>
-                    <th>Dostupné do</th>
-                    <th>Akce</th>
-                </tr>
-                </thead>
-                <tbody>
-                {exams()}
-                </tbody>
-            </Table>
+            <Paper shadow="xs" p="md" my={"md"} withBorder>
+                <Table fontSize={"md"} striped highlightOnHover>
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Popis</th>
+                        <th>Autor</th>
+                        <th>Dostupné od</th>
+                        <th>Dostupné do</th>
+                        <th>Akce</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {exams()}
+                    </tbody>
+                </Table>
+            </Paper>
         </Skeleton>
     )
 }

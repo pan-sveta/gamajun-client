@@ -1,8 +1,9 @@
 import {useExamsQuery, useSubmissionsByExamIdQuery} from "../../client/generated/generated-types";
-import {Skeleton, Table} from "@mantine/core";
+import {Skeleton, Table, Paper, ActionIcon} from "@mantine/core";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import exams from "../../pages/exams";
+import {IconReportAnalytics, IconSearch} from "@tabler/icons";
 
 const SubmissionsTable = () => {
     const router = useRouter();
@@ -23,32 +24,40 @@ const SubmissionsTable = () => {
             return;
 
         return data?.examSubmissionsByExamId.map(sub => (
-            <Link key={sub.id} href={`/submission/${sub.id}/grading`}>
-                <tr>
-                    <td>{sub.author}</td>
-                    <td>{sub.assignment?.title}</td>
-                    <td>{sub.startedAt}</td>
-                    <td>{sub.submittedAt}</td>
-                </tr>
-            </Link>
+            <tr key={sub.id}>
+                <td>{sub.author}</td>
+                <td>{sub.assignment?.title}</td>
+                <td>{sub.startedAt}</td>
+                <td>{sub.submittedAt}</td>
+                <td>
+                    <Link href={`/submissions/${sub.id}/grading`}>
+                        <ActionIcon color="blue" variant="outline">
+                            <IconSearch size={18}/>
+                        </ActionIcon>
+                    </Link>
+                </td>
+            </tr>
         ));
     }
 
     return (
         <Skeleton visible={loading}>
-            <Table fontSize={"md"} striped={true} highlightOnHover={true}>
-                <thead>
-                <tr>
-                    <th>Autor</th>
-                    <th>Zadání</th>
-                    <th>Zahájení</th>
-                    <th>Odevzdáno</th>
-                </tr>
-                </thead>
-                <tbody>
-                {rows()}
-                </tbody>
-            </Table>
+            <Paper shadow="xs" p="md" my={"md"} withBorder>
+                <Table fontSize={"md"} striped={true} >
+                    <thead>
+                    <tr>
+                        <th>Autor</th>
+                        <th>Zadání</th>
+                        <th>Zahájení</th>
+                        <th>Odevzdáno</th>
+                        <th>Akce</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {rows()}
+                    </tbody>
+                </Table>
+            </Paper>
         </Skeleton>
     );
 }

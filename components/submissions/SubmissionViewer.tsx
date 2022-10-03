@@ -1,4 +1,4 @@
-import {Group, Loader, Text} from '@mantine/core';
+import {Group, Loader, Text, Paper} from '@mantine/core';
 import dynamic from "next/dynamic";
 import {SubmissionByIdQuery} from "../../client/generated/generated-types";
 
@@ -21,9 +21,12 @@ const SubmissionViewer = ({submission}: SubmissionViewerProps) => {
                 <h1>{submission?.assignment?.title}</h1>
                 <Text>Odevzdáno: {submission?.submittedAt}</Text>
             </Group>
-            {submission?.assignment?.description ?
-                <div dangerouslySetInnerHTML={{__html: submission.assignment?.description}}/> : null}
-            <BpmnViewer xml={submission?.xml == null ? undefined : submission.xml} />
+            <Paper shadow="xs" p="md" my={"md"} withBorder>
+                <div dangerouslySetInnerHTML={{__html: submission?.assignment?.description ?? "N/A"}}/>
+            </Paper>
+            <Paper shadow="xs" p="md" my={"md"} withBorder>
+                <BpmnViewer xml={submission?.xml == null ? undefined : submission.xml}/>
+            </Paper>
         </div>
     );
 }

@@ -81,12 +81,12 @@ export type ExamInput = {
  */
 export type ExamSubmission = {
   __typename?: 'ExamSubmission';
-  assignment?: Maybe<Assignment>;
-  author?: Maybe<Scalars['String']>;
-  exam?: Maybe<Exam>;
-  examSubmissionState?: Maybe<ExamSubmissionState>;
-  id?: Maybe<Scalars['ID']>;
-  startedAt?: Maybe<Scalars['String']>;
+  assignment: Assignment;
+  author: Scalars['String'];
+  exam: Exam;
+  examSubmissionState: ExamSubmissionState;
+  id: Scalars['ID'];
+  startedAt: Scalars['String'];
   submittedAt?: Maybe<Scalars['String']>;
   xml?: Maybe<Scalars['String']>;
 };
@@ -255,7 +255,7 @@ export type BeginExamMutationVariables = Exact<{
 }>;
 
 
-export type BeginExamMutation = { __typename?: 'Mutation', beginExam: { __typename?: 'ExamSubmission', id?: string | null } };
+export type BeginExamMutation = { __typename?: 'Mutation', beginExam: { __typename?: 'ExamSubmission', id: string } };
 
 export type CreateExamMutationVariables = Exact<{
   input: CreateExamInput;
@@ -283,7 +283,7 @@ export type SubmitExamSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type SubmitExamSubmissionMutation = { __typename?: 'Mutation', submitExamSubmission: { __typename?: 'ExamSubmission', id?: string | null } };
+export type SubmitExamSubmissionMutation = { __typename?: 'Mutation', submitExamSubmission: { __typename?: 'ExamSubmission', id: string } };
 
 export type AssignmentByIdQueryVariables = Exact<{
   id: Scalars['String'];
@@ -322,21 +322,28 @@ export type OpenedExamsQuery = { __typename?: 'Query', openedExams: Array<{ __ty
 export type MySubmissionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MySubmissionsQuery = { __typename?: 'Query', myExamSubmissions: Array<{ __typename?: 'ExamSubmission', id?: string | null, startedAt?: string | null, submittedAt?: string | null, examSubmissionState?: ExamSubmissionState | null, exam?: { __typename?: 'Exam', title: string } | null, assignment?: { __typename?: 'Assignment', title: string } | null }> };
+export type MySubmissionsQuery = { __typename?: 'Query', myExamSubmissions: Array<{ __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, exam: { __typename?: 'Exam', title: string }, assignment: { __typename?: 'Assignment', title: string } }> };
 
 export type SubmissionsByExamIdQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type SubmissionsByExamIdQuery = { __typename?: 'Query', examSubmissionsByExamId: Array<{ __typename?: 'ExamSubmission', id?: string | null, startedAt?: string | null, submittedAt?: string | null, author?: string | null, exam?: { __typename?: 'Exam', id: string, title: string } | null, assignment?: { __typename?: 'Assignment', id: string, title: string } | null }> };
+export type SubmissionsByExamIdQuery = { __typename?: 'Query', examSubmissionsByExamId: Array<{ __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, author: string, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string } }> };
 
 export type SubmissionByIdQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type SubmissionByIdQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id?: string | null, startedAt?: string | null, submittedAt?: string | null, author?: string | null, examSubmissionState?: ExamSubmissionState | null, xml?: string | null, exam?: { __typename?: 'Exam', id: string, title: string } | null, assignment?: { __typename?: 'Assignment', id: string, title: string, description: string } | null } | null };
+export type SubmissionByIdQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, author: string, examSubmissionState: ExamSubmissionState, xml?: string | null, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string } } | null };
+
+export type SubmissionByIdGradingQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type SubmissionByIdGradingQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, author: string, examSubmissionState: ExamSubmissionState, xml?: string | null, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string } } | null };
 
 
 export const CreateAssignmentDocument = gql`
@@ -1025,4 +1032,57 @@ export type SubmissionByIdLazyQueryHookResult = ReturnType<typeof useSubmissionB
 export type SubmissionByIdQueryResult = Apollo.QueryResult<SubmissionByIdQuery, SubmissionByIdQueryVariables>;
 export function refetchSubmissionByIdQuery(variables: SubmissionByIdQueryVariables) {
       return { query: SubmissionByIdDocument, variables: variables }
+    }
+export const SubmissionByIdGradingDocument = gql`
+    query SubmissionByIdGrading($id: String!) {
+  examSubmissionById(id: $id) {
+    id
+    startedAt
+    submittedAt
+    author
+    examSubmissionState
+    xml
+    exam {
+      id
+      title
+    }
+    assignment {
+      id
+      title
+      description
+      xml
+    }
+  }
+}
+    `;
+
+/**
+ * __useSubmissionByIdGradingQuery__
+ *
+ * To run a query within a React component, call `useSubmissionByIdGradingQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSubmissionByIdGradingQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSubmissionByIdGradingQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSubmissionByIdGradingQuery(baseOptions: Apollo.QueryHookOptions<SubmissionByIdGradingQuery, SubmissionByIdGradingQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SubmissionByIdGradingQuery, SubmissionByIdGradingQueryVariables>(SubmissionByIdGradingDocument, options);
+      }
+export function useSubmissionByIdGradingLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SubmissionByIdGradingQuery, SubmissionByIdGradingQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SubmissionByIdGradingQuery, SubmissionByIdGradingQueryVariables>(SubmissionByIdGradingDocument, options);
+        }
+export type SubmissionByIdGradingQueryHookResult = ReturnType<typeof useSubmissionByIdGradingQuery>;
+export type SubmissionByIdGradingLazyQueryHookResult = ReturnType<typeof useSubmissionByIdGradingLazyQuery>;
+export type SubmissionByIdGradingQueryResult = Apollo.QueryResult<SubmissionByIdGradingQuery, SubmissionByIdGradingQueryVariables>;
+export function refetchSubmissionByIdGradingQuery(variables: SubmissionByIdGradingQueryVariables) {
+      return { query: SubmissionByIdGradingDocument, variables: variables }
     }

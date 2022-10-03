@@ -2,6 +2,8 @@ import React from 'react';
 import {IconCertificate, IconReportAnalytics, IconSettings, IconTemplate} from '@tabler/icons';
 import {Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import Link from "next/link";
+import {useSession} from "next-auth/react";
+import GamajunLoader from "../common/GamajunLoader";
 
 interface MainLinkProps {
     icon: React.ReactNode;
@@ -39,13 +41,24 @@ export default function MainLink({icon, color, label, uri}: MainLinkProps) {
 }
 
 const data = [
-    {icon: <IconTemplate size={16}/>, color: 'blue', label: 'Správce zadání', uri: '/assignments'},
-    {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Správce zkoušek', uri: '/exams'},
-    {icon: <IconCertificate size={16}/>, color: 'red', label: 'Zkoušky', uri: '/exams/my'},
-    {icon: <IconSettings size={16}/>, color: 'violet', label: 'Nastavení', uri: '/settings'}
+    {icon: <IconTemplate size={16}/>, color: 'blue', label: 'Správce zadání', uri: '/assignments', adminOnly: true},
+    {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Správce zkoušek', uri: '/exams', adminOnly: true},
+    {icon: <IconCertificate size={16}/>, color: 'red', label: 'Zkoušky', uri: '/exams/my', adminOnly: false},
+    {icon: <IconSettings size={16}/>, color: 'violet', label: 'Nastavení', uri: '/settings', adminOnly: false}
 ];
 
 export function MainLinks() {
-    const links = data.map((link) => <MainLink {...link} key={link.label}/>);
+    let {data: session} = useSession();
+
+    if (!session)
+        return <GamajunLoader/>
+
+    let links;
+
+    if (session?.isAdmin)
+        links = data.map((link) => <MainLink {...link} key={link.label}/>);
+    else
+        links = data.filter(nav => !nav.adminOnly).map((link) => <MainLink {...link} key={link.label}/>);
+
     return <div>{links}</div>;
 }

@@ -8,8 +8,8 @@ import ExamsTable from "../../components/exams/ExamsTable";
 const Exams: NextPage = () => {
     return (
         <Stack>
-            <Title order={1}>Zkoušky</Title>
-            <Group position="right">
+            <Group position="apart">
+                <Title order={1}>Zkoušky</Title>
                 <Link href={"/exams/new"}>
                     <Button leftIcon={<IconPlus/>} color={"green"}>Nová zkouška</Button>
                 </Link>

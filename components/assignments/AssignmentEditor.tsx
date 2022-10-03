@@ -1,4 +1,4 @@
-import {Button, Grid, Group, Loader, Stack, Tabs, Text, TextInput} from "@mantine/core";
+import {Button, Grid, Group, Loader, Stack, Tabs, Text, TextInput, Paper} from "@mantine/core";
 import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings, IconX} from "@tabler/icons";
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
@@ -82,35 +82,40 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                     </Grid.Col>
                     <Grid.Col span={6}>
                         <Group position={"right"}>
-                            <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green" loading={loading}>Uložit</Button>
+                            <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green"
+                                    loading={loading}>Uložit</Button>
                             <DeleteAssignmentButton assignment={assignment}/>
                         </Group>
                     </Grid.Col>
                 </Grid>
+
                 <Tabs defaultValue="properties">
                     <Tabs.List>
                         <Tabs.Tab value="properties" icon={<IconAdjustmentsAlt size={14}/>}>Vlastnosti</Tabs.Tab>
                         <Tabs.Tab value="diagram" icon={<IconPaint size={14}/>}>Referenční řešení</Tabs.Tab>
                         <Tabs.Tab value="settings" icon={<IconSettings size={14}/>}>Nastavení</Tabs.Tab>
                     </Tabs.List>
-                    <Tabs.Panel value="properties" pt="xs">
-                        <Stack>
-                            <TextInput label={"Id"} {...form.getInputProps('id')} disabled={true} readOnly={true}/>
-                            <TextInput label={"Název"}
-                                       placeholder="Stavba mostu" {...form.getInputProps('title')} />
-                            <Text>Popis</Text>
-                            <RichTextEditor title={"Hello"} {...form.getInputProps('description')} />
-                        </Stack>
-                    </Tabs.Panel>
-                    <Tabs.Panel value="diagram" pt="xs">
-                        <BpmnModeler xml={form.values.xml}
-                                     onXmlChange={(newXml) => form.setFieldValue<string>('xml', newXml)}/>
-                        <div>{JSON.stringify(form.values.xml)}</div>
-                    </Tabs.Panel>
-                    <Tabs.Panel value="settings" pt="xs">
-                        <Text>TBA</Text>
-                    </Tabs.Panel>
+                    <Paper shadow="xs" p="md" my={"md"} withBorder>
+                        <Tabs.Panel value="properties" pt="xs">
+                            <Stack>
+                                <TextInput label={"Id"} {...form.getInputProps('id')} disabled={true} readOnly={true}/>
+                                <TextInput label={"Název"}
+                                           placeholder="Stavba mostu" {...form.getInputProps('title')} />
+                                <Text>Popis</Text>
+                                <RichTextEditor title={"Hello"} {...form.getInputProps('description')} />
+                            </Stack>
+                        </Tabs.Panel>
+                        <Tabs.Panel value="diagram" pt="xs">
+                            <BpmnModeler xml={form.values.xml}
+                                         onXmlChange={(newXml) => form.setFieldValue<string>('xml', newXml)}/>
+                            <div>{JSON.stringify(form.values.xml)}</div>
+                        </Tabs.Panel>
+                        <Tabs.Panel value="settings" pt="xs">
+                            <Text>TBA</Text>
+                        </Tabs.Panel>
+                    </Paper>
                 </Tabs>
+
             </form>
         </div>);
 }

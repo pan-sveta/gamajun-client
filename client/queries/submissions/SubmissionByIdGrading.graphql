@@ -1,0 +1,20 @@
+query SubmissionByIdGrading($id: String!){
+    examSubmissionById(id: $id){
+        id
+        startedAt
+        submittedAt
+        author
+        examSubmissionState
+        xml
+        exam {
+            id
+            title
+        },
+        assignment {
+            id
+            title
+            description
+            xml
+        }
+    }
+}

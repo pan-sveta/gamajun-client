@@ -1,7 +1,8 @@
 import React from 'react';
 
 // @ts-ignore
-import BpmnJS from 'bpmn-js/dist/bpmn-viewer.production.min';
+//import BpmnJS from 'bpmn-js/dist/bpmn-viewer.production.min';
+import BpmnJS from 'gamajun-bpmn-js/dist/gamajun-viewer.bundled';
 
 //BPMN-js css
 import "bpmn-js/dist/assets/diagram-js.css"
@@ -53,6 +54,8 @@ export default class BpmnViewer extends React.Component<BpmnModelerProps,BpmnMod
             if (error) {
                 return this.handleError(error);
             }
+
+            this.bpmnViewer.get('canvas').zoom('fit-viewport');
 
             return this.handleShown(warnings);
         });

@@ -1,4 +1,4 @@
-import {Button, Group, Loader} from '@mantine/core';
+import {Button, Group, Loader, Paper} from '@mantine/core';
 import {useForm} from "@mantine/form";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconX, IconZoomCheck} from "@tabler/icons";
@@ -70,9 +70,12 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
                 <h1>{submission?.assignment?.title}</h1>
                 <Button leftIcon={<IconZoomCheck/>} color={"green"} type={"submit"}>Odevzdat</Button>
             </Group>
-            {submission?.assignment?.description ?
-                <div dangerouslySetInnerHTML={{__html: submission.assignment?.description}}/> : null}
-            <BpmnModeler xml={formo.values.xml} onXmlChange={(newXml) => formo.setFieldValue("xml", newXml)}/>
+            <Paper shadow="xs" p="md" my={"md"} withBorder>
+                <div dangerouslySetInnerHTML={{__html: submission?.assignment?.description ?? "N/A"}}/>
+            </Paper>
+            <Paper shadow="xs" p="md" withBorder>
+                <BpmnModeler xml={formo.values.xml} onXmlChange={(newXml) => formo.setFieldValue("xml", newXml)}/>
+            </Paper>
         </form>
     );
 }

@@ -3,7 +3,7 @@ import {setContext} from "@apollo/client/link/context";
 import {getSession} from "next-auth/react";
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:8080/graphql',
+    uri: 'https://gamajun-api.stepanek.app/graphql',
 });
 
 const authLink = setContext(async (_, { headers }) => {

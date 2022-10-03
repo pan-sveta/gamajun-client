@@ -41,12 +41,12 @@ Exam submissions#
 #################
 """
 type ExamSubmission {
-    assignment: Assignment
-    author: String
-    exam: Exam
-    examSubmissionState: ExamSubmissionState
-    id: ID
-    startedAt: String
+    assignment: Assignment!
+    author: String!
+    exam: Exam!
+    examSubmissionState: ExamSubmissionState!
+    id: ID!
+    startedAt: String!
     submittedAt: String
     xml: String
 }

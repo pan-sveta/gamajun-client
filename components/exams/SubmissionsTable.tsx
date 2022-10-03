@@ -1,9 +1,8 @@
-import {useExamsQuery, useSubmissionsByExamIdQuery} from "../../client/generated/generated-types";
-import {Skeleton, Table, Paper, ActionIcon} from "@mantine/core";
+import {useSubmissionsByExamIdQuery} from "../../client/generated/generated-types";
+import {ActionIcon, Paper, Skeleton, Table} from "@mantine/core";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import exams from "../../pages/exams";
-import {IconReportAnalytics, IconSearch} from "@tabler/icons";
+import {IconSearch} from "@tabler/icons";
 
 const SubmissionsTable = () => {
     const router = useRouter();

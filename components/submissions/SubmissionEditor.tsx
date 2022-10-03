@@ -6,8 +6,8 @@ import dynamic from "next/dynamic";
 import {useRouter} from "next/router";
 import {
     ExamSubmissionSubmitInput,
-    QueryExamSubmissionByIdArgs, refetchMySubmissionsQuery, refetchSubmissionByIdQuery,
-    SubmissionByIdQuery, SubmitExamSubmissionMutationVariables,
+    refetchMySubmissionsQuery,
+    SubmissionByIdQuery,
     useSubmitExamSubmissionMutation
 } from "../../client/generated/generated-types";
 

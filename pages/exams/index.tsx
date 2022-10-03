@@ -1,7 +1,6 @@
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import {Exam, ExamFromJSON} from "../../types/gamajun.ts";
+import {NextPage} from "next";
 import Link from "next/link";
-import {Button, Group, Stack, Table, Title} from "@mantine/core";
+import {Button, Group, Stack, Title} from "@mantine/core";
 import {IconPlus} from "@tabler/icons";
 import ExamsTable from "../../components/exams/ExamsTable";
 

@@ -1,11 +1,7 @@
 import {NextPage} from "next";
-import {
-    useSubmissionByIdGradingQuery,
-    useSubmissionByIdQuery,
-    useSubmissionsByExamIdQuery
-} from "../../../client/generated/generated-types";
+import {useSubmissionByIdGradingQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
-import {Grid, Loader, Text, Box, Title, createStyles, Group, Badge, Paper} from "@mantine/core";
+import {Badge, Box, createStyles, Grid, Group, Loader, Paper, Text, Title} from "@mantine/core";
 import dynamic from "next/dynamic";
 
 

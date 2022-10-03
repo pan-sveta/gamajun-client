@@ -1,7 +1,7 @@
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
+import {NextPage} from "next";
 import ExamEditor from "../../../components/exams/ExamEditor";
 import {useRouter} from "next/router";
-import {useAssignmentByIdQuery, useExamByIdQuery} from "../../../client/generated/generated-types";
+import {useExamByIdQuery} from "../../../client/generated/generated-types";
 import GamajunLoader from "../../../components/common/GamajunLoader";
 
 const AllExams: NextPage = () => {

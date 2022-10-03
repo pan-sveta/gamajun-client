@@ -1,4 +1,4 @@
-import {Group, Loader, Text, Paper} from '@mantine/core';
+import {Group, Loader, Paper, Text} from '@mantine/core';
 import dynamic from "next/dynamic";
 import {SubmissionByIdQuery} from "../../client/generated/generated-types";
 

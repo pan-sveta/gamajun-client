@@ -2,11 +2,11 @@ import type {AppProps} from 'next/app'
 import {ColorScheme, ColorSchemeProvider, MantineProvider} from "@mantine/core";
 import GamajunAppShell from "../components/appshell/GamajunAppShell";
 import {useState} from "react";
-import {getSession, SessionProvider} from "next-auth/react";
+import {SessionProvider} from "next-auth/react";
 import {NotificationsProvider} from "@mantine/notifications";
 import {ModalsProvider} from "@mantine/modals";
 import {RouterTransition} from "../components/appshell/RouterTransition";
-import {ApolloClient, ApolloProvider, createHttpLink, from, InMemoryCache} from "@apollo/client";
+import {ApolloProvider} from "@apollo/client";
 import gamajunApolloClient from "../gamajunApolloClient";
 
 import 'dayjs/locale/cs';

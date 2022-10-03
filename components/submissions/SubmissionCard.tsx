@@ -1,8 +1,7 @@
 import {Badge, Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
-import {ExamSubmission} from "../../types/gamajun.ts";
 import {IconPlayerPlay, IconSearch} from "@tabler/icons";
 import Link from "next/link";
-import {MySubmissionsQuery, MySubmissionsQueryResult, OpenedExamsQuery} from "../../client/generated/generated-types";
+import {MySubmissionsQuery} from "../../client/generated/generated-types";
 
 const useStyles = createStyles((theme) => ({
     card: {

@@ -1,11 +1,8 @@
-import {Button, Group, Skeleton, Stack, Table, Title, ActionIcon, Paper} from "@mantine/core";
+import {ActionIcon, Group, Paper, Skeleton, Table} from "@mantine/core";
 import Link from "next/link";
-import {IconPencil, IconPlus, IconReportAnalytics} from "@tabler/icons";
+import {IconPencil, IconReportAnalytics} from "@tabler/icons";
 import {useExamsQuery} from "../../client/generated/generated-types";
-import GamajunLoader from "../common/GamajunLoader";
-import {JSXElement} from "@babel/types";
 import {ReactNode} from "react";
-import gamajunLoader from "../common/GamajunLoader";
 
 const ExamsTable = () => {
     const {data, error, loading} = useExamsQuery();

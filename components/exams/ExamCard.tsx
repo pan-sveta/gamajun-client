@@ -3,10 +3,9 @@ import {IconAlertTriangle, IconReport, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import {
-    Exam,
-    OpenedExamsQuery, refetchMySubmissionsQuery,
-    useBeginExamMutation,
-    useMySubmissionsQuery
+    OpenedExamsQuery,
+    refetchMySubmissionsQuery,
+    useBeginExamMutation
 } from "../../client/generated/generated-types";
 
 const useStyles = createStyles((theme) => ({

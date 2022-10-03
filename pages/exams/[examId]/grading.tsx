@@ -1,7 +1,7 @@
 import SubmissionsTable from "../../../components/exams/SubmissionsTable";
 import {useExamByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
-import {Box, Skeleton, Title, Text, Group} from "@mantine/core";
+import {Box, Group, Skeleton, Text, Title} from "@mantine/core";
 
 const GradingSubmissions = () => {
     const router = useRouter();

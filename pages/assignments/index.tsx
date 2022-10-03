@@ -1,9 +1,7 @@
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import {Button, Group, Loader, Stack, Table, Title} from "@mantine/core";
+import {NextPage} from "next";
+import {Button, Group, Stack, Title} from "@mantine/core";
 import Link from "next/link";
-import {Assignment} from "../../types/gamajun.ts";
 import {IconPlus} from "@tabler/icons";
-import {useAssignmentsQuery} from "../../client/generated/generated-types";
 import AssignmentsTable from "../../components/assignments/AssignmentsTable";
 
 const AllAssignments: NextPage = () => {

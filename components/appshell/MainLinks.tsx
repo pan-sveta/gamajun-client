@@ -1,5 +1,5 @@
 import React from 'react';
-import {IconCertificate, IconReportAnalytics, IconSettings, IconTemplate} from '@tabler/icons';
+import {IconCertificate, IconSettings, IconTemplate} from '@tabler/icons';
 import {Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import Link from "next/link";
 import {useSession} from "next-auth/react";

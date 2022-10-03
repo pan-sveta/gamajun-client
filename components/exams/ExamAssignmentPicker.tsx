@@ -1,13 +1,6 @@
 import {TransferList, TransferListData, TransferListItem} from "@mantine/core";
-import {
-    Assignment,
-    AssignmentInput, AssignmentsPickerQuery, AssignmentsPickerQueryResult,
-    InputMaybe,
-    useAssignmentsPickerQuery,
-    useAssignmentsQuery
-} from "../../client/generated/generated-types";
+import {useAssignmentsPickerQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../common/GamajunLoader";
-import {useState} from "react";
 
 interface ExamAssignmentPickerProps {
     value: Array<string>

@@ -1,24 +1,15 @@
-import {Assignment} from "../../types/gamajun.ts";
-import {
-    Button,
-    Grid,
-    Group,
-    Stack,
-    Text,
-    TextInput,
-} from "@mantine/core";
+import {Button, Grid, Group, Stack, Text, TextInput,} from "@mantine/core";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import {useForm} from "@mantine/form";
 import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
-import DeleteExamButton from "./DeleteExamButton";
 import {
     CreateExamInput,
-    Exam,
-    refetchAssignmentsQuery, refetchExamsQuery, refetchMySubmissionsQuery, refetchOpenedExamsQuery,
-    UpdateExamInput, useCreateExamMutation,
-    useUpdateExamMutation
+    refetchExamsQuery,
+    refetchMySubmissionsQuery,
+    refetchOpenedExamsQuery,
+    useCreateExamMutation
 } from "../../client/generated/generated-types";
 import ExamAssignmentPicker from "./ExamAssignmentPicker";
 

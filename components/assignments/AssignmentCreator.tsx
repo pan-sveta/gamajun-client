@@ -3,16 +3,13 @@ import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
 import {useForm} from "@mantine/form";
-import {Assignment} from "../../types/gamajun.ts";
 import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
-import DeleteAssignmentButton from "./DeleteAssignmentButton";
 import {
     CreateAssignmentInput,
     refetchAssignmentsQuery,
     useCreateAssignmentMutation
 } from "../../client/generated/generated-types";
-import GamajunLoader from "../common/GamajunLoader";
 
 // @ts-ignore
 const BpmnModeler = dynamic(() => {

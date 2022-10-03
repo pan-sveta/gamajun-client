@@ -1,14 +1,9 @@
-import {Loader, Skeleton, Table, Paper, ActionIcon} from "@mantine/core";
-import {
-    CreateAssignmentMutationFn, refetchAssignmentsQuery,
-    useAssignmentsQuery,
-    useCreateAssignmentMutation
-} from "../../client/generated/generated-types";
+import {ActionIcon, Paper, Skeleton, Table} from "@mantine/core";
+import {useAssignmentsQuery} from "../../client/generated/generated-types";
 import Link from "next/link";
-import {Center} from '@mantine/core';
 import GamajunLoader from "../common/GamajunLoader";
 import {ReactNode} from "react";
-import {IconEdit, IconReportAnalytics, IconSearch} from "@tabler/icons";
+import {IconEdit} from "@tabler/icons";
 
 const AssignmentsTable = () => {
     const {data, error, loading} = useAssignmentsQuery();

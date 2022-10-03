@@ -1,4 +1,4 @@
-import {Loader, Center, Container} from "@mantine/core";
+import {Center, Loader} from "@mantine/core";
 
 
 const GamajunLoader = () => {

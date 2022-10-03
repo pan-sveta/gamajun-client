@@ -14,13 +14,8 @@
 
 
 import * as runtime from '../runtime';
-import type {
-  Admin,
-} from '../models';
-import {
-    AdminFromJSON,
-    AdminToJSON,
-} from '../models';
+import type {Admin,} from '../models';
+import {AdminFromJSON, AdminToJSON,} from '../models';
 
 export interface CreatAdminRequest {
     admin: Admin;

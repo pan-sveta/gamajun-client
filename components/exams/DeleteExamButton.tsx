@@ -3,7 +3,7 @@ import {Button, Text} from "@mantine/core";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
 import {useRouter} from "next/router";
-import {Exam, ExamByIdQuery, refetchExamsQuery, useDeleteExamMutation} from "../../client/generated/generated-types";
+import {ExamByIdQuery, refetchExamsQuery, useDeleteExamMutation} from "../../client/generated/generated-types";
 
 interface DeleteExamButtonProps {
     exam: ExamByIdQuery['examById']

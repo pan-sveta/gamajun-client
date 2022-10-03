@@ -1,5 +1,4 @@
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import {StudentExamSubmissionDTO, StudentExamSubmissionDTOFromJSON} from "../../../types/gamajun.ts";
+import {NextPage} from "next";
 import SubmissionEditor from "../../../components/submissions/SubmissionEditor";
 import SubmissionViewer from "../../../components/submissions/SubmissionViewer";
 import {useSubmissionByIdQuery} from "../../../client/generated/generated-types";

@@ -1,4 +1,4 @@
-import {Button, Grid, Group, Loader, Stack, Tabs, Text, TextInput, Paper} from "@mantine/core";
+import {Button, Grid, Group, Loader, Paper, Stack, Tabs, Text, TextInput} from "@mantine/core";
 import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings, IconX} from "@tabler/icons";
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
@@ -7,7 +7,8 @@ import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
 import {
     Assignment,
-    refetchAssignmentsQuery, UpdateAssignmentInput,
+    refetchAssignmentsQuery,
+    UpdateAssignmentInput,
     useUpdateAssignmentMutation
 } from "../../client/generated/generated-types";
 import DeleteAssignmentButton from "./DeleteAssignmentButton";

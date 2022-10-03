@@ -12,13 +12,9 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { Assignment } from './Assignment';
-import {
-    AssignmentFromJSON,
-    AssignmentFromJSONTyped,
-    AssignmentToJSON,
-} from './Assignment';
+import {exists} from '../runtime';
+import type {Assignment} from './Assignment';
+import {AssignmentFromJSON, AssignmentToJSON,} from './Assignment';
 
 /**
  * 

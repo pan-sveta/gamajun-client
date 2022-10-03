@@ -1,4 +1,4 @@
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
+import {NextPage} from "next";
 import AssignmentEditor from "../../components/assignments/AssignmentEditor";
 import {useAssignmentByIdQuery} from "../../client/generated/generated-types";
 import {useRouter} from "next/router";

@@ -1,5 +1,4 @@
-import {GetServerSideProps, InferGetServerSidePropsType, NextPage} from "next";
-import ExamEditor from "../../components/exams/ExamEditor";
+import {NextPage} from "next";
 import ExamCreator from "../../components/exams/ExamCreator";
 
 

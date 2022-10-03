@@ -1,5 +1,5 @@
 import React from 'react';
-import {IconCertificate, IconSettings, IconTemplate} from '@tabler/icons';
+import {IconCertificate, IconHome, IconSettings, IconTemplate} from '@tabler/icons';
 import {Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import Link from "next/link";
 import {useSession} from "next-auth/react";
@@ -41,6 +41,7 @@ export default function MainLink({icon, color, label, uri}: MainLinkProps) {
 }
 
 const data = [
+    {icon: <IconHome size={16}/>, color: 'lime', label: 'Domů', uri: '/', adminOnly: false},
     {icon: <IconTemplate size={16}/>, color: 'blue', label: 'Správce zadání', uri: '/assignments', adminOnly: true},
     {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Správce zkoušek', uri: '/exams', adminOnly: true},
     {icon: <IconCertificate size={16}/>, color: 'red', label: 'Zkoušky', uri: '/exams/my', adminOnly: false},

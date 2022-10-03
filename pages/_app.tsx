@@ -10,12 +10,29 @@ import {ApolloProvider} from "@apollo/client";
 import gamajunApolloClient from "../gamajunApolloClient";
 
 import 'dayjs/locale/cs';
+import {useRouter} from "next/router";
 
 function MyApp({Component, pageProps: {session, ...pageProps}}: AppProps) {
     //Mantine color scheme
     const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
     const toggleColorScheme = (value?: ColorScheme) =>
         setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+
+    //Router for layout removal
+    const router = useRouter();
+
+    const layoutRemoval = () => {
+        if (router.pathname.includes("/auth"))
+            return (
+                <Component {...pageProps} />
+            );
+        else
+            return (
+                <GamajunAppShell>
+                    <Component {...pageProps} />
+                </GamajunAppShell>
+            );
+    }
 
     return (
         <SessionProvider session={session}>
@@ -25,9 +42,7 @@ function MyApp({Component, pageProps: {session, ...pageProps}}: AppProps) {
                         <ModalsProvider>
                             <ApolloProvider client={gamajunApolloClient}>
                                 <RouterTransition/>
-                                <GamajunAppShell>
-                                    <Component {...pageProps} />
-                                </GamajunAppShell>
+                                {layoutRemoval()}
                             </ApolloProvider>
                         </ModalsProvider>
                     </NotificationsProvider>

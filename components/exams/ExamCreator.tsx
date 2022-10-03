@@ -32,7 +32,6 @@ const ExamCreator = () => {
     });
 
     let submit = (input: CreateExamInput) => {
-        console.log(input)
         createExam({
             variables: {
                 input: input

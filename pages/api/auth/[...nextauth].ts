@@ -41,7 +41,6 @@ export const authOptions: NextAuthOptions = {
         async jwt({token, user, account}) {
             // Initial sign in
             if (account && user) {
-                console.log(account)
                 const x: boolean = await isUserAdmin(user.username || "N/A", account.access_token || "N/A");
                 return {
                     accessToken: account.access_token,
@@ -52,8 +51,6 @@ export const authOptions: NextAuthOptions = {
                 }
             }
 
-            console.log(Date.now())
-            console.log(token.accessTokenExpires)
             if (Date.now() < token.accessTokenExpires) {
                 return token;
             }

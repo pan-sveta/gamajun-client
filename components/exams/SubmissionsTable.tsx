@@ -8,15 +8,11 @@ const SubmissionsTable = () => {
     const router = useRouter();
     const {examId} = router.query;
 
-    console.log(examId)
-
     const {data, loading, error} = useSubmissionsByExamIdQuery({
         variables: {
             id: typeof examId === 'string' ? examId : "NO ID"
         }
     });
-
-    console.log(data)
 
     function rows() {
         if (!data?.examSubmissionsByExamId)

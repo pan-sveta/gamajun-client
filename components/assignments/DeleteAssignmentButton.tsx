@@ -49,7 +49,6 @@ const DeleteAssignmentButton = ({assignment}: DeleteAssignmentButtonProps) => {
                     router.push(`/assignments`);
                 })
                 .catch(err => {
-                    console.log(err)
                     showNotification({
                         title: "Odstranění se nezdařilo",
                         message: err.message,

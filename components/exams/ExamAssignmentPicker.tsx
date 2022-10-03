@@ -22,7 +22,6 @@ const ExamAssignmentPicker = ({value, onChange}: ExamAssignmentPickerProps) => {
     let assignments = data?.assignments;
 
     function TransferListItemFromAssignmentId(id: string): TransferListItem {
-        console.log(id)
         let assignment = assignments?.find(x => x.id == id);
         return {
             value: assignment?.id || "N/A",

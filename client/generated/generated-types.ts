@@ -1,6 +1,5 @@
+import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-import {gql} from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -89,6 +88,7 @@ export type ExamSubmission = {
   id: Scalars['ID'];
   startedAt: Scalars['String'];
   submittedAt?: Maybe<Scalars['String']>;
+  validatorReport?: Maybe<ValidatorReport>;
   xml?: Maybe<Scalars['String']>;
 };
 
@@ -193,6 +193,8 @@ export type Query = {
   exams: Array<Exam>;
   myExamSubmissions: Array<ExamSubmission>;
   openedExams: Array<Exam>;
+  validatorReportByExamSubmissionId?: Maybe<ValidatorReport>;
+  validatorReports: Array<ValidatorReport>;
 };
 
 
@@ -215,6 +217,11 @@ export type QueryExamSubmissionsByExamIdArgs = {
   examId: Scalars['String'];
 };
 
+
+export type QueryValidatorReportByExamSubmissionIdArgs = {
+  id: Scalars['String'];
+};
+
 export type UpdateAssignmentInput = {
   description?: InputMaybe<Scalars['String']>;
   id: Scalars['String'];
@@ -228,6 +235,29 @@ export type UpdateExamInput = {
   assignmentIds: Array<Scalars['ID']>;
   id: Scalars['ID'];
   title: Scalars['String'];
+};
+
+export type ValidatorReport = {
+  __typename?: 'ValidatorReport';
+  finishedAt: Scalars['String'];
+  id: Scalars['String'];
+  startedAt: Scalars['String'];
+  validatorRuleResults: Array<ValidatorRuleResult>;
+};
+
+export type ValidatorRule = {
+  __typename?: 'ValidatorRule';
+  description: Scalars['String'];
+  id: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type ValidatorRuleResult = {
+  __typename?: 'ValidatorRuleResult';
+  id: Scalars['String'];
+  message?: Maybe<Scalars['String']>;
+  valid: Scalars['Boolean'];
+  validatorRule: ValidatorRule;
 };
 
 export type CreateAssignmentMutationVariables = Exact<{
@@ -345,6 +375,13 @@ export type SubmissionByIdGradingQueryVariables = Exact<{
 
 
 export type SubmissionByIdGradingQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, author: string, examSubmissionState: ExamSubmissionState, xml?: string | null, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string } } | null };
+
+export type ValidatorReportByExamSubmissionIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type ValidatorReportByExamSubmissionIdQuery = { __typename?: 'Query', validatorReportByExamSubmissionId: { __typename?: 'ValidatorReport', id: string, startedAt: string, finishedAt: string, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, valid: boolean, message?: string | null, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null };
 
 
 export const CreateAssignmentDocument = gql`
@@ -1086,4 +1123,54 @@ export type SubmissionByIdGradingLazyQueryHookResult = ReturnType<typeof useSubm
 export type SubmissionByIdGradingQueryResult = Apollo.QueryResult<SubmissionByIdGradingQuery, SubmissionByIdGradingQueryVariables>;
 export function refetchSubmissionByIdGradingQuery(variables: SubmissionByIdGradingQueryVariables) {
       return { query: SubmissionByIdGradingDocument, variables: variables }
+    }
+export const ValidatorReportByExamSubmissionIdDocument = gql`
+    query ValidatorReportByExamSubmissionId($id: String!) {
+  validatorReportByExamSubmissionId(id: $id) {
+    id
+    startedAt
+    finishedAt
+    validatorRuleResults {
+      id
+      valid
+      message
+      validatorRule {
+        id
+        name
+        description
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useValidatorReportByExamSubmissionIdQuery__
+ *
+ * To run a query within a React component, call `useValidatorReportByExamSubmissionIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useValidatorReportByExamSubmissionIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useValidatorReportByExamSubmissionIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useValidatorReportByExamSubmissionIdQuery(baseOptions: Apollo.QueryHookOptions<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>(ValidatorReportByExamSubmissionIdDocument, options);
+      }
+export function useValidatorReportByExamSubmissionIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>(ValidatorReportByExamSubmissionIdDocument, options);
+        }
+export type ValidatorReportByExamSubmissionIdQueryHookResult = ReturnType<typeof useValidatorReportByExamSubmissionIdQuery>;
+export type ValidatorReportByExamSubmissionIdLazyQueryHookResult = ReturnType<typeof useValidatorReportByExamSubmissionIdLazyQuery>;
+export type ValidatorReportByExamSubmissionIdQueryResult = Apollo.QueryResult<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>;
+export function refetchValidatorReportByExamSubmissionIdQuery(variables: ValidatorReportByExamSubmissionIdQueryVariables) {
+      return { query: ValidatorReportByExamSubmissionIdDocument, variables: variables }
     }

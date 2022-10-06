@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import {useRouter} from "next/router";
 import {
     ExamSubmissionSubmitInput,
-    refetchMySubmissionsQuery,
+    refetchMySubmissionsQuery, refetchOpenedExamsQuery,
     SubmissionByIdQuery,
     useSubmitExamSubmissionMutation
 } from "../../client/generated/generated-types";
@@ -26,7 +26,7 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
     const router = useRouter();
 
     const [submitSubmission, {loading, error}] = useSubmitExamSubmissionMutation({
-        refetchQueries: [refetchMySubmissionsQuery()]
+        refetchQueries: [refetchMySubmissionsQuery(), refetchOpenedExamsQuery()]
     });
 
     const formo = useForm<ExamSubmissionSubmitInput>({

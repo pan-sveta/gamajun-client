@@ -1,13 +1,9 @@
-import {Group, Loader, Paper, Text} from '@mantine/core';
+import {Group, Loader, Paper, Text, Tabs} from '@mantine/core';
 import dynamic from "next/dynamic";
 import {SubmissionByIdQuery} from "../../client/generated/generated-types";
-
-const BpmnViewer = dynamic(() => {
-    return import("../../components/bpmn/modeler/BpmnViewer");
-}, {
-    loading: () => <Loader variant="bars"/>,
-    ssr: false
-});
+import {IconPhoto, IconSettings} from "@tabler/icons";
+import SubmissionDisplay from "./SubmissionDisplay";
+import ValidatorResults from "../validatorReport/ValidatorResults";
 
 interface SubmissionViewerProps {
     submission: SubmissionByIdQuery['examSubmissionById']
@@ -15,19 +11,20 @@ interface SubmissionViewerProps {
 
 const SubmissionViewer = ({submission}: SubmissionViewerProps) => {
     return (
-        <div>
+        <Tabs defaultValue={"submission"}>
+            <Tabs.List>
+                <Tabs.Tab value="submission" icon={<IconPhoto size={14}/>}>Odevzdání</Tabs.Tab>
+                <Tabs.Tab value="results" icon={<IconSettings size={14}/>}>Výsledky</Tabs.Tab>
+            </Tabs.List>
 
-            <Group position={"apart"}>
-                <h1>{submission?.assignment?.title}</h1>
-                <Text>Odevzdáno: {submission?.submittedAt}</Text>
-            </Group>
-            <Paper shadow="xs" p="md" my={"md"} withBorder>
-                <div dangerouslySetInnerHTML={{__html: submission?.assignment?.description ?? "N/A"}}/>
-            </Paper>
-            <Paper shadow="xs" p="md" my={"md"} withBorder>
-                <BpmnViewer xml={submission?.xml == null ? undefined : submission.xml}/>
-            </Paper>
-        </div>
+            <Tabs.Panel value="submission" pt="xs">
+                <SubmissionDisplay submission={submission}/>
+            </Tabs.Panel>
+
+            <Tabs.Panel value="results" pt="xs">
+                <ValidatorResults submissionId={submission?.id ?? "N/A"}/>
+            </Tabs.Panel>
+        </Tabs>
     );
 }
 

@@ -48,6 +48,7 @@ type ExamSubmission {
     id: ID!
     startedAt: String!
     submittedAt: String
+    validatorReport: ValidatorReport
     xml: String
 }
 
@@ -84,6 +85,28 @@ type Query {
     exams: [Exam!]!
     myExamSubmissions: [ExamSubmission!]!
     openedExams: [Exam!]!
+    validatorReportByExamSubmissionId(id: String!): ValidatorReport
+    validatorReports: [ValidatorReport!]!
+}
+
+type ValidatorReport {
+    finishedAt: String!
+    id: String!
+    startedAt: String!
+    validatorRuleResults: [ValidatorRuleResult!]!
+}
+
+type ValidatorRule {
+    description: String!
+    id: String!
+    name: String!
+}
+
+type ValidatorRuleResult {
+    id: String!
+    message: String
+    valid: Boolean!
+    validatorRule: ValidatorRule!
 }
 
 enum ExamSubmissionState {

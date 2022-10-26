@@ -1,0 +1,8 @@
+query SandboxAssignments{
+    sandboxAssignments {
+        id
+        title
+        description
+        author
+    }
+}

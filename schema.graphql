@@ -15,6 +15,7 @@ type Assignment {
     author: String!
     description: String!
     id: ID!
+    sandbox: Boolean!
     title: String!
     xml: String!
 }
@@ -61,14 +62,20 @@ type Mutation {
     createAssignment(input: CreateAssignmentInput!): Assignment!
     "Create exam"
     createExam(input: CreateExamInput!): Exam!
+    "Create sandbox submission"
+    createSandboxSubmission(assignmentId: String!): SandboxSubmission!
     "Delete assignment"
     deleteAssignment(id: String!): Boolean!
     "Delete exam"
     deleteExam(id: String!): Boolean!
     "Delete exam submission"
     deleteExamSubmission(id: String!): Boolean
+    "Delete sandbox submission"
+    deleteSandboxSubmission(id: String!): Boolean!
     "Submit exam submission"
     submitExamSubmission(input: ExamSubmissionSubmitInput!): ExamSubmission!
+    "Submit sandbox submission"
+    submitSandboxSubmission(input: SandboxSubmissionSubmitInput!): SandboxSubmission!
     "Update assignment"
     updateAssignment(input: UpdateAssignmentInput!): Assignment!
     "Update exam"
@@ -84,9 +91,30 @@ type Query {
     examSubmissionsByExamId(examId: String!): [ExamSubmission!]!
     exams: [Exam!]!
     myExamSubmissions: [ExamSubmission!]!
+    mySandboxSubmissions(assignmentId: String!): [SandboxSubmission!]!
     openedExams: [Exam!]!
+    sandboxAssignments: [Assignment!]!
+    sandboxSubmissionById(id: String!): SandboxSubmission
+    sandboxSubmissions: [SandboxSubmission!]!
+    sandboxSubmissionsByAssignment(assignmentId: String!): [SandboxSubmission!]!
     validatorReportByExamSubmissionId(id: String!): ValidatorReport
     validatorReports: [ValidatorReport!]!
+}
+
+"""
+
+#################
+Sandbox submissions#
+#################
+"""
+type SandboxSubmission {
+    assignment: Assignment!
+    author: String!
+    id: ID!
+    startedAt: String!
+    submittedAt: String
+    validatorReport: ValidatorReport
+    xml: String
 }
 
 type ValidatorReport {
@@ -119,12 +147,14 @@ input AssignmentInput {
     author: String!
     description: String!
     id: ID!
+    sandbox: Boolean!
     title: String!
     xml: String!
 }
 
 input CreateAssignmentInput {
     description: String!
+    sandbox: Boolean!
     title: String!
     xml: String!
 }
@@ -155,9 +185,15 @@ input ExamSubmissionSubmitInput {
     xml: String
 }
 
+input SandboxSubmissionSubmitInput {
+    id: ID
+    xml: String
+}
+
 input UpdateAssignmentInput {
     description: String
     id: String!
+    sandbox: Boolean!
     title: String
     xml: String
 }

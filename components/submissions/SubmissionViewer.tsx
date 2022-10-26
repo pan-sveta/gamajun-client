@@ -1,12 +1,12 @@
 import {Group, Loader, Paper, Text, Tabs} from '@mantine/core';
 import dynamic from "next/dynamic";
-import {SubmissionByIdQuery} from "../../client/generated/generated-types";
+import {SandboxSubmissionsByIdQuery, SubmissionByIdQuery} from "../../client/generated/generated-types";
 import {IconPhoto, IconSettings} from "@tabler/icons";
 import SubmissionDisplay from "./SubmissionDisplay";
 import ValidatorResults from "../validatorReport/ValidatorResults";
 
 interface SubmissionViewerProps {
-    submission: SubmissionByIdQuery['examSubmissionById']
+    submission: SubmissionByIdQuery['examSubmissionById'] | SandboxSubmissionsByIdQuery['sandboxSubmissionById']
 }
 
 const SubmissionViewer = ({submission}: SubmissionViewerProps) => {

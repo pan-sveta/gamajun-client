@@ -1,6 +1,8 @@
 import NextAuth, {NextAuthOptions} from "next-auth"
 import {btoa} from "buffer";
 import {isUserAdmin} from "../../../services/admin";
+import {JWT} from "next-auth/jwt";
+import {Awaitable} from "next-auth/core/types";
 
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
@@ -38,7 +40,7 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
 
-        async jwt({token, user, account}) {
+        async jwt({token, user, account}): Promise<JWT> {
             // Initial sign in
             if (account && user) {
                 const x: boolean = await isUserAdmin(user.username || "N/A", account.access_token || "N/A");
@@ -51,15 +53,15 @@ export const authOptions: NextAuthOptions = {
                 }
             }
 
-            if (Date.now() < token.accessTokenExpires) {
+            console.log(token.accessTokenExpires)
+            console.log(Date.now())
+            if (token.accessTokenExpires && Date.now() < token.accessTokenExpires) {
                 return token;
             }
 
             return refreshAccessToken(token)
         },
         async session({session, token}) {
-            // TODO: FIX?
-            // @ts-ignore
             session.user = token.user
             session.isAdmin = token.isAdmin
             session.accessToken = token.accessToken
@@ -75,7 +77,7 @@ export const authOptions: NextAuthOptions = {
 
 export default NextAuth(authOptions);
 
-async function refreshAccessToken(token: any) {
+async function refreshAccessToken(token: any): Promise<JWT> {
     try {
         console.log("REFRESHING")
 
@@ -99,7 +101,7 @@ async function refreshAccessToken(token: any) {
         return {
             ...token,
             accessToken: refreshedTokens.access_token,
-            accessTokenExpires: Date.now() + refreshedTokens.expires_at * 1000,
+            accessTokenExpires: Date.now() + refreshedTokens.expires_in * 1000,
             refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Fall back to old refresh token
         }
     } catch (error) {

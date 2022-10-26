@@ -1,0 +1,10 @@
+query MySandboxSubmissions($assignmentId:String!) {
+    mySandboxSubmissions(assignmentId: $assignmentId) {
+        id
+        startedAt
+        submittedAt
+        assignment {
+            title
+        }
+    }
+}

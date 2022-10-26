@@ -1,0 +1,5 @@
+mutation CreateSandboxSubmission($assignmentId: String!){
+    createSandboxSubmission(assignmentId: $assignmentId) {
+        id
+    }
+}

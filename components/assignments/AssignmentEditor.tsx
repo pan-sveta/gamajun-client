@@ -1,4 +1,4 @@
-import {Button, Grid, Group, Loader, Paper, Stack, Tabs, Text, TextInput} from "@mantine/core";
+import {Button, Grid, Group, Loader, Paper, Stack, Switch, Tabs, Text, TextInput} from "@mantine/core";
 import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings, IconX} from "@tabler/icons";
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
@@ -7,11 +7,12 @@ import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
 import {
     Assignment,
-    refetchAssignmentsQuery,
+    refetchAssignmentsQuery, refetchSandboxAssignmentsQuery,
     UpdateAssignmentInput,
     useUpdateAssignmentMutation
 } from "../../client/generated/generated-types";
 import DeleteAssignmentButton from "./DeleteAssignmentButton";
+import {bool} from "prop-types";
 
 // @ts-ignore
 const BpmnModeler = dynamic(() => {
@@ -29,7 +30,7 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
     const router = useRouter();
 
     const [updateAssignment, {loading, error}] = useUpdateAssignmentMutation({
-        refetchQueries: [refetchAssignmentsQuery()],
+        refetchQueries: [refetchAssignmentsQuery(), refetchSandboxAssignmentsQuery()],
     });
 
     const form = useForm<UpdateAssignmentInput>({
@@ -38,15 +39,18 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
             title: assignment.title,
             description: assignment.description,
             xml: assignment.xml,
+            sandbox: assignment.sandbox
         },
         validate: {
             title: (value: string) => (value.length < 5 ? 'Název musí být alespoň 5 znaků dlouhý' : null),
             description: (value: string) => (value.length < 20 ? 'Popis musí být alespoň 20 znaků dlouhý' : null),
             xml: (value: string) => (value == undefined ? 'Diagram nesmí být prázdný.' : null),
+            sandbox: (value: boolean) => (value == undefined ? 'Sandbox nastavení nesmí být prázdné.' : null),
         },
     });
 
     let submit = (input: UpdateAssignmentInput) => {
+        console.log(input)
         updateAssignment({
             variables: {
                 input: input
@@ -112,7 +116,14 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                             <div>{JSON.stringify(form.values.xml)}</div>
                         </Tabs.Panel>
                         <Tabs.Panel value="settings" pt="xs">
-                            <Text>TBA</Text>
+                            <Switch
+                                label="Sandbox zadání"
+                                description="Zadání bude dostupné v cvičné sekci"
+                                size="md"
+                                checked={form.values.sandbox}
+                                onChange={(event) => form.setFieldValue('sandbox', event.currentTarget.checked)}
+                            />
+                            <p>{JSON.stringify(form.values)}</p>
                         </Tabs.Panel>
                     </Paper>
                 </Tabs>

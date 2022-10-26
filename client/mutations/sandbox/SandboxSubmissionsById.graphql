@@ -1,0 +1,14 @@
+query SandboxSubmissionsById($id: String!){
+    sandboxSubmissionById(id: $id) {
+        id
+        startedAt
+        submittedAt
+        author
+        xml
+        assignment {
+            id
+            title
+            description
+        }
+    }
+}

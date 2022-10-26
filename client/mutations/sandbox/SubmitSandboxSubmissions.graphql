@@ -1,0 +1,5 @@
+mutation SubmitSandboxSubmission($input: SandboxSubmissionSubmitInput!) {
+    submitSandboxSubmission(input: $input){
+        id
+    }
+}

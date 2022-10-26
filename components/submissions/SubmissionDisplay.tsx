@@ -1,5 +1,5 @@
 import {Group, Loader, Paper, Text} from "@mantine/core";
-import {SubmissionByIdQuery} from "../../client/generated/generated-types";
+import {SandboxSubmissionsByIdQuery, SubmissionByIdQuery} from "../../client/generated/generated-types";
 
 import dynamic from "next/dynamic";
 const BpmnViewer = dynamic(() => {
@@ -10,7 +10,7 @@ const BpmnViewer = dynamic(() => {
 });
 
 interface SubmissionDisplayProps {
-    submission: SubmissionByIdQuery['examSubmissionById']
+    submission: SubmissionByIdQuery['examSubmissionById']| SandboxSubmissionsByIdQuery['sandboxSubmissionById']
 }
 
 const SubmissionDisplay = ({submission} : SubmissionDisplayProps) => {

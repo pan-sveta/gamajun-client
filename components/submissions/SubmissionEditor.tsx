@@ -5,11 +5,12 @@ import {IconCheck, IconX, IconZoomCheck} from "@tabler/icons";
 import dynamic from "next/dynamic";
 import {useRouter} from "next/router";
 import {
-    ExamSubmissionSubmitInput,
-    refetchMySubmissionsQuery, refetchOpenedExamsQuery,
+    ExamSubmissionSubmitInput, refetchMySandboxSubmissionsQuery,
+    refetchMySubmissionsQuery, refetchOpenedExamsQuery, SandboxSubmissionsByIdQuery,
     SubmissionByIdQuery,
-    useSubmitExamSubmissionMutation
+    useSubmitExamSubmissionMutation, useSubmitSandboxSubmissionMutation
 } from "../../client/generated/generated-types";
+import {is} from "@babel/types";
 
 const BpmnModeler = dynamic(() => {
     return import("../../components/bpmn/modeler/BpmnModeler");
@@ -19,7 +20,7 @@ const BpmnModeler = dynamic(() => {
 });
 
 interface SubmissionEditorProps {
-    submission: SubmissionByIdQuery['examSubmissionById']
+    submission: SubmissionByIdQuery['examSubmissionById'] | SandboxSubmissionsByIdQuery['sandboxSubmissionById']
 }
 
 const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
@@ -27,6 +28,10 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
 
     const [submitSubmission, {loading, error}] = useSubmitExamSubmissionMutation({
         refetchQueries: [refetchMySubmissionsQuery(), refetchOpenedExamsQuery()]
+    });
+
+    const [submitSandbox, {loading: loadingSandbox, error: errorSandbox}] = useSubmitSandboxSubmissionMutation({
+        refetchQueries: [refetchMySandboxSubmissionsQuery({assignmentId: submission?.assignment.id || "NA"})]
     });
 
     const formo = useForm<ExamSubmissionSubmitInput>({
@@ -39,15 +44,22 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
         },
     });
 
+    const submitByType = () => {
+        if(submission?.__typename === "ExamSubmission")
+            return submitSubmission;
+        else
+            return submitSandbox
+    }
+
     const submitExam = (values: ExamSubmissionSubmitInput) => {
-        submitSubmission({
+        submitByType()({
             variables: {
                 input: values
             }
         })
             .then(assignment => {
                 showNotification({
-                    title: "Zkouška byla úspěšně odevzdána",
+                    title: "Úspěšně odevzdáno",
                     message: `Vyčkejte na ohodnocení"`,
                     color: "green",
                     icon: <IconCheck/>,
@@ -68,7 +80,7 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
 
             <Group position={"apart"}>
                 <h1>{submission?.assignment?.title}</h1>
-                <Button leftIcon={<IconZoomCheck/>} color={"green"} type={"submit"}>Odevzdat</Button>
+                <Button leftIcon={<IconZoomCheck/>} color={"green"} type={"submit"} loading={loading || loadingSandbox}>Odevzdat</Button>
             </Group>
             <Paper shadow="xs" p="md" my={"md"} withBorder>
                 <div dangerouslySetInnerHTML={{__html: submission?.assignment?.description ?? "N/A"}}/>

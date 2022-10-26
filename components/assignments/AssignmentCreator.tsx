@@ -1,4 +1,4 @@
-import {Button, Grid, Group, Loader, Stack, Tabs, Text, TextInput} from "@mantine/core";
+import {Button, Grid, Group, Loader, Stack, Switch, Tabs, Text, TextInput} from "@mantine/core";
 import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings, IconX} from "@tabler/icons";
 import RichTextEditor from "../input/RichTextEditor";
 import dynamic from "next/dynamic";
@@ -31,6 +31,7 @@ const AssignmentCreator = () => {
             title: "",
             description: "",
             xml: "",
+            sandbox: false
         },
         validate: {
             title: (value: string) => (value.length < 5 ? 'Název musí být alespoň 5 znaků dlouhý' : null),
@@ -100,7 +101,12 @@ const AssignmentCreator = () => {
                         <div>{JSON.stringify(form.values.xml)}</div>
                     </Tabs.Panel>
                     <Tabs.Panel value="settings" pt="xs">
-                        <Text>TBA</Text>
+                        <Switch
+                            label="Sandbox zadání"
+                            description="Zadání bude dostupné v cvičné sekci"
+                            size="md"
+                            onChange={(event) => form.setFieldValue('sandbox', event.currentTarget.checked)}
+                        />
                     </Tabs.Panel>
                 </Tabs>
             </form>

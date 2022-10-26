@@ -12,6 +12,8 @@ import gamajunApolloClient from "../gamajunApolloClient";
 import 'dayjs/locale/cs';
 import {useRouter} from "next/router";
 
+
+// @ts-ignore
 function MyApp({Component, pageProps: {session, ...pageProps}}: AppProps) {
     //Mantine color scheme
     const [colorScheme, setColorScheme] = useState<ColorScheme>('light');

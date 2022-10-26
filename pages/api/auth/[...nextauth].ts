@@ -65,7 +65,7 @@ export const authOptions: NextAuthOptions = {
             session.user = token.user
             session.isAdmin = token.isAdmin
             session.accessToken = token.accessToken
-            session.error = token.error
+            //session.error = token.error
 
             return session
         },

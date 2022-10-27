@@ -1,8 +1,8 @@
 import {NextPage} from "next";
-import AssignmentEditor from "../../components/assignments/AssignmentEditor";
-import {useAssignmentByIdQuery} from "../../client/generated/generated-types";
+import AssignmentEditor from "../../../components/assignments/AssignmentEditor";
+import {useAssignmentByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
-import GamajunLoader from "../../components/common/GamajunLoader";
+import GamajunLoader from "../../../components/common/GamajunLoader";
 
 const AllAssignments: NextPage = () => {
     const router = useRouter();

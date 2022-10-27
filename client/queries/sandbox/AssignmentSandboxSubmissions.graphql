@@ -1,0 +1,8 @@
+query AssignmentSandboxSubmissions($assignmentId:String!) {
+    sandboxSubmissionsByAssignment(assignmentId: $assignmentId) {
+        id
+        startedAt
+        submittedAt
+        author
+    }
+}

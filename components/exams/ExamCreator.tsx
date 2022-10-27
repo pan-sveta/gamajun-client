@@ -82,7 +82,6 @@ const ExamCreator = () => {
                            onChange={(date) => formo.setFieldValue('accessibleTo', date.toISOString())}/>
                 <ExamAssignmentPicker value={formo.values?.assignmentIds}
                                       onChange={(data) => formo.setFieldValue("assignmentIds", data)}/>
-                <p>{JSON.stringify(formo.values)}</p>
             </form>
         </Stack>
     );

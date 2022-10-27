@@ -1,30 +1,45 @@
-import {ActionIcon, Paper, Skeleton, Table} from "@mantine/core";
+import {ActionIcon, Group, Paper, Skeleton, Table, useMantineTheme} from "@mantine/core";
 import {useAssignmentsQuery} from "../../client/generated/generated-types";
 import Link from "next/link";
 import GamajunLoader from "../common/GamajunLoader";
 import {ReactNode} from "react";
-import {IconEdit} from "@tabler/icons";
+import {IconBeach, IconEdit} from "@tabler/icons";
+import {useTheme} from "@emotion/react";
 
 const AssignmentsTable = () => {
     const {data, error, loading} = useAssignmentsQuery();
+    const theme = useMantineTheme();
 
     const rows = (): ReactNode => {
         if (!data?.assignments)
             return <GamajunLoader/>
 
         return data?.assignments.map((assignment) => (
-                <tr key={assignment?.id}>
-                    <td>{assignment?.id}</td>
-                    <td>{assignment?.title}</td>
-                    <td>{assignment?.author}</td>
-                    <td>
+            <tr key={assignment?.id}>
+                <td>
+                    {assignment?.title}
+                    {assignment.sandbox &&
+                    <IconBeach style={{position: "absolute"}} color={theme.colors.yellow[4]}/>}</td>
+                <td>{assignment?.id}</td>
+                <td>{assignment?.author}</td>
+                <td>
+                    <Group spacing={"xs"}>
                         <Link href={`/assignments/${assignment?.id}`}>
                             <ActionIcon color="orange" variant="outline">
                                 <IconEdit size={18}/>
                             </ActionIcon>
                         </Link>
-                    </td>
-                </tr>
+                        {
+                            assignment.sandbox &&
+                            <Link href={`/assignments/${assignment?.id}/sandbox`}>
+                                <ActionIcon color={"yellow"} variant="outline">
+                                    <IconBeach size={18}/>
+                                </ActionIcon>
+                            </Link>
+                        }
+                    </Group>
+                </td>
+            </tr>
 
         ));
     }
@@ -35,8 +50,8 @@ const AssignmentsTable = () => {
                 <Table fontSize={"md"} striped>
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Popis</th>
+                        <th>Id</th>
                         <th>Autor</th>
                         <th>Akce</th>
                     </tr>

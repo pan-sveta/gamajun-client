@@ -123,7 +123,6 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                                 checked={form.values.sandbox}
                                 onChange={(event) => form.setFieldValue('sandbox', event.currentTarget.checked)}
                             />
-                            <p>{JSON.stringify(form.values)}</p>
                         </Tabs.Panel>
                     </Paper>
                 </Tabs>

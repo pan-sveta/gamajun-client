@@ -437,6 +437,13 @@ export type OpenedExamsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type OpenedExamsQuery = { __typename?: 'Query', openedExams: Array<{ __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string }> };
 
+export type AssignmentSandboxSubmissionsQueryVariables = Exact<{
+  assignmentId: Scalars['String'];
+}>;
+
+
+export type AssignmentSandboxSubmissionsQuery = { __typename?: 'Query', sandboxSubmissionsByAssignment: Array<{ __typename?: 'SandboxSubmission', id: string, startedAt: string, submittedAt?: string | null, author: string }> };
+
 export type MySandboxSubmissionsQueryVariables = Exact<{
   assignmentId: Scalars['String'];
 }>;
@@ -1140,6 +1147,47 @@ export type OpenedExamsLazyQueryHookResult = ReturnType<typeof useOpenedExamsLaz
 export type OpenedExamsQueryResult = Apollo.QueryResult<OpenedExamsQuery, OpenedExamsQueryVariables>;
 export function refetchOpenedExamsQuery(variables?: OpenedExamsQueryVariables) {
       return { query: OpenedExamsDocument, variables: variables }
+    }
+export const AssignmentSandboxSubmissionsDocument = gql`
+    query AssignmentSandboxSubmissions($assignmentId: String!) {
+  sandboxSubmissionsByAssignment(assignmentId: $assignmentId) {
+    id
+    startedAt
+    submittedAt
+    author
+  }
+}
+    `;
+
+/**
+ * __useAssignmentSandboxSubmissionsQuery__
+ *
+ * To run a query within a React component, call `useAssignmentSandboxSubmissionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAssignmentSandboxSubmissionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAssignmentSandboxSubmissionsQuery({
+ *   variables: {
+ *      assignmentId: // value for 'assignmentId'
+ *   },
+ * });
+ */
+export function useAssignmentSandboxSubmissionsQuery(baseOptions: Apollo.QueryHookOptions<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>(AssignmentSandboxSubmissionsDocument, options);
+      }
+export function useAssignmentSandboxSubmissionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>(AssignmentSandboxSubmissionsDocument, options);
+        }
+export type AssignmentSandboxSubmissionsQueryHookResult = ReturnType<typeof useAssignmentSandboxSubmissionsQuery>;
+export type AssignmentSandboxSubmissionsLazyQueryHookResult = ReturnType<typeof useAssignmentSandboxSubmissionsLazyQuery>;
+export type AssignmentSandboxSubmissionsQueryResult = Apollo.QueryResult<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>;
+export function refetchAssignmentSandboxSubmissionsQuery(variables: AssignmentSandboxSubmissionsQueryVariables) {
+      return { query: AssignmentSandboxSubmissionsDocument, variables: variables }
     }
 export const MySandboxSubmissionsDocument = gql`
     query MySandboxSubmissions($assignmentId: String!) {

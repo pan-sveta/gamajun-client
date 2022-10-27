@@ -1,8 +1,6 @@
-import {Alert, Grid, Notification, Stack, Title, Paper} from "@mantine/core";
+import {Grid, Paper, Stack, Title} from "@mantine/core";
 import {useValidatorReportByExamSubmissionIdQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../common/GamajunLoader";
-import {ReactNode} from "react";
-import {IconCheck, IconCross, IconX} from "@tabler/icons";
 import ValidatorRuleResultCard from "./ValidatorRuleResultCard";
 
 interface ValidatorResultsProps {

@@ -1,14 +1,9 @@
 import React from 'react';
 import {NextPage} from "next";
 import {useRouter} from "next/router";
-import {
-    useAssignmentByIdQuery,
-    useAssignmentSandboxSubmissionsQuery,
-    useSandboxAssignmentsQuery
-} from "../../../client/generated/generated-types";
-import GamajunLoader from "../../../components/common/GamajunLoader";
+import {useAssignmentByIdQuery, useAssignmentSandboxSubmissionsQuery} from "../../../client/generated/generated-types";
 import {Paper, Skeleton, Table, Title, useMantineTheme} from "@mantine/core";
-import {IconBeach, IconCheck, IconCross, IconEdit} from "@tabler/icons";
+import {IconCheck, IconEdit} from "@tabler/icons";
 
 const Sandbox: NextPage = () => {
     const theme = useMantineTheme();

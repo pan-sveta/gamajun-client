@@ -2,6 +2,7 @@ import {Group, Loader, Paper, Text} from "@mantine/core";
 import {SandboxSubmissionsByIdQuery, SubmissionByIdQuery} from "../../client/generated/generated-types";
 
 import dynamic from "next/dynamic";
+
 const BpmnViewer = dynamic(() => {
     return import("../../components/bpmn/modeler/BpmnViewer");
 }, {

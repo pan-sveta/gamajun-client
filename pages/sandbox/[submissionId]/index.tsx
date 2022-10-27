@@ -1,11 +1,7 @@
 import {NextPage} from "next";
 import SubmissionEditor from "../../../components/submissions/SubmissionEditor";
 import SubmissionViewer from "../../../components/submissions/SubmissionViewer";
-import {
-    SandboxSubmissionsByIdQuery,
-    useSandboxSubmissionsByIdQuery,
-    useSubmissionByIdQuery
-} from "../../../client/generated/generated-types";
+import {useSandboxSubmissionsByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
 import GamajunLoader from "../../../components/common/GamajunLoader";
 

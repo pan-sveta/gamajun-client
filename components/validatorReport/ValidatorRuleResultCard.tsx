@@ -1,6 +1,6 @@
-import {createStyles, Group, Box, Text, ThemeIcon} from "@mantine/core";
+import {Box, createStyles, Group, Text, ThemeIcon} from "@mantine/core";
 import {IconCheck, IconX} from "@tabler/icons";
-import {ValidatorReportByExamSubmissionIdQuery, ValidatorRuleResult} from "../../client/generated/generated-types";
+import {ValidatorRuleResult} from "../../client/generated/generated-types";
 
 const useStyles = createStyles((theme) => ({
     box: {

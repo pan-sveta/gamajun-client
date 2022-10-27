@@ -1,8 +1,5 @@
 import {NextPage} from "next";
-import Link from "next/link";
-import {Button, Group, Stack, Title} from "@mantine/core";
-import {IconPlus} from "@tabler/icons";
-import ExamsTable from "../../components/exams/ExamsTable";
+import {Stack} from "@mantine/core";
 import {useSandboxAssignmentsQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../../components/common/GamajunLoader";
 import SandboxCard from "../../components/sandbox/SandboxCard";

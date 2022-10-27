@@ -4,7 +4,6 @@ import Link from "next/link";
 import GamajunLoader from "../common/GamajunLoader";
 import {ReactNode} from "react";
 import {IconBeach, IconEdit} from "@tabler/icons";
-import {useTheme} from "@emotion/react";
 
 const AssignmentsTable = () => {
     const {data, error, loading} = useAssignmentsQuery();

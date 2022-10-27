@@ -5,12 +5,15 @@ import {IconCheck, IconX, IconZoomCheck} from "@tabler/icons";
 import dynamic from "next/dynamic";
 import {useRouter} from "next/router";
 import {
-    ExamSubmissionSubmitInput, refetchMySandboxSubmissionsQuery,
-    refetchMySubmissionsQuery, refetchOpenedExamsQuery, SandboxSubmissionsByIdQuery,
+    ExamSubmissionSubmitInput,
+    refetchMySandboxSubmissionsQuery,
+    refetchMySubmissionsQuery,
+    refetchOpenedExamsQuery,
+    SandboxSubmissionsByIdQuery,
     SubmissionByIdQuery,
-    useSubmitExamSubmissionMutation, useSubmitSandboxSubmissionMutation
+    useSubmitExamSubmissionMutation,
+    useSubmitSandboxSubmissionMutation
 } from "../../client/generated/generated-types";
-import {is} from "@babel/types";
 
 const BpmnModeler = dynamic(() => {
     return import("../../components/bpmn/modeler/BpmnModeler");

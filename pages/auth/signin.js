@@ -1,5 +1,5 @@
 import {getProviders, signIn} from "next-auth/react"
-import {Button, Stack, Paper, Title} from "@mantine/core";
+import {Button, Paper, Stack, Title} from "@mantine/core";
 import {IconSchool} from "@tabler/icons";
 import Image from "next/image";
 import React from "react";

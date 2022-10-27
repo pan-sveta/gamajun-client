@@ -1,5 +1,4 @@
-import {Group, Loader, Paper, Text, Tabs} from '@mantine/core';
-import dynamic from "next/dynamic";
+import {Tabs} from '@mantine/core';
 import {SandboxSubmissionsByIdQuery, SubmissionByIdQuery} from "../../client/generated/generated-types";
 import {IconPhoto, IconSettings} from "@tabler/icons";
 import SubmissionDisplay from "./SubmissionDisplay";

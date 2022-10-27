@@ -7,12 +7,12 @@ import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
 import {
     Assignment,
-    refetchAssignmentsQuery, refetchSandboxAssignmentsQuery,
+    refetchAssignmentsQuery,
+    refetchSandboxAssignmentsQuery,
     UpdateAssignmentInput,
     useUpdateAssignmentMutation
 } from "../../client/generated/generated-types";
 import DeleteAssignmentButton from "./DeleteAssignmentButton";
-import {bool} from "prop-types";
 
 // @ts-ignore
 const BpmnModeler = dynamic(() => {

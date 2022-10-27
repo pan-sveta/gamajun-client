@@ -1,7 +1,8 @@
 import {
-    Assignment, refetchMySandboxSubmissionsQuery,
+    refetchMySandboxSubmissionsQuery,
     SandboxAssignmentsQuery,
-    useCreateSandboxSubmissionMutation, useMySandboxSubmissionsQuery,
+    useCreateSandboxSubmissionMutation,
+    useMySandboxSubmissionsQuery,
 } from "../../client/generated/generated-types";
 import {
     ActionIcon,
@@ -10,21 +11,12 @@ import {
     Collapse,
     createStyles,
     Group,
-    Menu,
     Stack,
-    Text, Title,
+    Text,
+    Title,
     useMantineTheme
 } from "@mantine/core";
-import {
-    IconAlertTriangle,
-    IconBeach, IconCertificate, IconEdit, IconEye, IconHourglass,
-    IconReport, IconRotateClockwise, IconRotateClockwise2,
-    IconRuler,
-    IconRuler2,
-    IconSettings,
-    IconTrack,
-    IconX
-} from "@tabler/icons";
+import {IconBeach, IconCertificate, IconEdit, IconRotateClockwise2, IconRuler2, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import {useState} from "react";

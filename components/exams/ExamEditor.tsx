@@ -1,4 +1,4 @@
-import {Button, Grid, Group, Paper, Stack, Text, TextInput} from "@mantine/core";
+import {Button, Grid, Group, NumberInput, Paper, Stack, Text, TextInput} from "@mantine/core";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import {useForm} from "@mantine/form";
 import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
@@ -33,9 +33,12 @@ const ExamEditor = ({exam}: ExamEditorProps) => {
             accessibleFrom: exam?.accessibleFrom,
             accessibleTo: exam?.accessibleTo,
             assignmentIds: exam?.assignments.map(ass => ass.id),
+            timeLimit: exam?.timeLimit,
         },
 
-        validate: {},
+        validate: {
+            timeLimit: (value) => (value < 1 && value > 1440 ? 'Časový limit musí být v rozsahu 1 až 1440' : null),
+        },
     });
 
     let submit = (input: UpdateExamInput) => {
@@ -93,6 +96,10 @@ const ExamEditor = ({exam}: ExamEditorProps) => {
                                     locale="cs"/>
                         <TimeInput value={new Date(formo.values?.accessibleTo)}
                                    onChange={(date) => formo.setFieldValue('accessibleTo', date.toISOString())}/>
+                        <NumberInput
+                            {...formo.getInputProps('timeLimit')}
+                            label={"Časový limit"}
+                            description="V minutách od 0 do 1440"/>
                         <ExamAssignmentPicker value={formo.values?.assignmentIds}
                                               onChange={(data) => formo.setFieldValue("assignmentIds", data)}/>
                     </Stack>

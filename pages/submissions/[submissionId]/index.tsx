@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import SubmissionEditor from "../../../components/submissions/SubmissionEditor";
+import ExamSubmissionEditor from "../../../components/submissions/ExamSubmissionEditor";
 import SubmissionViewer from "../../../components/submissions/SubmissionViewer";
 import {useSubmissionByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
@@ -24,7 +24,7 @@ const AllExams: NextPage = () => {
 
 
     if (data.examSubmissionById.examSubmissionState === "Draft")
-        return <SubmissionEditor submission={data.examSubmissionById}/>
+        return <ExamSubmissionEditor submission={data.examSubmissionById}/>
     else
         return <SubmissionViewer submission={data.examSubmissionById}/>
 }

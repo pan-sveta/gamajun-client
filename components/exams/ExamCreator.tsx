@@ -1,4 +1,4 @@
-import {Button, Grid, Group, Stack, Text, TextInput,} from "@mantine/core";
+import {Button, Grid, Group, NumberInput, Paper, Stack, Text, TextInput,} from "@mantine/core";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import {useForm} from "@mantine/form";
 import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
@@ -26,6 +26,7 @@ const ExamCreator = () => {
             title: "",
             accessibleFrom: new Date().toISOString(),
             accessibleTo: new Date().toISOString(),
+            timeLimit: 30,
             assignmentIds: []
         },
         validate: {},
@@ -65,23 +66,32 @@ const ExamCreator = () => {
                     </Grid.Col>
                     <Grid.Col span={6}>
                         <Group position={"right"}>
-                            <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green" loading={loading}>Vytvořit</Button>
+                            <Button type={"submit"} leftIcon={<IconDeviceFloppy/>} color="green"
+                                    loading={loading}>Vytvořit</Button>
                         </Group>
                     </Grid.Col>
                 </Grid>
-                <TextInput label={"Název"} {...formo.getInputProps('title')}/>
-                <DatePicker label={"Platné od"} value={new Date(formo.values?.accessibleFrom)}
-                            onChange={(date) => date ? formo.setFieldValue('accessibleFrom', date.toISOString()) : null}
-                            locale="cs"/>
-                <TimeInput value={new Date(formo.values?.accessibleFrom)}
-                           onChange={(date) => formo.setFieldValue('accessibleFrom', date.toISOString())}/>
-                <DatePicker label={"Platné do"} value={new Date(formo.values?.accessibleTo)}
-                            onChange={(date) => date ? formo.setFieldValue('accessibleTo', date.toISOString()) : null}
-                            locale="cs"/>
-                <TimeInput value={new Date(formo.values?.accessibleTo)}
-                           onChange={(date) => formo.setFieldValue('accessibleTo', date.toISOString())}/>
-                <ExamAssignmentPicker value={formo.values?.assignmentIds}
-                                      onChange={(data) => formo.setFieldValue("assignmentIds", data)}/>
+                <Paper shadow="xs" p="md" my={"md"} withBorder>
+                    <Stack>
+                        <TextInput label={"Název"} {...formo.getInputProps('title')}/>
+                        <DatePicker label={"Platné od"} value={new Date(formo.values?.accessibleFrom)}
+                                    onChange={(date) => date ? formo.setFieldValue('accessibleFrom', date.toISOString()) : null}
+                                    locale="cs"/>
+                        <TimeInput value={new Date(formo.values?.accessibleFrom)}
+                                   onChange={(date) => formo.setFieldValue('accessibleFrom', date.toISOString())}/>
+                        <DatePicker label={"Platné do"} value={new Date(formo.values?.accessibleTo)}
+                                    onChange={(date) => date ? formo.setFieldValue('accessibleTo', date.toISOString()) : null}
+                                    locale="cs"/>
+                        <TimeInput value={new Date(formo.values?.accessibleTo)}
+                                   onChange={(date) => formo.setFieldValue('accessibleTo', date.toISOString())}/>
+                        <NumberInput
+                            {...formo.getInputProps('timeLimit')}
+                            label={"Časový limit"}
+                            description="V minutách od 0 do 1440"/>
+                        <ExamAssignmentPicker value={formo.values?.assignmentIds}
+                                              onChange={(data) => formo.setFieldValue("assignmentIds", data)}/>
+                    </Stack>
+                </Paper>
             </form>
         </Stack>
     );

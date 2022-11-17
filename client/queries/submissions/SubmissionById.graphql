@@ -9,6 +9,7 @@ query SubmissionById($id: String!){
         exam {
             id
             title
+            timeLimit
         },
         assignment {
             id

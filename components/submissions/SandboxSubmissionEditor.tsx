@@ -7,11 +7,7 @@ import {useRouter} from "next/router";
 import {
     ExamSubmissionSubmitInput,
     refetchMySandboxSubmissionsQuery,
-    refetchMySubmissionsQuery,
-    refetchOpenedExamsQuery,
     SandboxSubmissionsByIdQuery,
-    SubmissionByIdQuery,
-    useSubmitExamSubmissionMutation,
     useSubmitSandboxSubmissionMutation
 } from "../../client/generated/generated-types";
 
@@ -22,18 +18,14 @@ const BpmnModeler = dynamic(() => {
     ssr: false
 });
 
-interface SubmissionEditorProps {
-    submission: SubmissionByIdQuery['examSubmissionById'] | SandboxSubmissionsByIdQuery['sandboxSubmissionById']
+interface SandboxSubmissionEditorProps {
+    submission: SandboxSubmissionsByIdQuery['sandboxSubmissionById']
 }
 
-const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
+const SandboxSubmissionEditor = ({submission}: SandboxSubmissionEditorProps) => {
     const router = useRouter();
 
-    const [submitSubmission, {loading, error}] = useSubmitExamSubmissionMutation({
-        refetchQueries: [refetchMySubmissionsQuery(), refetchOpenedExamsQuery()]
-    });
-
-    const [submitSandbox, {loading: loadingSandbox, error: errorSandbox}] = useSubmitSandboxSubmissionMutation({
+    const [submitSandbox, {loading, error}] = useSubmitSandboxSubmissionMutation({
         refetchQueries: [refetchMySandboxSubmissionsQuery({assignmentId: submission?.assignment.id || "NA"})]
     });
 
@@ -47,15 +39,9 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
         },
     });
 
-    const submitByType = () => {
-        if(submission?.__typename === "ExamSubmission")
-            return submitSubmission;
-        else
-            return submitSandbox
-    }
 
     const submitExam = (values: ExamSubmissionSubmitInput) => {
-        submitByType()({
+        submitSandbox({
             variables: {
                 input: values
             }
@@ -80,10 +66,9 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
 
     return (
         <form onSubmit={formo.onSubmit((values) => submitExam(values))}>
-
             <Group position={"apart"}>
                 <h1>{submission?.assignment?.title}</h1>
-                <Button leftIcon={<IconZoomCheck/>} color={"green"} type={"submit"} loading={loading || loadingSandbox}>Odevzdat</Button>
+                <Button leftIcon={<IconZoomCheck/>} color={"green"} type={"submit"} loading={loading}>Odevzdat</Button>
             </Group>
             <Paper shadow="xs" p="md" my={"md"} withBorder>
                 <div dangerouslySetInnerHTML={{__html: submission?.assignment?.description ?? "N/A"}}/>
@@ -95,4 +80,4 @@ const SubmissionEditor = ({submission}: SubmissionEditorProps) => {
     );
 }
 
-export default SubmissionEditor
+export default SandboxSubmissionEditor

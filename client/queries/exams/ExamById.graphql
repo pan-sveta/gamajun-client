@@ -4,6 +4,7 @@ query ExamById($id: String!){
         title
         accessibleFrom
         accessibleTo
+        timeLimit
         author
         assignments {
             id

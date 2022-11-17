@@ -1,6 +1,6 @@
 import {Button, Grid, Group, Loader, Paper, Stack, Switch, Tabs, Text, TextInput} from "@mantine/core";
 import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings, IconX} from "@tabler/icons";
-import RichTextEditor from "../input/RichTextEditor";
+import GamajunRichTextEditor from "../input/GamajunRichTextEditor";
 import dynamic from "next/dynamic";
 import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
@@ -107,7 +107,8 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                                 <TextInput label={"Název"}
                                            placeholder="Stavba mostu" {...form.getInputProps('title')} />
                                 <Text>Popis</Text>
-                                <RichTextEditor title={"Hello"} {...form.getInputProps('description')} />
+                                <GamajunRichTextEditor content={form.values.description}
+                                                       onContentChange={(newContent) => form.setFieldValue('description', newContent)}/>
                             </Stack>
                         </Tabs.Panel>
                         <Tabs.Panel value="diagram" pt="xs">
@@ -126,7 +127,6 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                         </Tabs.Panel>
                     </Paper>
                 </Tabs>
-
             </form>
         </div>);
 }

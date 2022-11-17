@@ -1,9 +1,9 @@
 import {NextPage} from "next";
-import SubmissionEditor from "../../../components/submissions/SubmissionEditor";
 import SubmissionViewer from "../../../components/submissions/SubmissionViewer";
 import {useSandboxSubmissionsByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
 import GamajunLoader from "../../../components/common/GamajunLoader";
+import SandboxSubmissionEditor from "../../../components/submissions/SandboxSubmissionEditor";
 
 const SandboxAttempt: NextPage = () => {
     const router = useRouter();
@@ -23,7 +23,7 @@ const SandboxAttempt: NextPage = () => {
 
 
     if (data.sandboxSubmissionById.xml === null)
-        return <SubmissionEditor submission={data.sandboxSubmissionById}/>
+        return <SandboxSubmissionEditor submission={data.sandboxSubmissionById}/>
     else
         return <SubmissionViewer submission={data.sandboxSubmissionById}/>
 }

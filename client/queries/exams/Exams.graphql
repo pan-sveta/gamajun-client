@@ -4,6 +4,7 @@ query Exams{
         title
         accessibleFrom
         accessibleTo
+        timeLimit
         author
     }
 }

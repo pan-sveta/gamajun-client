@@ -4,5 +4,6 @@ query OpenedExams{
         title
         accessibleFrom
         accessibleTo
+        timeLimit
     }
 }

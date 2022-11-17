@@ -47,7 +47,7 @@ const Sandbox: NextPage = () => {
             {
                 loading ? <Skeleton height={600} my={"md"}/> :
                     <Paper shadow="xs" p="md" my={"md"} withBorder>
-                        <Title order={2} size={"h2"} mb={"md"}>Vyzkoušelo ({data?.sandboxSubmissionsByAssignment.length} lidí)</Title>
+                        <Title order={2} size={"h2"} mb={"md"}>Vyzkoušelo ({data?.sandboxSubmissionsByAssignment.length} pokusů)</Title>
 
                         <Table striped highlightOnHover withBorder>
                             <thead>

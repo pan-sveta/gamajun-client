@@ -1,9 +1,10 @@
 import React from 'react';
-import {IconBeach, IconCertificate, IconHome, IconSettings, IconTemplate} from '@tabler/icons';
+import {IconBeach, IconCertificate, IconHome, IconSchool, IconSettings, IconTemplate} from "@tabler/icons";
 import {Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import Link from "next/link";
 import {useSession} from "next-auth/react";
 import GamajunLoader from "../common/GamajunLoader";
+import {JSXElement} from "@babel/types";
 
 interface MainLinkProps {
     icon: React.ReactNode;
@@ -29,7 +30,7 @@ export default function MainLink({icon, color, label, uri}: MainLinkProps) {
                     },
                 })}>
                 <Group>
-                    <ThemeIcon color={color} variant="light">
+                    <ThemeIcon color={color} variant="filled">
                         {icon}
                     </ThemeIcon>
 
@@ -41,12 +42,45 @@ export default function MainLink({icon, color, label, uri}: MainLinkProps) {
 }
 
 const data = [
-    {icon: <IconHome size={16}/>, color: 'lime', label: 'Domů', uri: '/', adminOnly: false},
-    {icon: <IconTemplate size={16}/>, color: 'blue', label: 'Správce zadání', uri: '/assignments', adminOnly: true},
-    {icon: <IconCertificate size={16}/>, color: 'teal', label: 'Správce zkoušek', uri: '/exams', adminOnly: true},
-    {icon: <IconCertificate size={16}/>, color: 'red', label: 'Zkoušky', uri: '/exams/my', adminOnly: false},
-    {icon: <IconSettings size={16}/>, color: 'violet', label: 'Nastavení', uri: '/settings', adminOnly: false},
-    {icon: <IconBeach size={16}/>, color: 'yellow', label: 'Sandbox', uri: '/sandbox', adminOnly: false}
+    {
+        icon: <IconHome size={16}/>,
+        color: 'lime', label: 'Domů', uri: '/', requiredRole: null
+    },
+    {
+        icon: <IconTemplate size={16}/>,
+        color: 'blue',
+        label: 'Správce zadání',
+        uri: '/assignments',
+        requiredRole: "GAMAJUN_TEACHER"
+    },
+    {
+        icon: <IconCertificate size={16}/>,
+        color: 'teal',
+        label: 'Správce zkoušek',
+        uri: '/exams',
+        requiredRole: "GAMAJUN_TEACHER"
+    },
+    {
+        icon: <IconSchool size={16}/>,
+        color: 'pink',
+        label: 'Třídy',
+        uri: '/classrooms',
+        requiredRole: "GAMAJUN_TEACHER"
+    },
+    {
+        icon: <IconCertificate size={16}/>,
+        color: 'red',
+        label: 'Zkoušky',
+        uri: '/exams/my',
+        requiredRole: "GAMAJUN_STUDENT"
+    },
+    {
+        icon: <IconBeach size={16}/>,
+        color: 'yellow',
+        label: 'Sandbox',
+        uri: '/sandbox',
+        requiredRole: "GAMAJUN_STUDENT"
+    }
 ];
 
 export function MainLinks() {
@@ -55,12 +89,17 @@ export function MainLinks() {
     if (!session)
         return <GamajunLoader/>
 
-    let links;
+    let links: Array<JSX.Element> = [];
 
-    if (session?.isAdmin)
-        links = data.map((link) => <MainLink {...link} key={link.label}/>);
-    else
-        links = data.filter(nav => !nav.adminOnly).map((link) => <MainLink {...link} key={link.label}/>);
+    data.forEach(link => {
+        if (link.requiredRole == null)
+            links.push(<MainLink {...link} key={link.label}/>);
+        else { // @ts-ignore
+            if (session?.user.roles.includes(link.requiredRole))
+                links.push(<MainLink {...link} key={link.label}/>);
+        }
+
+    })
 
     return <div>{links}</div>;
 }

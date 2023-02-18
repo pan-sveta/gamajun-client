@@ -1,0 +1,10 @@
+query Classrooms{
+    classrooms {
+        id
+        name
+        inviteCode
+        users {
+            username
+        }
+    }
+}

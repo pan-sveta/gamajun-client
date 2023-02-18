@@ -1,4 +1,4 @@
-schema: https://gamajun-api.stepanek.app/graphql
+schema: http://127.0.0.1:8080/graphql
 documents: './client/**/*.graphql'
 generates:
   ./client/generated/generated-types.ts:

@@ -20,6 +20,13 @@ type Assignment {
     xml: String!
 }
 
+type Classroom {
+    id: String!
+    inviteCode: String!
+    name: String!
+    users: [User!]!
+}
+
 """
 
 ######
@@ -55,12 +62,14 @@ type ExamSubmission {
 }
 
 type Mutation {
+    addUser(classroomId: String!, username: String!): Classroom!
     "Begin exam"
     beginExam(id: String!): ExamSubmission!
     "Checkpoint exam submission"
     checkpointExamSubmission(input: ExamSubmissionCheckpointInput!): ExamSubmission!
     "Create assignment"
     createAssignment(input: CreateAssignmentInput!): Assignment!
+    createClassroom(input: CreateClassroomInput!): Classroom!
     "Create exam"
     createExam(input: CreateExamInput!): Exam!
     "Create sandbox submission"
@@ -73,6 +82,8 @@ type Mutation {
     deleteExamSubmission(id: String!): Boolean
     "Delete sandbox submission"
     deleteSandboxSubmission(id: String!): Boolean!
+    removeUser(classroomId: String!, username: String!): Classroom!
+    signUp(input: SignUpInput!): User!
     "Submit exam submission"
     submitExamSubmission(input: ExamSubmissionSubmitInput!): ExamSubmission!
     "Submit sandbox submission"
@@ -86,6 +97,8 @@ type Mutation {
 type Query {
     assignmentById(id: String!): Assignment
     assignments: [Assignment!]!
+    classroomById(id: String!): Classroom!
+    classrooms: [Classroom!]!
     examById(id: String!): Exam!
     examSubmissionById(id: String!): ExamSubmission
     examSubmissions: [ExamSubmission!]!
@@ -94,12 +107,19 @@ type Query {
     myExamSubmissions: [ExamSubmission!]!
     mySandboxSubmissions(assignmentId: String!): [SandboxSubmission!]!
     openedExams: [Exam!]!
+    roles: [Role!]!
     sandboxAssignments: [Assignment!]!
     sandboxSubmissionById(id: String!): SandboxSubmission
     sandboxSubmissions: [SandboxSubmission!]!
     sandboxSubmissionsByAssignment(assignmentId: String!): [SandboxSubmission!]!
+    users: [User!]!
+    validateInviteCode(code: String!): Boolean!
     validatorReportByExamSubmissionId(id: String!): ValidatorReport
     validatorReports: [ValidatorReport!]!
+}
+
+type Role {
+    name: String!
 }
 
 """
@@ -116,6 +136,14 @@ type SandboxSubmission {
     submittedAt: String
     validatorReport: ValidatorReport
     xml: String
+}
+
+type User {
+    email: String!
+    name: String!
+    roles: [Role!]!
+    surname: String!
+    username: String!
 }
 
 type ValidatorReport {
@@ -160,6 +188,11 @@ input CreateAssignmentInput {
     xml: String!
 }
 
+input CreateClassroomInput {
+    inviteCode: String!
+    name: String!
+}
+
 input CreateExamInput {
     accessibleFrom: String!
     accessibleTo: String!
@@ -191,6 +224,15 @@ input ExamSubmissionSubmitInput {
 input SandboxSubmissionSubmitInput {
     id: ID
     xml: String
+}
+
+input SignUpInput {
+    email: String!
+    inviteCode: String!
+    name: String!
+    password: String!
+    surname: String!
+    username: String!
 }
 
 input UpdateAssignmentInput {

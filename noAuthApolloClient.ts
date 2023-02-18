@@ -6,20 +6,8 @@ const httpLink = createHttpLink({
     uri: 'http://127.0.0.1:8080/graphql',
 });
 
-const authLink = setContext(async (_, { headers }) => {
-    const session = await getSession();
-    const token = session?.accessToken;
-
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : "",
-        }
-    }
-});
-
 export const gamajunApolloClient = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: httpLink,
     cache: new InMemoryCache(),
 });
 

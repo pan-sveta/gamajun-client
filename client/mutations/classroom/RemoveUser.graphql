@@ -1,0 +1,5 @@
+mutation RemoveUser($username: String!, $classroomId: String!){
+    removeUser(username: $username, classroomId: $classroomId){
+        id
+    }
+}

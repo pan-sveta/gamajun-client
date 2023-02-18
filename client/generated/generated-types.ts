@@ -1,6 +1,5 @@
+import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-import {gql} from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -40,11 +39,24 @@ export type AssignmentInput = {
   xml: Scalars['String'];
 };
 
+export type Classroom = {
+  __typename?: 'Classroom';
+  id: Scalars['String'];
+  inviteCode: Scalars['String'];
+  name: Scalars['String'];
+  users: Array<User>;
+};
+
 export type CreateAssignmentInput = {
   description: Scalars['String'];
   sandbox: Scalars['Boolean'];
   title: Scalars['String'];
   xml: Scalars['String'];
+};
+
+export type CreateClassroomInput = {
+  inviteCode: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type CreateExamInput = {
@@ -117,12 +129,14 @@ export type ExamSubmissionSubmitInput = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  addUser: Classroom;
   /** Begin exam */
   beginExam: ExamSubmission;
   /** Checkpoint exam submission */
   checkpointExamSubmission: ExamSubmission;
   /** Create assignment */
   createAssignment: Assignment;
+  createClassroom: Classroom;
   /** Create exam */
   createExam: Exam;
   /** Create sandbox submission */
@@ -135,6 +149,8 @@ export type Mutation = {
   deleteExamSubmission?: Maybe<Scalars['Boolean']>;
   /** Delete sandbox submission */
   deleteSandboxSubmission: Scalars['Boolean'];
+  removeUser: Classroom;
+  signUp: User;
   /** Submit exam submission */
   submitExamSubmission: ExamSubmission;
   /** Submit sandbox submission */
@@ -143,6 +159,12 @@ export type Mutation = {
   updateAssignment: Assignment;
   /** Update exam */
   updateExam: Exam;
+};
+
+
+export type MutationAddUserArgs = {
+  classroomId: Scalars['String'];
+  username: Scalars['String'];
 };
 
 
@@ -158,6 +180,11 @@ export type MutationCheckpointExamSubmissionArgs = {
 
 export type MutationCreateAssignmentArgs = {
   input: CreateAssignmentInput;
+};
+
+
+export type MutationCreateClassroomArgs = {
+  input: CreateClassroomInput;
 };
 
 
@@ -191,6 +218,17 @@ export type MutationDeleteSandboxSubmissionArgs = {
 };
 
 
+export type MutationRemoveUserArgs = {
+  classroomId: Scalars['String'];
+  username: Scalars['String'];
+};
+
+
+export type MutationSignUpArgs = {
+  input: SignUpInput;
+};
+
+
 export type MutationSubmitExamSubmissionArgs = {
   input: ExamSubmissionSubmitInput;
 };
@@ -214,6 +252,8 @@ export type Query = {
   __typename?: 'Query';
   assignmentById?: Maybe<Assignment>;
   assignments: Array<Assignment>;
+  classroomById: Classroom;
+  classrooms: Array<Classroom>;
   examById: Exam;
   examSubmissionById?: Maybe<ExamSubmission>;
   examSubmissions: Array<ExamSubmission>;
@@ -222,16 +262,24 @@ export type Query = {
   myExamSubmissions: Array<ExamSubmission>;
   mySandboxSubmissions: Array<SandboxSubmission>;
   openedExams: Array<Exam>;
+  roles: Array<Role>;
   sandboxAssignments: Array<Assignment>;
   sandboxSubmissionById?: Maybe<SandboxSubmission>;
   sandboxSubmissions: Array<SandboxSubmission>;
   sandboxSubmissionsByAssignment: Array<SandboxSubmission>;
+  users: Array<User>;
+  validateInviteCode: Scalars['Boolean'];
   validatorReportByExamSubmissionId?: Maybe<ValidatorReport>;
   validatorReports: Array<ValidatorReport>;
 };
 
 
 export type QueryAssignmentByIdArgs = {
+  id: Scalars['String'];
+};
+
+
+export type QueryClassroomByIdArgs = {
   id: Scalars['String'];
 };
 
@@ -266,8 +314,18 @@ export type QuerySandboxSubmissionsByAssignmentArgs = {
 };
 
 
+export type QueryValidateInviteCodeArgs = {
+  code: Scalars['String'];
+};
+
+
 export type QueryValidatorReportByExamSubmissionIdArgs = {
   id: Scalars['String'];
+};
+
+export type Role = {
+  __typename?: 'Role';
+  name: Scalars['String'];
 };
 
 /**
@@ -291,6 +349,15 @@ export type SandboxSubmissionSubmitInput = {
   xml?: InputMaybe<Scalars['String']>;
 };
 
+export type SignUpInput = {
+  email: Scalars['String'];
+  inviteCode: Scalars['String'];
+  name: Scalars['String'];
+  password: Scalars['String'];
+  surname: Scalars['String'];
+  username: Scalars['String'];
+};
+
 export type UpdateAssignmentInput = {
   description?: InputMaybe<Scalars['String']>;
   id: Scalars['String'];
@@ -306,6 +373,15 @@ export type UpdateExamInput = {
   id: Scalars['ID'];
   timeLimit: Scalars['Int'];
   title: Scalars['String'];
+};
+
+export type User = {
+  __typename?: 'User';
+  email: Scalars['String'];
+  name: Scalars['String'];
+  roles: Array<Role>;
+  surname: Scalars['String'];
+  username: Scalars['String'];
 };
 
 export type ValidatorReport = {
@@ -351,6 +427,28 @@ export type UpdateAssignmentMutationVariables = Exact<{
 
 
 export type UpdateAssignmentMutation = { __typename?: 'Mutation', updateAssignment: { __typename?: 'Assignment', id: string, title: string, description: string, author: string, xml: string, sandbox: boolean } };
+
+export type SignUpMutationVariables = Exact<{
+  input: SignUpInput;
+}>;
+
+
+export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', username: string, name: string, surname: string, roles: Array<{ __typename?: 'Role', name: string }> } };
+
+export type CreateClassroomMutationVariables = Exact<{
+  input: CreateClassroomInput;
+}>;
+
+
+export type CreateClassroomMutation = { __typename?: 'Mutation', createClassroom: { __typename?: 'Classroom', id: string, name: string, inviteCode: string } };
+
+export type RemoveUserMutationVariables = Exact<{
+  username: Scalars['String'];
+  classroomId: Scalars['String'];
+}>;
+
+
+export type RemoveUserMutation = { __typename?: 'Mutation', removeUser: { __typename?: 'Classroom', id: string } };
 
 export type BeginExamMutationVariables = Exact<{
   id: Scalars['String'];
@@ -431,6 +529,25 @@ export type AssignmentsPickerQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AssignmentsPickerQuery = { __typename?: 'Query', assignments: Array<{ __typename?: 'Assignment', id: string, title: string, sandbox: boolean }> };
+
+export type ValidateCodeQueryVariables = Exact<{
+  inviteCode: Scalars['String'];
+}>;
+
+
+export type ValidateCodeQuery = { __typename?: 'Query', validateInviteCode: boolean };
+
+export type ClassroomByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type ClassroomByIdQuery = { __typename?: 'Query', classroomById: { __typename?: 'Classroom', id: string, name: string, inviteCode: string, users: Array<{ __typename?: 'User', name: string, surname: string, username: string, email: string }> } };
+
+export type ClassroomsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type ClassroomsQuery = { __typename?: 'Query', classrooms: Array<{ __typename?: 'Classroom', id: string, name: string, inviteCode: string, users: Array<{ __typename?: 'User', username: string }> }> };
 
 export type ExamByIdQueryVariables = Exact<{
   id: Scalars['String'];
@@ -609,6 +726,113 @@ export function useUpdateAssignmentMutation(baseOptions?: Apollo.MutationHookOpt
 export type UpdateAssignmentMutationHookResult = ReturnType<typeof useUpdateAssignmentMutation>;
 export type UpdateAssignmentMutationResult = Apollo.MutationResult<UpdateAssignmentMutation>;
 export type UpdateAssignmentMutationOptions = Apollo.BaseMutationOptions<UpdateAssignmentMutation, UpdateAssignmentMutationVariables>;
+export const SignUpDocument = gql`
+    mutation SignUp($input: SignUpInput!) {
+  signUp(input: $input) {
+    username
+    name
+    surname
+    roles {
+      name
+    }
+  }
+}
+    `;
+export type SignUpMutationFn = Apollo.MutationFunction<SignUpMutation, SignUpMutationVariables>;
+
+/**
+ * __useSignUpMutation__
+ *
+ * To run a mutation, you first call `useSignUpMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSignUpMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [signUpMutation, { data, loading, error }] = useSignUpMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignUpMutation, SignUpMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<SignUpMutation, SignUpMutationVariables>(SignUpDocument, options);
+      }
+export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
+export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
+export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
+export const CreateClassroomDocument = gql`
+    mutation CreateClassroom($input: CreateClassroomInput!) {
+  createClassroom(input: $input) {
+    id
+    name
+    inviteCode
+  }
+}
+    `;
+export type CreateClassroomMutationFn = Apollo.MutationFunction<CreateClassroomMutation, CreateClassroomMutationVariables>;
+
+/**
+ * __useCreateClassroomMutation__
+ *
+ * To run a mutation, you first call `useCreateClassroomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateClassroomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createClassroomMutation, { data, loading, error }] = useCreateClassroomMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateClassroomMutation(baseOptions?: Apollo.MutationHookOptions<CreateClassroomMutation, CreateClassroomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateClassroomMutation, CreateClassroomMutationVariables>(CreateClassroomDocument, options);
+      }
+export type CreateClassroomMutationHookResult = ReturnType<typeof useCreateClassroomMutation>;
+export type CreateClassroomMutationResult = Apollo.MutationResult<CreateClassroomMutation>;
+export type CreateClassroomMutationOptions = Apollo.BaseMutationOptions<CreateClassroomMutation, CreateClassroomMutationVariables>;
+export const RemoveUserDocument = gql`
+    mutation RemoveUser($username: String!, $classroomId: String!) {
+  removeUser(username: $username, classroomId: $classroomId) {
+    id
+  }
+}
+    `;
+export type RemoveUserMutationFn = Apollo.MutationFunction<RemoveUserMutation, RemoveUserMutationVariables>;
+
+/**
+ * __useRemoveUserMutation__
+ *
+ * To run a mutation, you first call `useRemoveUserMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveUserMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeUserMutation, { data, loading, error }] = useRemoveUserMutation({
+ *   variables: {
+ *      username: // value for 'username'
+ *      classroomId: // value for 'classroomId'
+ *   },
+ * });
+ */
+export function useRemoveUserMutation(baseOptions?: Apollo.MutationHookOptions<RemoveUserMutation, RemoveUserMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RemoveUserMutation, RemoveUserMutationVariables>(RemoveUserDocument, options);
+      }
+export type RemoveUserMutationHookResult = ReturnType<typeof useRemoveUserMutation>;
+export type RemoveUserMutationResult = Apollo.MutationResult<RemoveUserMutation>;
+export type RemoveUserMutationOptions = Apollo.BaseMutationOptions<RemoveUserMutation, RemoveUserMutationVariables>;
 export const BeginExamDocument = gql`
     mutation BeginExam($id: String!) {
   beginExam(id: $id) {
@@ -1063,6 +1287,130 @@ export type AssignmentsPickerLazyQueryHookResult = ReturnType<typeof useAssignme
 export type AssignmentsPickerQueryResult = Apollo.QueryResult<AssignmentsPickerQuery, AssignmentsPickerQueryVariables>;
 export function refetchAssignmentsPickerQuery(variables?: AssignmentsPickerQueryVariables) {
       return { query: AssignmentsPickerDocument, variables: variables }
+    }
+export const ValidateCodeDocument = gql`
+    query ValidateCode($inviteCode: String!) {
+  validateInviteCode(code: $inviteCode)
+}
+    `;
+
+/**
+ * __useValidateCodeQuery__
+ *
+ * To run a query within a React component, call `useValidateCodeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useValidateCodeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useValidateCodeQuery({
+ *   variables: {
+ *      inviteCode: // value for 'inviteCode'
+ *   },
+ * });
+ */
+export function useValidateCodeQuery(baseOptions: Apollo.QueryHookOptions<ValidateCodeQuery, ValidateCodeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ValidateCodeQuery, ValidateCodeQueryVariables>(ValidateCodeDocument, options);
+      }
+export function useValidateCodeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidateCodeQuery, ValidateCodeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ValidateCodeQuery, ValidateCodeQueryVariables>(ValidateCodeDocument, options);
+        }
+export type ValidateCodeQueryHookResult = ReturnType<typeof useValidateCodeQuery>;
+export type ValidateCodeLazyQueryHookResult = ReturnType<typeof useValidateCodeLazyQuery>;
+export type ValidateCodeQueryResult = Apollo.QueryResult<ValidateCodeQuery, ValidateCodeQueryVariables>;
+export function refetchValidateCodeQuery(variables: ValidateCodeQueryVariables) {
+      return { query: ValidateCodeDocument, variables: variables }
+    }
+export const ClassroomByIdDocument = gql`
+    query ClassroomById($id: String!) {
+  classroomById(id: $id) {
+    id
+    name
+    inviteCode
+    users {
+      name
+      surname
+      username
+      email
+    }
+  }
+}
+    `;
+
+/**
+ * __useClassroomByIdQuery__
+ *
+ * To run a query within a React component, call `useClassroomByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useClassroomByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useClassroomByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useClassroomByIdQuery(baseOptions: Apollo.QueryHookOptions<ClassroomByIdQuery, ClassroomByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ClassroomByIdQuery, ClassroomByIdQueryVariables>(ClassroomByIdDocument, options);
+      }
+export function useClassroomByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ClassroomByIdQuery, ClassroomByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ClassroomByIdQuery, ClassroomByIdQueryVariables>(ClassroomByIdDocument, options);
+        }
+export type ClassroomByIdQueryHookResult = ReturnType<typeof useClassroomByIdQuery>;
+export type ClassroomByIdLazyQueryHookResult = ReturnType<typeof useClassroomByIdLazyQuery>;
+export type ClassroomByIdQueryResult = Apollo.QueryResult<ClassroomByIdQuery, ClassroomByIdQueryVariables>;
+export function refetchClassroomByIdQuery(variables: ClassroomByIdQueryVariables) {
+      return { query: ClassroomByIdDocument, variables: variables }
+    }
+export const ClassroomsDocument = gql`
+    query Classrooms {
+  classrooms {
+    id
+    name
+    inviteCode
+    users {
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useClassroomsQuery__
+ *
+ * To run a query within a React component, call `useClassroomsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useClassroomsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useClassroomsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useClassroomsQuery(baseOptions?: Apollo.QueryHookOptions<ClassroomsQuery, ClassroomsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<ClassroomsQuery, ClassroomsQueryVariables>(ClassroomsDocument, options);
+      }
+export function useClassroomsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ClassroomsQuery, ClassroomsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<ClassroomsQuery, ClassroomsQueryVariables>(ClassroomsDocument, options);
+        }
+export type ClassroomsQueryHookResult = ReturnType<typeof useClassroomsQuery>;
+export type ClassroomsLazyQueryHookResult = ReturnType<typeof useClassroomsLazyQuery>;
+export type ClassroomsQueryResult = Apollo.QueryResult<ClassroomsQuery, ClassroomsQueryVariables>;
+export function refetchClassroomsQuery(variables?: ClassroomsQueryVariables) {
+      return { query: ClassroomsDocument, variables: variables }
     }
 export const ExamByIdDocument = gql`
     query ExamById($id: String!) {

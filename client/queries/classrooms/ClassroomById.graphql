@@ -1,0 +1,14 @@
+query ClassroomById($id: String!){
+    classroomById(id: $id) {
+        id
+        name
+        inviteCode
+        users {
+            name
+            surname
+            username
+            email
+        }
+
+    }
+}

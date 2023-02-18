@@ -92,7 +92,8 @@ const AssignmentCreator = () => {
                             <TextInput label={"Název"}
                                        placeholder="Stavba mostu" {...form.getInputProps('title')} />
                             <Text>Popis</Text>
-                            <GamajunRichTextEditor title={"Hello"} {...form.getInputProps('description')} />
+                            <GamajunRichTextEditor title={"Hello"} {...form.getInputProps('description')}
+                                                   onContentChange={(newContent) => form.setFieldValue('description', newContent)}/>
                         </Stack>
                     </Tabs.Panel>
                     <Tabs.Panel value="diagram" pt="xs">

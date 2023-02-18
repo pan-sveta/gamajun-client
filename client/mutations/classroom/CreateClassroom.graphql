@@ -1,0 +1,7 @@
+mutation CreateClassroom($input: CreateClassroomInput!) {
+    createClassroom(input: $input){
+        id
+        name
+        inviteCode
+    }
+}

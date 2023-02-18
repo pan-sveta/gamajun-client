@@ -12,5 +12,9 @@ mutation CreateExam($input: CreateExamInput!) {
             xml
             author
         }
+        classrooms {
+            id
+            name
+        }
     }
 }

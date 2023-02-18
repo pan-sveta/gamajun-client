@@ -12,5 +12,9 @@ query ExamById($id: String!){
             description
             xml
         }
+        classrooms {
+            id
+            name
+        }
     }
 }

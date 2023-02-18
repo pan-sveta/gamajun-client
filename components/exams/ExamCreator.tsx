@@ -12,6 +12,7 @@ import {
     useCreateExamMutation
 } from "../../client/generated/generated-types";
 import ExamAssignmentPicker from "./ExamAssignmentPicker";
+import ExamClassroomPicker from "./ExamClassroomPicker";
 
 
 const ExamCreator = () => {
@@ -27,7 +28,8 @@ const ExamCreator = () => {
             accessibleFrom: new Date().toISOString(),
             accessibleTo: new Date().toISOString(),
             timeLimit: 30,
-            assignmentIds: []
+            assignmentIds: [],
+            classroomIds: []
         },
         validate: {},
     });
@@ -90,6 +92,8 @@ const ExamCreator = () => {
                             description="V minutách od 0 do 1440"/>
                         <ExamAssignmentPicker value={formo.values?.assignmentIds}
                                               onChange={(data) => formo.setFieldValue("assignmentIds", data)}/>
+                        <ExamClassroomPicker value={formo.values?.classroomIds}
+                                              onChange={(data) => formo.setFieldValue("classroomIds", data)}/>
                     </Stack>
                 </Paper>
             </form>

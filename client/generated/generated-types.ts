@@ -63,6 +63,7 @@ export type CreateExamInput = {
   accessibleFrom: Scalars['String'];
   accessibleTo: Scalars['String'];
   assignmentIds: Array<Scalars['ID']>;
+  classroomIds: Array<Scalars['ID']>;
   timeLimit: Scalars['Int'];
   title: Scalars['String'];
 };
@@ -78,6 +79,7 @@ export type Exam = {
   accessibleTo: Scalars['String'];
   assignments: Array<Assignment>;
   author: Scalars['String'];
+  classrooms: Array<Classroom>;
   id: Scalars['ID'];
   timeLimit: Scalars['Int'];
   title: Scalars['String'];
@@ -88,6 +90,7 @@ export type ExamInput = {
   accessibleTo: Scalars['String'];
   assignmentIds: Array<Scalars['ID']>;
   author: Scalars['String'];
+  classroomIds: Array<Scalars['ID']>;
   id: Scalars['ID'];
   timeLimit: Scalars['Int'];
   title: Scalars['String'];
@@ -370,6 +373,7 @@ export type UpdateExamInput = {
   accessibleFrom: Scalars['String'];
   accessibleTo: Scalars['String'];
   assignmentIds: Array<Scalars['ID']>;
+  classroomIds: Array<Scalars['ID']>;
   id: Scalars['ID'];
   timeLimit: Scalars['Int'];
   title: Scalars['String'];
@@ -462,7 +466,7 @@ export type CreateExamMutationVariables = Exact<{
 }>;
 
 
-export type CreateExamMutation = { __typename?: 'Mutation', createExam: { __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, author: string, assignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, xml: string, author: string }> } };
+export type CreateExamMutation = { __typename?: 'Mutation', createExam: { __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, author: string, assignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, xml: string, author: string }>, classrooms: Array<{ __typename?: 'Classroom', id: string, name: string }> } };
 
 export type DeleteExamMutationVariables = Exact<{
   id: Scalars['String'];
@@ -476,7 +480,7 @@ export type UpdateExamMutationVariables = Exact<{
 }>;
 
 
-export type UpdateExamMutation = { __typename?: 'Mutation', updateExam: { __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, author: string, assignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, xml: string, author: string }> } };
+export type UpdateExamMutation = { __typename?: 'Mutation', updateExam: { __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, author: string, assignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, xml: string, author: string }>, classrooms: Array<{ __typename?: 'Classroom', id: string, name: string }> } };
 
 export type CreateSandboxSubmissionMutationVariables = Exact<{
   assignmentId: Scalars['String'];
@@ -554,7 +558,7 @@ export type ExamByIdQueryVariables = Exact<{
 }>;
 
 
-export type ExamByIdQuery = { __typename?: 'Query', examById: { __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, timeLimit: number, author: string, assignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, xml: string }> } };
+export type ExamByIdQuery = { __typename?: 'Query', examById: { __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, timeLimit: number, author: string, assignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, xml: string }>, classrooms: Array<{ __typename?: 'Classroom', id: string, name: string }> } };
 
 export type ExamsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -881,6 +885,10 @@ export const CreateExamDocument = gql`
       xml
       author
     }
+    classrooms {
+      id
+      name
+    }
   }
 }
     `;
@@ -955,6 +963,10 @@ export const UpdateExamDocument = gql`
       description
       xml
       author
+    }
+    classrooms {
+      id
+      name
     }
   }
 }
@@ -1426,6 +1438,10 @@ export const ExamByIdDocument = gql`
       title
       description
       xml
+    }
+    classrooms {
+      id
+      name
     }
   }
 }

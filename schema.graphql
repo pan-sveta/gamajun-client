@@ -96,7 +96,7 @@ type Mutation {
 }
 
 type Query {
-    assignmentById(id: String!): Assignment
+    assignmentById(id: String!): Assignment!
     assignments: [Assignment!]!
     classroomById(id: String!): Classroom!
     classrooms: [Classroom!]!

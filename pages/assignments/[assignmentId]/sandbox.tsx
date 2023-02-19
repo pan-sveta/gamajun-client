@@ -25,7 +25,7 @@ const Sandbox: NextPage = () => {
             <tr key={sub.id}>
                 <td>{sub.submittedAt ? <IconCheck color={theme.colors.green[5]}/> :
                     <IconEdit color={theme.colors.yellow[5]}/>}</td>
-                <td>{sub.author}</td>
+                <td>{sub.user.name} {sub.user.surname}</td>
                 <td>{new Date(sub.startedAt).toLocaleString()}</td>
                 <td>{sub.submittedAt && new Date(sub.submittedAt).toLocaleString()}</td>
             </tr>

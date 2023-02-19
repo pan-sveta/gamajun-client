@@ -3,10 +3,15 @@ import {Button, Text} from "@mantine/core";
 import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
 import {useRouter} from "next/router";
-import {Assignment, refetchAssignmentsQuery, useDeleteAssignmentMutation} from "../../client/generated/generated-types";
+import {
+    Assignment,
+    AssignmentByIdQuery,
+    refetchAssignmentsQuery,
+    useDeleteAssignmentMutation
+} from "../../client/generated/generated-types";
 
 interface DeleteAssignmentButtonProps {
-    assignment: Assignment
+    assignment: AssignmentByIdQuery['assignmentById']
 }
 
 const DeleteAssignmentButton = ({assignment}: DeleteAssignmentButtonProps) => {

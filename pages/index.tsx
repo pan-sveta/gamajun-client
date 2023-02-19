@@ -5,6 +5,7 @@ import React from "react";
 
 const Home: NextPage = () => {
     const {data: session} = useSession();
+
     return (
         <div>
             <Title order={1}>Vítejte v testovacím systému Gamajun</Title>
@@ -19,18 +20,21 @@ const Home: NextPage = () => {
                         <Flex align={"center"}>
                             <Text mr={"sm"}>Role:</Text>
                             {
+                                // @ts-ignore
                                 session?.user?.roles?.includes("GAMAJUN_TEACHER") ?
                                 <Tooltip label={"Můžete spravovat zkoušky, zadání a třídy"}>
                                     <Badge mr={"xs"} color={"grape"}>Učitel</Badge>
                                 </Tooltip> : null
                             }
                             {
+                                // @ts-ignore
                                 session?.user?.roles?.includes("GAMAJUN_STUDENT") ?
                                 <Tooltip label={"Standartní role studenta"}>
                                     <Badge mr={"xs"} color={"green"}>Student</Badge>
                                 </Tooltip> : null
                             }
                         </Flex>
+                        {JSON.stringify(session)}
                     </Stack>
                 </Paper>
             </Center>

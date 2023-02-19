@@ -6,10 +6,10 @@ import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
 import {
-    Assignment,
+    Assignment, AssignmentByIdQuery,
     refetchAssignmentsQuery,
     refetchSandboxAssignmentsQuery,
-    UpdateAssignmentInput,
+    UpdateAssignmentInput, useAssignmentByIdQuery,
     useUpdateAssignmentMutation
 } from "../../client/generated/generated-types";
 import DeleteAssignmentButton from "./DeleteAssignmentButton";
@@ -23,12 +23,11 @@ const BpmnModeler = dynamic(() => {
 });
 
 interface AssignmentEditor {
-    assignment: Assignment
+    assignment: AssignmentByIdQuery['assignmentById']
 }
 
 const AssignmentEditor = ({assignment}: AssignmentEditor) => {
     const router = useRouter();
-
     const [updateAssignment, {loading, error}] = useUpdateAssignmentMutation({
         refetchQueries: [refetchAssignmentsQuery(), refetchSandboxAssignmentsQuery()],
     });

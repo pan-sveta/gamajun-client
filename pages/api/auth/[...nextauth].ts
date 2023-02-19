@@ -9,7 +9,7 @@ export const authOptions: NextAuthOptions = {
             id: "gamajun",
             name: "Gamajun",
             type: "oauth",
-            wellKnown: "https://gamajun-api.stepanek.app//.well-known/openid-configuration",
+            wellKnown: "https://gamajun-api.stepanek.app/.well-known/openid-configuration",
             clientSecret: process.env.CTU_CLIENT_SECRET,
             clientId: process.env.CTU_CLIENT_ID,
             idToken: true,
@@ -78,7 +78,7 @@ async function refreshAccessToken(token: JWT) {
         });
 
         // @ts-ignore
-        const url = "http://localhost:8080/oauth2/token?" + params;
+        const url = "https://gamajun-api.stepanek.app/oauth2/token?" + params;
 
 
         const response = await fetch(url, {

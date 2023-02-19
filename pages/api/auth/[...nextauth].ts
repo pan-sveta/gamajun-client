@@ -1,6 +1,5 @@
 import NextAuth, {NextAuthOptions} from "next-auth"
 import {btoa} from "buffer";
-import {isUserAdmin} from "../../../services/admin";
 import {JWT} from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {

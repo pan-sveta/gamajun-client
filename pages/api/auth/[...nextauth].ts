@@ -10,7 +10,7 @@ export const authOptions: NextAuthOptions = {
             id: "gamajun",
             name: "Gamajun",
             type: "oauth",
-            wellKnown: "http://127.0.0.1:8080/.well-known/openid-configuration",
+            wellKnown: "https://gamajun-api.stepanek.app//.well-known/openid-configuration",
             clientSecret: process.env.CTU_CLIENT_SECRET,
             clientId: process.env.CTU_CLIENT_ID,
             idToken: true,

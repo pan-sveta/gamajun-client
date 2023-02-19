@@ -12,7 +12,7 @@ Assignments#
 ############
 """
 type Assignment {
-    author: String!
+    author: User!
     description: String!
     id: ID!
     sandbox: Boolean!
@@ -37,7 +37,7 @@ type Exam {
     accessibleFrom: String!
     accessibleTo: String!
     assignments: [Assignment!]!
-    author: String!
+    author: User!
     classrooms: [Classroom!]!
     id: ID!
     timeLimit: Int!
@@ -52,12 +52,12 @@ Exam submissions#
 """
 type ExamSubmission {
     assignment: Assignment!
-    author: String!
     exam: Exam!
     examSubmissionState: ExamSubmissionState!
     id: ID!
     startedAt: String!
     submittedAt: String
+    user: User!
     validatorReport: ValidatorReport
     xml: String
 }
@@ -131,10 +131,10 @@ Sandbox submissions#
 """
 type SandboxSubmission {
     assignment: Assignment!
-    author: String!
     id: ID!
     startedAt: String!
     submittedAt: String
+    user: User!
     validatorReport: ValidatorReport
     xml: String
 }
@@ -173,15 +173,6 @@ enum ExamSubmissionState {
     Submitted
 }
 
-input AssignmentInput {
-    author: String!
-    description: String!
-    id: ID!
-    sandbox: Boolean!
-    title: String!
-    xml: String!
-}
-
 input CreateAssignmentInput {
     description: String!
     sandbox: Boolean!
@@ -199,17 +190,6 @@ input CreateExamInput {
     accessibleTo: String!
     assignmentIds: [ID!]!
     classroomIds: [ID!]!
-    timeLimit: Int!
-    title: String!
-}
-
-input ExamInput {
-    accessibleFrom: String!
-    accessibleTo: String!
-    assignmentIds: [ID!]!
-    author: String!
-    classroomIds: [ID!]!
-    id: ID!
     timeLimit: Int!
     title: String!
 }

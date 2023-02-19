@@ -20,7 +20,7 @@ const AssignmentsTable = () => {
                     {assignment.sandbox &&
                     <IconBeach style={{position: "absolute"}} color={theme.colors.yellow[4]}/>}</td>
                 <td>{assignment?.id}</td>
-                <td>{assignment?.author}</td>
+                <td>{assignment?.author.name} {assignment?.author.surname}</td>
                 <td>
                     <Group spacing={"xs"}>
                         <Link href={`/assignments/${assignment?.id}`}>

@@ -1,3 +1,14 @@
 query AssignmentById($id: String!){
-    assignmentById(id: $id) {id title description author xml sandbox }
+    assignmentById(id: $id) {
+        id
+        title
+        description
+        author {
+            name
+            surname
+            username
+        }
+        xml
+        sandbox
+    }
 }

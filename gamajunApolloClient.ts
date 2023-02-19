@@ -20,7 +20,7 @@ const authLink = setContext(async (_, { headers }) => {
 
 export const gamajunApolloClient = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache()
 });
 
 export default gamajunApolloClient

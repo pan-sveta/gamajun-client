@@ -5,6 +5,10 @@ query Exams{
         accessibleFrom
         accessibleTo
         timeLimit
-        author
+        author {
+            name
+            surname
+            username
+        }
     }
 }

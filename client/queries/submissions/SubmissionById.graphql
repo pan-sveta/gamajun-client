@@ -3,7 +3,11 @@ query SubmissionById($id: String!){
         id
         startedAt
         submittedAt
-        author
+        user {
+            username
+            name
+            surname
+        }
         examSubmissionState
         xml
         exam {

@@ -1,3 +1,14 @@
 query Assignments{
-    assignments {id title description author xml sandbox }
+    assignments {
+        id
+        title
+        description
+        author {
+            name
+            surname
+            username
+        }
+        xml
+        sandbox
+    }
 }

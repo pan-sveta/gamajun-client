@@ -20,7 +20,7 @@ const SubmissionsTable = () => {
 
         return data?.examSubmissionsByExamId.map(sub => (
             <tr key={sub.id}>
-                <td>{sub.author}</td>
+                <td>{sub.user.name} {sub.user.surname}</td>
                 <td>{sub.assignment?.title}</td>
                 <td>{sub.startedAt}</td>
                 <td>{sub.submittedAt}</td>

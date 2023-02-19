@@ -3,7 +3,11 @@ mutation UpdateAssignment($input: UpdateAssignmentInput!) {
         id
         title
         description
-        author
+        author {
+            name
+            surname
+            username
+        }
         xml
         sandbox
     }

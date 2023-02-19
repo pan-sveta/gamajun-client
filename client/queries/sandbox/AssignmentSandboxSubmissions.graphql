@@ -3,6 +3,10 @@ query AssignmentSandboxSubmissions($assignmentId:String!) {
         id
         startedAt
         submittedAt
-        author
+        user {
+            name
+            surname
+            username
+        },
     }
 }

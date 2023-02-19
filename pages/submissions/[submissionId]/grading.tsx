@@ -36,7 +36,7 @@ const SubmissionGrading: NextPage = () => {
     return (
         <Box>
             <Group>
-                <Title order={1}>Řešení uživatele {data?.examSubmissionById?.author}</Title>
+                <Title order={1}>Řešení uživatele {data?.examSubmissionById?.user.name} {data?.examSubmissionById?.user.surname}</Title>
                 <Badge color={"green"}>Zkouška: {data?.examSubmissionById?.exam.title}</Badge>
                 <Badge>Zadání: {data?.examSubmissionById?.assignment.title}</Badge>
             </Group>

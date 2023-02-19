@@ -3,6 +3,10 @@ query SandboxAssignments{
         id
         title
         description
-        author
+        author {
+            name
+            surname
+            username
+        },
     }
 }

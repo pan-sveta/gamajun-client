@@ -3,7 +3,11 @@ query SandboxSubmissionsById($id: String!){
         id
         startedAt
         submittedAt
-        author
+        user {
+            name
+            surname
+            username
+        }
         xml
         assignment {
             id

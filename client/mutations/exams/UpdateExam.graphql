@@ -4,13 +4,21 @@ mutation UpdateExam($input: UpdateExamInput!) {
         title
         accessibleFrom
         accessibleTo
-        author
+        author {
+            name
+            surname
+            username
+        }
         assignments {
             id
             title
             description
             xml
-            author
+            author {
+                name
+                surname
+                username
+            }
         }
         classrooms {
             id

@@ -15,7 +15,7 @@ const ExamsTable = () => {
             <tr key={exams?.id}>
                 <td>{exams?.id}</td>
                 <td>{exams?.title}</td>
-                <td>{exams?.author}</td>
+                <td>{exams?.author.name} {exams?.author.surname}</td>
                 <td>{new Date(exams?.accessibleFrom ?? "N/A").toLocaleString()}</td>
                 <td>{new Date(exams?.accessibleTo ?? "N/A").toLocaleString()}</td>
                 <td>

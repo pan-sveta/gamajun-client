@@ -4,6 +4,9 @@ import {useSandboxSubmissionsByIdQuery} from "../../../client/generated/generate
 import {useRouter} from "next/router";
 import GamajunLoader from "../../../components/common/GamajunLoader";
 import SandboxSubmissionEditor from "../../../components/submissions/SandboxSubmissionEditor";
+import {IconAlertCircle} from "@tabler/icons";
+import React from "react";
+import {Alert} from "@mantine/core";
 
 const SandboxAttempt: NextPage = () => {
     const router = useRouter();
@@ -16,7 +19,7 @@ const SandboxAttempt: NextPage = () => {
     });
 
     if (error)
-        return <div>{error.message}</div>
+        return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     if (!data?.sandboxSubmissionById || loading)
         return <GamajunLoader/>;

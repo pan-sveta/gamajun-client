@@ -4,6 +4,9 @@ import {useClassroomByIdQuery} from "../../../client/generated/generated-types";
 import GamajunLoader from "../../../components/common/GamajunLoader";
 import ClassroomsOverview from "../../../components/classrooms/ClassroomsOverview";
 import ClassroomViewer from "../../../components/classrooms/ClassroomViewer";
+import {IconAlertCircle} from "@tabler/icons";
+import React from "react";
+import {Alert} from "@mantine/core";
 
 
 const ClassroomPage: NextPage = () => {
@@ -17,7 +20,7 @@ const ClassroomPage: NextPage = () => {
     });
 
     if (error)
-        return <div>{error.message}</div>
+        return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     if (!data?.classroomById || loading)
         return <GamajunLoader/>;

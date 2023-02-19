@@ -4,6 +4,9 @@ import SubmissionViewer from "../../../components/submissions/SubmissionViewer";
 import {useSubmissionByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
 import GamajunLoader from "../../../components/common/GamajunLoader";
+import {IconAlertCircle} from "@tabler/icons";
+import React from "react";
+import { Alert } from "@mantine/core";
 
 const AllExams: NextPage = () => {
     const router = useRouter();
@@ -16,7 +19,7 @@ const AllExams: NextPage = () => {
     });
 
     if (error)
-        return <div>{error.message}</div>
+        return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     //TODO: Fix
     if (!data?.examSubmissionById || loading)

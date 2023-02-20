@@ -9,6 +9,7 @@ import {Paper, Skeleton, Table, Title, useMantineTheme} from "@mantine/core";
 import {IconCheck, IconEdit} from "@tabler/icons";
 
 const Sandbox: NextPage = () => {
+
     const theme = useMantineTheme();
     const router = useRouter();
     const {assignmentId} = router.query

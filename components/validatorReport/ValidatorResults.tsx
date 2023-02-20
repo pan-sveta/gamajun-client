@@ -1,24 +1,20 @@
 import {Grid, Paper, Stack, Title} from "@mantine/core";
-import {useValidatorReportByExamSubmissionIdQuery} from "../../client/generated/generated-types";
+import {
+    SandboxSubmissionsByIdQuery,
+    SubmissionByIdQuery, ValidatorReport,
+} from "../../client/generated/generated-types";
 import GamajunLoader from "../common/GamajunLoader";
 import ValidatorRuleResultCard from "./ValidatorRuleResultCard";
 
 interface ValidatorResultsProps {
-    submissionId: string
+    validatorReport: ValidatorReport
 }
 
-const ValidatorResults = ({submissionId}: ValidatorResultsProps) => {
+const ValidatorResults = ({validatorReport}: ValidatorResultsProps) => {
 
-    const {data, loading, error} = useValidatorReportByExamSubmissionIdQuery({
-        variables: {
-            id: submissionId
-        }
-    });
 
-    if (loading || !data?.validatorReportByExamSubmissionId)
-        return <GamajunLoader/>
 
-    const cards = data.validatorReportByExamSubmissionId.validatorRuleResults.map(res => <ValidatorRuleResultCard key={res.id} validatorRuleResult={res}/>)
+    const cards = validatorReport?.validatorRuleResults.map(res => <ValidatorRuleResultCard key={res.id} validatorRuleResult={res}/>)
 
     return (
         <Grid>

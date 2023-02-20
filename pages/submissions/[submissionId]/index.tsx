@@ -1,7 +1,7 @@
 import {NextPage} from "next";
 import ExamSubmissionEditor from "../../../components/submissions/ExamSubmissionEditor";
 import SubmissionViewer from "../../../components/submissions/SubmissionViewer";
-import {useSubmissionByIdQuery} from "../../../client/generated/generated-types";
+import {ExamSubmission, useSubmissionByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
 import GamajunLoader from "../../../components/common/GamajunLoader";
 import {IconAlertCircle} from "@tabler/icons";
@@ -29,7 +29,7 @@ const AllExams: NextPage = () => {
     if (data.examSubmissionById.examSubmissionState === "Draft")
         return <ExamSubmissionEditor submission={data.examSubmissionById}/>
     else
-        return <SubmissionViewer submission={data.examSubmissionById}/>
+        return <SubmissionViewer submission={data?.examSubmissionById}/>
 }
 
 export default AllExams

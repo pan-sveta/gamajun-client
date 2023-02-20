@@ -115,8 +115,6 @@ type Query {
     sandboxSubmissionsByAssignment(assignmentId: String!): [SandboxSubmission!]!
     users: [User!]!
     validateInviteCode(code: String!): Boolean!
-    validatorReportByExamSubmissionId(id: String!): ValidatorReport
-    validatorReports: [ValidatorReport!]!
 }
 
 type Role {

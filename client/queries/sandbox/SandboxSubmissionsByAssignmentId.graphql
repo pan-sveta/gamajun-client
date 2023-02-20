@@ -1,4 +1,4 @@
-query AssignmentSandboxSubmissions($assignmentId:String!) {
+query SandboxSubmissionsByAssignmentId($assignmentId:String!) {
     sandboxSubmissionsByAssignment(assignmentId: $assignmentId) {
         id
         startedAt
@@ -7,6 +7,6 @@ query AssignmentSandboxSubmissions($assignmentId:String!) {
             name
             surname
             username
-        },
+        }
     }
 }

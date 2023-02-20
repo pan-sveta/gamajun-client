@@ -252,8 +252,6 @@ export type Query = {
   sandboxSubmissionsByAssignment: Array<SandboxSubmission>;
   users: Array<User>;
   validateInviteCode: Scalars['Boolean'];
-  validatorReportByExamSubmissionId?: Maybe<ValidatorReport>;
-  validatorReports: Array<ValidatorReport>;
 };
 
 
@@ -299,11 +297,6 @@ export type QuerySandboxSubmissionsByAssignmentArgs = {
 
 export type QueryValidateInviteCodeArgs = {
   code: Scalars['String'];
-};
-
-
-export type QueryValidatorReportByExamSubmissionIdArgs = {
-  id: Scalars['String'];
 };
 
 export type Role = {
@@ -469,13 +462,6 @@ export type CreateSandboxSubmissionMutationVariables = Exact<{
 
 export type CreateSandboxSubmissionMutation = { __typename?: 'Mutation', createSandboxSubmission: { __typename?: 'SandboxSubmission', id: string } };
 
-export type SandboxSubmissionsByIdQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-export type SandboxSubmissionsByIdQuery = { __typename?: 'Query', sandboxSubmissionById?: { __typename?: 'SandboxSubmission', id: string, startedAt: string, submittedAt?: string | null, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string } } | null };
-
 export type SubmitSandboxSubmissionMutationVariables = Exact<{
   input: SandboxSubmissionSubmitInput;
 }>;
@@ -550,13 +536,6 @@ export type OpenedExamsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type OpenedExamsQuery = { __typename?: 'Query', openedExams: Array<{ __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, timeLimit: number }> };
 
-export type AssignmentSandboxSubmissionsQueryVariables = Exact<{
-  assignmentId: Scalars['String'];
-}>;
-
-
-export type AssignmentSandboxSubmissionsQuery = { __typename?: 'Query', sandboxSubmissionsByAssignment: Array<{ __typename?: 'SandboxSubmission', id: string, startedAt: string, submittedAt?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string } }> };
-
 export type MySandboxSubmissionsQueryVariables = Exact<{
   assignmentId: Scalars['String'];
 }>;
@@ -568,6 +547,20 @@ export type SandboxAssignmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SandboxAssignmentsQuery = { __typename?: 'Query', sandboxAssignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, author: { __typename?: 'User', name: string, surname: string, username: string } }> };
+
+export type SandboxSubmissionsByAssignmentIdQueryVariables = Exact<{
+  assignmentId: Scalars['String'];
+}>;
+
+
+export type SandboxSubmissionsByAssignmentIdQuery = { __typename?: 'Query', sandboxSubmissionsByAssignment: Array<{ __typename?: 'SandboxSubmission', id: string, startedAt: string, submittedAt?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string } }> };
+
+export type SandboxSubmissionsByIdQueryVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type SandboxSubmissionsByIdQuery = { __typename?: 'Query', sandboxSubmissionById?: { __typename?: 'SandboxSubmission', id: string, startedAt: string, submittedAt?: string | null, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
 
 export type MySubmissionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -586,7 +579,7 @@ export type SubmissionByIdQueryVariables = Exact<{
 }>;
 
 
-export type SubmissionByIdQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, xml?: string | null, user: { __typename?: 'User', username: string, name: string, surname: string }, exam: { __typename?: 'Exam', id: string, title: string, timeLimit: number }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string } } | null };
+export type SubmissionByIdQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, xml?: string | null, user: { __typename?: 'User', username: string, name: string, surname: string }, exam: { __typename?: 'Exam', id: string, title: string, timeLimit: number }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
 
 export type SubmissionByIdGradingQueryVariables = Exact<{
   id: Scalars['String'];
@@ -594,13 +587,6 @@ export type SubmissionByIdGradingQueryVariables = Exact<{
 
 
 export type SubmissionByIdGradingQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string } } | null };
-
-export type ValidatorReportByExamSubmissionIdQueryVariables = Exact<{
-  id: Scalars['String'];
-}>;
-
-
-export type ValidatorReportByExamSubmissionIdQuery = { __typename?: 'Query', validatorReportByExamSubmissionId?: { __typename?: 'ValidatorReport', id: string, startedAt: string, finishedAt: string, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, valid: boolean, message?: string | null, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null };
 
 
 export const CreateAssignmentDocument = gql`
@@ -1034,57 +1020,6 @@ export function useCreateSandboxSubmissionMutation(baseOptions?: Apollo.Mutation
 export type CreateSandboxSubmissionMutationHookResult = ReturnType<typeof useCreateSandboxSubmissionMutation>;
 export type CreateSandboxSubmissionMutationResult = Apollo.MutationResult<CreateSandboxSubmissionMutation>;
 export type CreateSandboxSubmissionMutationOptions = Apollo.BaseMutationOptions<CreateSandboxSubmissionMutation, CreateSandboxSubmissionMutationVariables>;
-export const SandboxSubmissionsByIdDocument = gql`
-    query SandboxSubmissionsById($id: String!) {
-  sandboxSubmissionById(id: $id) {
-    id
-    startedAt
-    submittedAt
-    user {
-      name
-      surname
-      username
-    }
-    xml
-    assignment {
-      id
-      title
-      description
-    }
-  }
-}
-    `;
-
-/**
- * __useSandboxSubmissionsByIdQuery__
- *
- * To run a query within a React component, call `useSandboxSubmissionsByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useSandboxSubmissionsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useSandboxSubmissionsByIdQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useSandboxSubmissionsByIdQuery(baseOptions: Apollo.QueryHookOptions<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>(SandboxSubmissionsByIdDocument, options);
-      }
-export function useSandboxSubmissionsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>(SandboxSubmissionsByIdDocument, options);
-        }
-export type SandboxSubmissionsByIdQueryHookResult = ReturnType<typeof useSandboxSubmissionsByIdQuery>;
-export type SandboxSubmissionsByIdLazyQueryHookResult = ReturnType<typeof useSandboxSubmissionsByIdLazyQuery>;
-export type SandboxSubmissionsByIdQueryResult = Apollo.QueryResult<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>;
-export function refetchSandboxSubmissionsByIdQuery(variables: SandboxSubmissionsByIdQueryVariables) {
-      return { query: SandboxSubmissionsByIdDocument, variables: variables }
-    }
 export const SubmitSandboxSubmissionDocument = gql`
     mutation SubmitSandboxSubmission($input: SandboxSubmissionSubmitInput!) {
   submitSandboxSubmission(input: $input) {
@@ -1584,51 +1519,6 @@ export type OpenedExamsQueryResult = Apollo.QueryResult<OpenedExamsQuery, Opened
 export function refetchOpenedExamsQuery(variables?: OpenedExamsQueryVariables) {
       return { query: OpenedExamsDocument, variables: variables }
     }
-export const AssignmentSandboxSubmissionsDocument = gql`
-    query AssignmentSandboxSubmissions($assignmentId: String!) {
-  sandboxSubmissionsByAssignment(assignmentId: $assignmentId) {
-    id
-    startedAt
-    submittedAt
-    user {
-      name
-      surname
-      username
-    }
-  }
-}
-    `;
-
-/**
- * __useAssignmentSandboxSubmissionsQuery__
- *
- * To run a query within a React component, call `useAssignmentSandboxSubmissionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useAssignmentSandboxSubmissionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAssignmentSandboxSubmissionsQuery({
- *   variables: {
- *      assignmentId: // value for 'assignmentId'
- *   },
- * });
- */
-export function useAssignmentSandboxSubmissionsQuery(baseOptions: Apollo.QueryHookOptions<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>(AssignmentSandboxSubmissionsDocument, options);
-      }
-export function useAssignmentSandboxSubmissionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>(AssignmentSandboxSubmissionsDocument, options);
-        }
-export type AssignmentSandboxSubmissionsQueryHookResult = ReturnType<typeof useAssignmentSandboxSubmissionsQuery>;
-export type AssignmentSandboxSubmissionsLazyQueryHookResult = ReturnType<typeof useAssignmentSandboxSubmissionsLazyQuery>;
-export type AssignmentSandboxSubmissionsQueryResult = Apollo.QueryResult<AssignmentSandboxSubmissionsQuery, AssignmentSandboxSubmissionsQueryVariables>;
-export function refetchAssignmentSandboxSubmissionsQuery(variables: AssignmentSandboxSubmissionsQueryVariables) {
-      return { query: AssignmentSandboxSubmissionsDocument, variables: variables }
-    }
 export const MySandboxSubmissionsDocument = gql`
     query MySandboxSubmissions($assignmentId: String!) {
   mySandboxSubmissions(assignmentId: $assignmentId) {
@@ -1715,6 +1605,115 @@ export type SandboxAssignmentsLazyQueryHookResult = ReturnType<typeof useSandbox
 export type SandboxAssignmentsQueryResult = Apollo.QueryResult<SandboxAssignmentsQuery, SandboxAssignmentsQueryVariables>;
 export function refetchSandboxAssignmentsQuery(variables?: SandboxAssignmentsQueryVariables) {
       return { query: SandboxAssignmentsDocument, variables: variables }
+    }
+export const SandboxSubmissionsByAssignmentIdDocument = gql`
+    query SandboxSubmissionsByAssignmentId($assignmentId: String!) {
+  sandboxSubmissionsByAssignment(assignmentId: $assignmentId) {
+    id
+    startedAt
+    submittedAt
+    user {
+      name
+      surname
+      username
+    }
+  }
+}
+    `;
+
+/**
+ * __useSandboxSubmissionsByAssignmentIdQuery__
+ *
+ * To run a query within a React component, call `useSandboxSubmissionsByAssignmentIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSandboxSubmissionsByAssignmentIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSandboxSubmissionsByAssignmentIdQuery({
+ *   variables: {
+ *      assignmentId: // value for 'assignmentId'
+ *   },
+ * });
+ */
+export function useSandboxSubmissionsByAssignmentIdQuery(baseOptions: Apollo.QueryHookOptions<SandboxSubmissionsByAssignmentIdQuery, SandboxSubmissionsByAssignmentIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SandboxSubmissionsByAssignmentIdQuery, SandboxSubmissionsByAssignmentIdQueryVariables>(SandboxSubmissionsByAssignmentIdDocument, options);
+      }
+export function useSandboxSubmissionsByAssignmentIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SandboxSubmissionsByAssignmentIdQuery, SandboxSubmissionsByAssignmentIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SandboxSubmissionsByAssignmentIdQuery, SandboxSubmissionsByAssignmentIdQueryVariables>(SandboxSubmissionsByAssignmentIdDocument, options);
+        }
+export type SandboxSubmissionsByAssignmentIdQueryHookResult = ReturnType<typeof useSandboxSubmissionsByAssignmentIdQuery>;
+export type SandboxSubmissionsByAssignmentIdLazyQueryHookResult = ReturnType<typeof useSandboxSubmissionsByAssignmentIdLazyQuery>;
+export type SandboxSubmissionsByAssignmentIdQueryResult = Apollo.QueryResult<SandboxSubmissionsByAssignmentIdQuery, SandboxSubmissionsByAssignmentIdQueryVariables>;
+export function refetchSandboxSubmissionsByAssignmentIdQuery(variables: SandboxSubmissionsByAssignmentIdQueryVariables) {
+      return { query: SandboxSubmissionsByAssignmentIdDocument, variables: variables }
+    }
+export const SandboxSubmissionsByIdDocument = gql`
+    query SandboxSubmissionsById($id: String!) {
+  sandboxSubmissionById(id: $id) {
+    id
+    startedAt
+    submittedAt
+    user {
+      name
+      surname
+      username
+    }
+    xml
+    assignment {
+      id
+      title
+      description
+    }
+    validatorReport {
+      id
+      validatorRuleResults {
+        id
+        message
+        valid
+        validatorRule {
+          id
+          name
+          description
+        }
+      }
+    }
+  }
+}
+    `;
+
+/**
+ * __useSandboxSubmissionsByIdQuery__
+ *
+ * To run a query within a React component, call `useSandboxSubmissionsByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSandboxSubmissionsByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSandboxSubmissionsByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useSandboxSubmissionsByIdQuery(baseOptions: Apollo.QueryHookOptions<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>(SandboxSubmissionsByIdDocument, options);
+      }
+export function useSandboxSubmissionsByIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>(SandboxSubmissionsByIdDocument, options);
+        }
+export type SandboxSubmissionsByIdQueryHookResult = ReturnType<typeof useSandboxSubmissionsByIdQuery>;
+export type SandboxSubmissionsByIdLazyQueryHookResult = ReturnType<typeof useSandboxSubmissionsByIdLazyQuery>;
+export type SandboxSubmissionsByIdQueryResult = Apollo.QueryResult<SandboxSubmissionsByIdQuery, SandboxSubmissionsByIdQueryVariables>;
+export function refetchSandboxSubmissionsByIdQuery(variables: SandboxSubmissionsByIdQueryVariables) {
+      return { query: SandboxSubmissionsByIdDocument, variables: variables }
     }
 export const MySubmissionsDocument = gql`
     query MySubmissions {
@@ -1838,6 +1837,19 @@ export const SubmissionByIdDocument = gql`
       title
       description
     }
+    validatorReport {
+      id
+      validatorRuleResults {
+        id
+        message
+        valid
+        validatorRule {
+          id
+          name
+          description
+        }
+      }
+    }
   }
 }
     `;
@@ -1928,54 +1940,4 @@ export type SubmissionByIdGradingLazyQueryHookResult = ReturnType<typeof useSubm
 export type SubmissionByIdGradingQueryResult = Apollo.QueryResult<SubmissionByIdGradingQuery, SubmissionByIdGradingQueryVariables>;
 export function refetchSubmissionByIdGradingQuery(variables: SubmissionByIdGradingQueryVariables) {
       return { query: SubmissionByIdGradingDocument, variables: variables }
-    }
-export const ValidatorReportByExamSubmissionIdDocument = gql`
-    query ValidatorReportByExamSubmissionId($id: String!) {
-  validatorReportByExamSubmissionId(id: $id) {
-    id
-    startedAt
-    finishedAt
-    validatorRuleResults {
-      id
-      valid
-      message
-      validatorRule {
-        id
-        name
-        description
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useValidatorReportByExamSubmissionIdQuery__
- *
- * To run a query within a React component, call `useValidatorReportByExamSubmissionIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useValidatorReportByExamSubmissionIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useValidatorReportByExamSubmissionIdQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useValidatorReportByExamSubmissionIdQuery(baseOptions: Apollo.QueryHookOptions<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>(ValidatorReportByExamSubmissionIdDocument, options);
-      }
-export function useValidatorReportByExamSubmissionIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>(ValidatorReportByExamSubmissionIdDocument, options);
-        }
-export type ValidatorReportByExamSubmissionIdQueryHookResult = ReturnType<typeof useValidatorReportByExamSubmissionIdQuery>;
-export type ValidatorReportByExamSubmissionIdLazyQueryHookResult = ReturnType<typeof useValidatorReportByExamSubmissionIdLazyQuery>;
-export type ValidatorReportByExamSubmissionIdQueryResult = Apollo.QueryResult<ValidatorReportByExamSubmissionIdQuery, ValidatorReportByExamSubmissionIdQueryVariables>;
-export function refetchValidatorReportByExamSubmissionIdQuery(variables: ValidatorReportByExamSubmissionIdQueryVariables) {
-      return { query: ValidatorReportByExamSubmissionIdDocument, variables: variables }
     }

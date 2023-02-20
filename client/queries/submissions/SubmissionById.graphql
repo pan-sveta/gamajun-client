@@ -20,5 +20,18 @@ query SubmissionById($id: String!){
             title
             description
         }
+        validatorReport {
+            id
+            validatorRuleResults {
+                id
+                message
+                valid
+                validatorRule {
+                    id
+                    name
+                    description
+                }
+            }
+        }
     }
 }

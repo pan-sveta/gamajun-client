@@ -1,5 +1,10 @@
 import {Tabs} from '@mantine/core';
-import {SandboxSubmissionsByIdQuery, SubmissionByIdQuery} from "../../client/generated/generated-types";
+import {
+    ExamSubmission,
+    SandboxSubmission,
+    SandboxSubmissionsByIdQuery,
+    SubmissionByIdQuery, ValidatorReport
+} from "../../client/generated/generated-types";
 import {IconPhoto, IconSettings} from "@tabler/icons";
 import SubmissionDisplay from "./SubmissionDisplay";
 import ValidatorResults from "../validatorReport/ValidatorResults";
@@ -9,6 +14,7 @@ interface SubmissionViewerProps {
 }
 
 const SubmissionViewer = ({submission}: SubmissionViewerProps) => {
+
     return (
         <Tabs defaultValue={"submission"}>
             <Tabs.List>
@@ -19,10 +25,11 @@ const SubmissionViewer = ({submission}: SubmissionViewerProps) => {
             <Tabs.Panel value="submission" pt="xs">
                 <SubmissionDisplay submission={submission}/>
             </Tabs.Panel>
-
+            { submission?.validatorReport &&
             <Tabs.Panel value="results" pt="xs">
-                <ValidatorResults submissionId={submission?.id ?? "N/A"}/>
+                <ValidatorResults validatorReport={submission.validatorReport as ValidatorReport}/>
             </Tabs.Panel>
+            }
         </Tabs>
     );
 }

@@ -4,7 +4,7 @@ import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import {
     OpenedExamsQuery,
-    refetchMySubmissionsQuery,
+    refetchMySubmissionsQuery, refetchOpenedExamsQuery,
     useBeginExamMutation
 } from "../../client/generated/generated-types";
 
@@ -43,7 +43,7 @@ const ExamCard = ({exam}: ExamCardProps) => {
     const router = useRouter();
 
     const [beginExam, {loading, error}] = useBeginExamMutation({
-        refetchQueries: [refetchMySubmissionsQuery()]
+        refetchQueries: [refetchMySubmissionsQuery(),refetchOpenedExamsQuery()]
     });
 
     const createSubmission = () => {

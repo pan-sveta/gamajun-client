@@ -1,7 +1,10 @@
 import React from 'react';
 import {NextPage} from "next";
 import {useRouter} from "next/router";
-import {useAssignmentByIdQuery, useAssignmentSandboxSubmissionsQuery} from "../../../client/generated/generated-types";
+import {
+    useAssignmentByIdQuery,
+    useSandboxSubmissionsByAssignmentIdQuery
+} from "../../../client/generated/generated-types";
 import {Paper, Skeleton, Table, Title, useMantineTheme} from "@mantine/core";
 import {IconCheck, IconEdit} from "@tabler/icons";
 
@@ -10,7 +13,7 @@ const Sandbox: NextPage = () => {
     const router = useRouter();
     const {assignmentId} = router.query
 
-    const {data, loading, error} = useAssignmentSandboxSubmissionsQuery({
+    const {data, loading, error} = useSandboxSubmissionsByAssignmentIdQuery({
         variables: {assignmentId: typeof assignmentId === 'string' ? assignmentId : "NO ID"}
     })
 

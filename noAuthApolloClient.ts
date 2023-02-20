@@ -1,7 +1,7 @@
 import {ApolloClient, createHttpLink, InMemoryCache} from "@apollo/client";
 
 const httpLink = createHttpLink({
-    uri: 'https://gamajun-api.stepanek.app/graphql',
+    uri: `${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}/graphql`,
 });
 
 export const gamajunApolloClient = new ApolloClient({

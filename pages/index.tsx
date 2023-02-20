@@ -34,7 +34,7 @@ const Home: NextPage = () => {
                                 </Tooltip> : null
                             }
                         </Flex>
-                        {JSON.stringify(session)}
+
                     </Stack>
                 </Paper>
             </Center>

@@ -1,6 +1,7 @@
 import NextAuth, {NextAuthOptions} from "next-auth"
 import {btoa} from "buffer";
 import {JWT} from "next-auth/jwt";
+import React from "react";
 
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers
@@ -9,9 +10,9 @@ export const authOptions: NextAuthOptions = {
             id: "gamajun",
             name: "Gamajun",
             type: "oauth",
-            wellKnown: "https://gamajun-api.stepanek.app/.well-known/openid-configuration",
-            clientSecret: process.env.CTU_CLIENT_SECRET,
-            clientId: process.env.CTU_CLIENT_ID,
+            wellKnown: `${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}/.well-known/openid-configuration`,
+            clientSecret: process.env.GAMAJUN_CLIENT_SECRET,
+            clientId: process.env.GAMAJUN_CLIENT_ID,
             idToken: true,
             async profile(profile, tokens) {
                 console.log("PRof")
@@ -30,10 +31,10 @@ export const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async jwt({token, user, account}): Promise<JWT> {
-            console.log("TOUKN")
+            /*console.log("TOUKN")
             console.log(token)
             console.log(user)
-            console.log(account)
+            console.log(account)*/
 
             // Initial sign in
             if (account && user) {
@@ -71,20 +72,20 @@ async function refreshAccessToken(token: JWT) {
 
     try {
         const params = new URLSearchParams({
-            client_id: process.env.CTU_CLIENT_ID ?? "",
-            client_secret: process.env.CTU_CLIENT_SECRET ?? "",
+            client_id: process.env.GAMAJUN_CLIENT_ID ?? "",
+            client_secret: process.env.GAMAJUN_CLIENT_SECRET ?? "",
             grant_type: "refresh_token",
             refresh_token: token.refreshToken,
         });
 
         // @ts-ignore
-        const url = "https://gamajun-api.stepanek.app/oauth2/token?" + params;
+        const url = `${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}/oauth2/token?${params}`;
 
 
         const response = await fetch(url, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": `Basic ${btoa(`${process.env.CTU_CLIENT_ID}:${process.env.CTU_CLIENT_SECRET}`)}`
+                "Authorization": `Basic ${btoa(`${process.env.GAMAJUN_CLIENT_ID}:${process.env.GAMAJUN_CLIENT_SECRET}`)}`
             },
             method: "POST",
         })

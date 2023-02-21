@@ -1,5 +1,5 @@
-import {Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
-import {IconAlertTriangle, IconReport, IconX} from "@tabler/icons";
+import {Alert, Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
+import {IconAlertCircle, IconAlertTriangle, IconReport, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import {
@@ -7,6 +7,7 @@ import {
     refetchMySubmissionsQuery, refetchOpenedExamsQuery,
     useBeginExamMutation
 } from "../../client/generated/generated-types";
+import React from "react";
 
 const useStyles = createStyles((theme) => ({
     card: {
@@ -75,6 +76,9 @@ const ExamCard = ({exam}: ExamCardProps) => {
                 autoClose: false
             }));
     }
+
+    if (error)
+        return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     return (
         <Card withBorder p="lg" className={classes.card}>

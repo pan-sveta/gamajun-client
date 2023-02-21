@@ -15,7 +15,7 @@ function ValidateInviteCode({validationSuccessful}: ValidateInviteCodeProps) {
 
     const form = useForm({
         initialValues: {
-            inviteCode: '',
+            inviteCode: "",
         },
     });
 

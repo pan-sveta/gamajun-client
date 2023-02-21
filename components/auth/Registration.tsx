@@ -6,9 +6,11 @@ import {useRouter} from "next/router";
 import {IconCircleCheck, IconLogin} from '@tabler/icons';
 
 const Registration = () => {
+    const router = useRouter();
+
     const [active, setActive] = useState<number>(0);
     const [inviteCode, setInviteCode] = useState<string>("");
-    const router = useRouter();
+
     const validationSuccessful = (code: string) => {
         setInviteCode(code);
         setActive(1);
@@ -17,6 +19,7 @@ const Registration = () => {
     const registrationSuccessful = () => {
         setActive(2);
     };
+
 
     return (
         <Container py={"xl"}>
@@ -31,7 +34,9 @@ const Registration = () => {
                     <Stack align={"center"}>
                         <IconCircleCheck color="green" size={"10vh"}/>
                         <Text fz={"xl"}>Registrace byla úspěšná!</Text>
-                        <Button onClick={() => {router.push("/auth/signin")}} leftIcon={<IconLogin/>}>Přejít na přihlášení</Button>
+                        <Button onClick={() => {
+                            router.push("/auth/signin")
+                        }} leftIcon={<IconLogin/>}>Přejít na přihlášení</Button>
                     </Stack>
 
                 </Stepper.Completed>

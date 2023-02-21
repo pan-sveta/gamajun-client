@@ -1,7 +1,7 @@
-import {Button, Grid, Group, NumberInput, Paper, Stack, Text, TextInput} from "@mantine/core";
+import {Alert, Button, Grid, Group, NumberInput, Paper, Stack, Text, TextInput} from "@mantine/core";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import {useForm} from "@mantine/form";
-import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
+import {IconAlertCircle, IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import DeleteExamButton from "./DeleteExamButton";
@@ -15,6 +15,7 @@ import {
 } from "../../client/generated/generated-types";
 import ExamAssignmentPicker from "./ExamAssignmentPicker";
 import ExamClassroomPicker from "./ExamClassroomPicker";
+import React from "react";
 
 interface ExamEditorProps {
     exam: ExamByIdQuery['examById'],
@@ -66,6 +67,9 @@ const ExamEditor = ({exam}: ExamEditorProps) => {
                 autoClose: false
             }));
     }
+
+    if (error)
+        return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     return (
         <Stack>

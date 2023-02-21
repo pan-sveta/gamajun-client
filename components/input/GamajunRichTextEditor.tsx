@@ -78,6 +78,8 @@ const GamajunRichTextEditor = ({content, onContentChange} : Props) => {
             </RichTextEditor.Toolbar>
 
             <RichTextEditor.Content />
+
+
         </RichTextEditor>
     );
 };

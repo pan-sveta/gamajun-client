@@ -4,10 +4,10 @@ import {
     refetchClassroomByIdQuery,
     useAssignmentsQuery,
     useRemoveUserMutation
-} from "../../generated/generated-types";
+} from "../../client/generated/generated-types";
 import {
     ActionIcon,
-    Alert,
+    Alert, Center,
     Group,
     Paper,
     Skeleton,
@@ -18,7 +18,7 @@ import {
     Tooltip,
     useMantineTheme
 } from "@mantine/core";
-import GamajunLoader from "../../../components/common/GamajunLoader";
+import GamajunLoader from "../common/GamajunLoader";
 import {
     IconAlertCircle,
     IconBeach,
@@ -40,28 +40,26 @@ interface StudentsTableProps {
 
 const StudentsTable = ({users, classroomId}: StudentsTableProps) => {
 
-
-
         const [removeUser, {loading, error}] = useRemoveUserMutation({
             refetchQueries: [refetchClassroomByIdQuery({id: classroomId})]
         });
 
-    const removeUserModal = (username: string) => openConfirmModal({
-        title: 'Vyloučit uživatele',
-        children: (
-            <Stack>
-                <Text size="sm">
-                    Opravdu si přejete vyloučit uživatele {username}?
-                </Text>
-                <Alert icon={<IconAlertCircle size={16} />} title="VAROVÁNÍ!" color="red">
-                    Touto akcí dojde ke smazání uživatele a všech výsledků
-                </Alert>
-            </Stack>
-        ),
-        labels: {confirm: 'Vyloučit', cancel: 'Zrušit'},
-        confirmProps: {color: 'red'},
-        onConfirm: () => removeUserAction(username),
-    });
+        const removeUserModal = (username: string) => openConfirmModal({
+            title: 'Vyloučit uživatele',
+            children: (
+                <Stack>
+                    <Text size="sm">
+                        Opravdu si přejete vyloučit uživatele {username}?
+                    </Text>
+                    <Alert icon={<IconAlertCircle size={16}/>} title="VAROVÁNÍ!" color="red">
+                        Touto akcí dojde ke smazání uživatele a všech výsledků
+                    </Alert>
+                </Stack>
+            ),
+            labels: {confirm: 'Vyloučit', cancel: 'Zrušit'},
+            confirmProps: {color: 'red'},
+            onConfirm: () => removeUserAction(username),
+        });
 
         function removeUserAction(username: string) {
             removeUser({
@@ -86,6 +84,13 @@ const StudentsTable = ({users, classroomId}: StudentsTableProps) => {
                 }));
         }
 
+        if (users.length < 1)
+            return (
+                <Center>
+                    <Text color={"gray"}>Žádní registrovaní studenti</Text>
+                </Center>
+            )
+
         const rows = (): ReactNode => {
             return users?.map((user) => (
                 <tr key={user.username}>
@@ -94,7 +99,8 @@ const StudentsTable = ({users, classroomId}: StudentsTableProps) => {
                     <td><a href={`mailto:${user?.email}`}>{user.email}</a></td>
                     <td>
                         <Tooltip label={`Vyloučit studenta ${user.surname}`}>
-                            <ActionIcon color={"red"} variant={"outline"} loading={loading} onClick={() => removeUserModal(user.username)}>
+                            <ActionIcon color={"red"} variant={"outline"} loading={loading}
+                                        onClick={() => removeUserModal(user.username)}>
                                 <IconUserMinus/>
                             </ActionIcon>
                         </Tooltip>

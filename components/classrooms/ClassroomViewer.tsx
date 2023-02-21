@@ -2,7 +2,7 @@ import React from 'react';
 import {ClassroomByIdQuery} from "../../client/generated/generated-types";
 import {ActionIcon, Flex, Group, Paper, Stack, Text, Title, Tooltip} from "@mantine/core";
 import {IconClipboardCopy} from "@tabler/icons";
-import StudentsTable from "../../client/queries/classrooms/StudentsTable";
+import StudentsTable from "./StudentsTable";
 
 interface ClassroomViewerProps {
     classroom: ClassroomByIdQuery['classroomById']

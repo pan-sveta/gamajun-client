@@ -1,9 +1,9 @@
-import {ActionIcon, Group, Paper, Skeleton, Table, useMantineTheme} from "@mantine/core";
+import {ActionIcon, Alert, Group, Paper, Skeleton, Table, useMantineTheme} from "@mantine/core";
 import {useAssignmentsQuery} from "../../client/generated/generated-types";
 import Link from "next/link";
 import GamajunLoader from "../common/GamajunLoader";
-import {ReactNode} from "react";
-import {IconBeach, IconEdit} from "@tabler/icons";
+import React, {ReactNode} from "react";
+import {IconAlertCircle, IconBeach, IconEdit} from "@tabler/icons";
 
 const AssignmentsTable = () => {
     const {data, error, loading} = useAssignmentsQuery();
@@ -42,6 +42,9 @@ const AssignmentsTable = () => {
 
         ));
     }
+
+    if (error)
+        return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     return (
         <Skeleton visible={loading}>

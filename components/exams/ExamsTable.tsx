@@ -1,8 +1,8 @@
-import {ActionIcon, Group, Paper, Skeleton, Table} from "@mantine/core";
+import {ActionIcon, Alert, Group, Paper, Skeleton, Table} from "@mantine/core";
 import Link from "next/link";
-import {IconPencil, IconReportAnalytics} from "@tabler/icons";
+import {IconAlertCircle, IconPencil, IconReportAnalytics} from "@tabler/icons";
 import {useExamsQuery} from "../../client/generated/generated-types";
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
 
 const ExamsTable = () => {
     const {data, error, loading} = useExamsQuery();
@@ -35,8 +35,10 @@ const ExamsTable = () => {
             </tr>
 
         ));
-
     }
+
+    if (error)
+        return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     return (
         <Skeleton visible={loading}>

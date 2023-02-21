@@ -1,5 +1,13 @@
-import {Button, Grid, Group, Loader, Paper, Stack, Switch, Tabs, Text, TextInput} from "@mantine/core";
-import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings, IconX} from "@tabler/icons";
+import {Alert, Button, Grid, Group, Loader, Paper, Stack, Switch, Tabs, Text, TextInput} from "@mantine/core";
+import {
+    IconAdjustmentsAlt,
+    IconAlertCircle,
+    IconCheck,
+    IconDeviceFloppy,
+    IconPaint,
+    IconSettings,
+    IconX
+} from "@tabler/icons";
 import GamajunRichTextEditor from "../input/GamajunRichTextEditor";
 import dynamic from "next/dynamic";
 import {useForm} from "@mantine/form";
@@ -13,6 +21,7 @@ import {
     useUpdateAssignmentMutation
 } from "../../client/generated/generated-types";
 import DeleteAssignmentButton from "./DeleteAssignmentButton";
+import React from "react";
 
 // @ts-ignore
 const BpmnModeler = dynamic(() => {
@@ -73,6 +82,9 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
             }));
 
     }
+
+    if (error)
+        return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     return (
         <div>

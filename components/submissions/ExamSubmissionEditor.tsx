@@ -61,7 +61,7 @@ const ExamSubmissionEditor = ({submission}: SubmissionEditorProps) => {
                     color: "green",
                     icon: <IconCheck/>,
                 })
-                router.push(`/exams/my`)
+                router.push(`/submissions/${submission?.id}`)
             })
             .catch(err => showNotification({
                 title: "Chyba při odevzdávání zkoušky",

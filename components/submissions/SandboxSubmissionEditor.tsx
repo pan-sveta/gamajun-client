@@ -53,7 +53,7 @@ const SandboxSubmissionEditor = ({submission}: SandboxSubmissionEditorProps) => 
                     color: "green",
                     icon: <IconCheck/>,
                 })
-                router.push(`/exams/my`)
+                router.push(`/sandbox/${submission?.id}`)
             })
             .catch(err => showNotification({
                 title: "Chyba při odevzdávání zkoušky",

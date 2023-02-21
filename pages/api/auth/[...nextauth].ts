@@ -40,7 +40,7 @@ export const authOptions: NextAuthOptions = {
             if (account && user) {
                 return {
                     accessToken: account.access_token ?? "" ,
-                    accessTokenExpires: account.expires_at ? Date.now() + account.expires_at * 1000 : -1,
+                    accessTokenExpires: account.expires_at ? account.expires_at * 1000 : -1,
                     refreshToken: account.refresh_token ?? "",
                     user,
                 }

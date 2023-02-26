@@ -1,6 +1,17 @@
-import {Box, createStyles, Group, Text, ThemeIcon} from "@mantine/core";
-import {IconCheck, IconX} from "@tabler/icons";
+import {Box, Collapse, createStyles, Divider, Flex, Group, Loader, Text, ThemeIcon} from "@mantine/core";
+import {IconCheck, IconChevronDown, IconX} from "@tabler/icons";
 import {ValidatorRuleResult} from "../../client/generated/generated-types";
+import {useState} from "react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+
+const BpmnViewer = dynamic(() => {
+    // @ts-ignore
+    return import("../../components/bpmn/modeler/BpmnViewer");
+}, {
+    loading: () => <Loader variant="bars"/>,
+    ssr: false
+});
 
 const useStyles = createStyles((theme) => ({
     box: {
@@ -19,30 +30,56 @@ interface ValidatorRuleResultCardProps {
 const ValidatorRuleResultCard = ({validatorRuleResult}: ValidatorRuleResultCardProps) => {
     const {classes} = useStyles();
 
-    if (validatorRuleResult.valid)
-        return (
-            <Group className={classes.box} px={20} py={5}>
+    const [opened, setOpened] = useState(false);
+
+    let icon = (valid: boolean) => {
+        if (valid)
+            return (
                 <ThemeIcon variant="filled" radius="xl" size="lg" color="green">
                     <IconCheck size={20}/>
                 </ThemeIcon>
-                <Box>
-                    <Text weight={"bolder"}>{validatorRuleResult.validatorRule.name}</Text>
-                    <Text>{validatorRuleResult.validatorRule.description}</Text>
-                </Box>
-            </Group>
-        )
-    else
-        return (
-            <Group className={classes.box} px={20} py={5}>
+            );
+        else
+            return (
                 <ThemeIcon variant="filled" radius="xl" size="lg" color="red">
                     <IconX size={20}/>
                 </ThemeIcon>
-                <Box>
-                    <Text weight={"bolder"}>{validatorRuleResult.validatorRule.name}</Text>
-                    <Text>{validatorRuleResult.message}</Text>
-                </Box>
-            </Group>
-        )
+            );
+    };
+
+    let validExample = () => {
+        return `/rulesExamples/${validatorRuleResult.validatorRule.id}Valid.svg`
+    }
+
+    let invalidExample = () => {
+        return `/rulesExamples/${validatorRuleResult.validatorRule.id}Invalid.svg`
+    }
+
+    return (
+        <Flex direction={"column"} className={classes.box} px={20} py={5} onClick={() => setOpened(!opened)} style={{"cursor":"pointer"}}>
+            <Flex justify={"space-between"} align={"center"}>
+                <Group>
+                    {icon(validatorRuleResult.valid)}
+                    <Box>
+                        <Text weight={"bolder"}>{validatorRuleResult.validatorRule.name}</Text>
+                    </Box>
+                </Group>
+                <IconChevronDown/>
+            </Flex>
+            <Collapse in={opened}>
+                <Flex direction={"column"} py={"md"}>
+                    <Text>{validatorRuleResult.validatorRule.description}</Text>
+                    <Divider my="sm" />
+                    <Image src={invalidExample()} alt={"Invalid example"} width={"250"} height={"175"}/>
+                    <Text ta={"center"} fw={"bold"} fz={"sm"} color={"red"}>Špatně</Text>
+                    <Divider my="sm" />
+                    <Image src={validExample()} alt={"Valid example"} width={"250"} height={"175"}/>
+                    <Text ta={"center"} fw={"bold"} fz={"sm"} color={"green"}>Správně</Text>
+                </Flex>
+            </Collapse>
+        </Flex>
+    )
+
 }
 
 export default ValidatorRuleResultCard

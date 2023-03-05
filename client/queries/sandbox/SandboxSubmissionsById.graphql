@@ -16,6 +16,13 @@ query SandboxSubmissionsById($id: String!){
         }
         validatorReport {
             id
+            referenceMatchingResult {
+                id
+                result
+                isomorphismCheckResult
+                participantsCheckResult
+                participantsCheckMessage
+            }
             validatorRuleResults {
                 id
                 message

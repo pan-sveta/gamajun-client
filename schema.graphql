@@ -117,6 +117,14 @@ type Query {
     validateInviteCode(code: String!): Boolean!
 }
 
+type ReferenceMatchingResult {
+    id: String!
+    isomorphismCheckResult: Boolean!
+    participantsCheckMessage: String!
+    participantsCheckResult: Boolean!
+    result: ReferenceMatchingResultState!
+}
+
 type Role {
     name: String!
 }
@@ -148,6 +156,7 @@ type User {
 type ValidatorReport {
     finishedAt: String!
     id: String!
+    referenceMatchingResult: ReferenceMatchingResult!
     startedAt: String!
     validatorRuleResults: [ValidatorRuleResult!]!
 }
@@ -169,6 +178,12 @@ enum ExamSubmissionState {
     Draft
     Graded
     Submitted
+}
+
+enum ReferenceMatchingResultState {
+    FullMatch
+    NoMatch
+    PartialMatch
 }
 
 input CreateAssignmentInput {

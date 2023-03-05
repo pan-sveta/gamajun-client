@@ -299,6 +299,21 @@ export type QueryValidateInviteCodeArgs = {
   code: Scalars['String'];
 };
 
+export type ReferenceMatchingResult = {
+  __typename?: 'ReferenceMatchingResult';
+  id: Scalars['String'];
+  isomorphismCheckResult: Scalars['Boolean'];
+  participantsCheckMessage: Scalars['String'];
+  participantsCheckResult: Scalars['Boolean'];
+  result: ReferenceMatchingResultState;
+};
+
+export enum ReferenceMatchingResultState {
+  FullMatch = 'FullMatch',
+  NoMatch = 'NoMatch',
+  PartialMatch = 'PartialMatch'
+}
+
 export type Role = {
   __typename?: 'Role';
   name: Scalars['String'];
@@ -365,6 +380,7 @@ export type ValidatorReport = {
   __typename?: 'ValidatorReport';
   finishedAt: Scalars['String'];
   id: Scalars['String'];
+  referenceMatchingResult: ReferenceMatchingResult;
   startedAt: Scalars['String'];
   validatorRuleResults: Array<ValidatorRuleResult>;
 };
@@ -560,7 +576,7 @@ export type SandboxSubmissionsByIdQueryVariables = Exact<{
 }>;
 
 
-export type SandboxSubmissionsByIdQuery = { __typename?: 'Query', sandboxSubmissionById?: { __typename?: 'SandboxSubmission', id: string, startedAt: string, submittedAt?: string | null, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
+export type SandboxSubmissionsByIdQuery = { __typename?: 'Query', sandboxSubmissionById?: { __typename?: 'SandboxSubmission', id: string, startedAt: string, submittedAt?: string | null, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, referenceMatchingResult: { __typename?: 'ReferenceMatchingResult', id: string, result: ReferenceMatchingResultState, isomorphismCheckResult: boolean, participantsCheckResult: boolean, participantsCheckMessage: string }, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
 
 export type MySubmissionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -579,7 +595,7 @@ export type SubmissionByIdQueryVariables = Exact<{
 }>;
 
 
-export type SubmissionByIdQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, xml?: string | null, user: { __typename?: 'User', username: string, name: string, surname: string }, exam: { __typename?: 'Exam', id: string, title: string, timeLimit: number }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
+export type SubmissionByIdQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, xml?: string | null, user: { __typename?: 'User', username: string, name: string, surname: string }, exam: { __typename?: 'Exam', id: string, title: string, timeLimit: number }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, referenceMatchingResult: { __typename?: 'ReferenceMatchingResult', id: string, result: ReferenceMatchingResultState, isomorphismCheckResult: boolean, participantsCheckResult: boolean, participantsCheckMessage: string }, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
 
 export type SubmissionByIdGradingQueryVariables = Exact<{
   id: Scalars['String'];
@@ -1670,6 +1686,13 @@ export const SandboxSubmissionsByIdDocument = gql`
     }
     validatorReport {
       id
+      referenceMatchingResult {
+        id
+        result
+        isomorphismCheckResult
+        participantsCheckResult
+        participantsCheckMessage
+      }
       validatorRuleResults {
         id
         message
@@ -1839,6 +1862,13 @@ export const SubmissionByIdDocument = gql`
     }
     validatorReport {
       id
+      referenceMatchingResult {
+        id
+        result
+        isomorphismCheckResult
+        participantsCheckResult
+        participantsCheckMessage
+      }
       validatorRuleResults {
         id
         message

@@ -50,7 +50,7 @@ const ValidatorResults = ({validatorReport}: ValidatorResultsProps) => {
             case ReferenceMatchingResultState.PartialMatch:
                 return (
                     <Group className={classes.box} px={20} py={5}>
-                        <IconAlertTriangle color={"orange"} size={48}/>
+                        <IconAlertTriangle color={"orange"} size={20}/>
                         <Text fz={"xl"} fw={"bolder"}>Částečná shoda</Text>
                     </Group>
                 )
@@ -58,9 +58,9 @@ const ValidatorResults = ({validatorReport}: ValidatorResultsProps) => {
                 return (
                     <Group className={classes.box} px={20} py={5}>
                         <ThemeIcon variant="filled" radius="xl" size="lg" color="red">
-                            <IconX size={48}/>
+                            <IconX size={20}/>
                         </ThemeIcon>
-                        <Text fz={"xl"} fw={"bolder"}>Částečná shoda</Text>
+                        <Text fz={"xl"} fw={"bolder"}>Žádná shoda</Text>
                     </Group>
                 )
         }

@@ -9,13 +9,14 @@ export default function SignIn({providers}) {
     const router = useRouter();
 
     return (
-        <Paper>
+        <div>
             <Stack align={"center"} justify={"center"} shadow={"xl"} mt={"20vh"}>
                 <Image alt={"Gamajun logo"} src={"/logo.png"} height={112} width={400} quality={100}/>
                 <Title order={1}>Vítejte v testovacím systému Gamajun</Title>
                 {Object.values(providers).map((provider) => (
                     <div key={provider.name}>
-                        <Button onClick={() => signIn(provider.id, {redirect: true, callbackUrl: "/"})} leftIcon={<IconLogin/>}>
+                        <Button onClick={() => signIn(provider.id, {redirect: true, callbackUrl: "/"})}
+                                leftIcon={<IconLogin/>}>
                             Přihlásit se
                         </Button>
                     </div>
@@ -25,7 +26,10 @@ export default function SignIn({providers}) {
                     Zaregistrovat se
                 </Button>
             </Stack>
-        </Paper>
+            <div style={{width: '100vw', height: '100vh', position: 'fixed', bottom:0, left: 0}}>
+                <Image src={"/graduation.svg"} layout={"fill"}/>
+            </div>
+        </div>
     )
 }
 

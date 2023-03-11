@@ -1,12 +1,16 @@
-import {ApolloClient, createHttpLink, InMemoryCache} from "@apollo/client";
+import {ApolloClient, ApolloLink, createHttpLink, InMemoryCache} from "@apollo/client";
 import {setContext} from "@apollo/client/link/context";
-import {getSession} from "next-auth/react";
+import {getSession, signOut} from "next-auth/react";
+import {onError} from "@apollo/client/link/error";
+import {router} from "next/client";
+import {useRouter} from "next/router";
+import {redirect} from "next/dist/server/api-utils";
 
 const httpLink = createHttpLink({
     uri: `${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}/graphql`,
 });
 
-const authLink = setContext(async (_, { headers }) => {
+const authLink = setContext(async (_, {headers}) => {
     const session = await getSession();
     const token = session?.accessToken;
 
@@ -19,7 +23,14 @@ const authLink = setContext(async (_, { headers }) => {
 });
 
 export const gamajunApolloClient = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: ApolloLink.from([
+        onError(({networkError, graphQLErrors}) => {
+            if (networkError?.message.includes("401")) {
+                signOut().then(() => window.location.href = '/');
+            }
+        }),
+        authLink.concat(httpLink)
+    ]),
     cache: new InMemoryCache()
 });
 

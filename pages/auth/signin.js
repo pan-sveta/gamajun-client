@@ -9,10 +9,18 @@ export default function SignIn({providers}) {
     const router = useRouter();
 
     return (
-        <div>
-            <Stack align={"center"} justify={"center"} shadow={"xl"} mt={"20vh"}>
+        <div style={{
+            backgroundImage: "url(/graduation.svg)",
+            backgroundSize: "contain",
+            backgroundPositionY: "bottom",
+            backgroundRepeat: "no-repeat",
+            height: "100vh",
+            width: "100vw",
+            position: "absolute"
+        }}>
+            <Stack align={"center"} justify={"center"} shadow={"xl"} mt={"20vh"} style={{zIndex: 1}}>
                 <Image alt={"Gamajun logo"} src={"/logo.png"} height={112} width={400} quality={100}/>
-                <Title order={1}>Vítejte v testovacím systému Gamajun</Title>
+                <Title order={1} ta={"center"}>Vítejte v testovacím systému Gamajun</Title>
                 {Object.values(providers).map((provider) => (
                     <div key={provider.name}>
                         <Button onClick={() => signIn(provider.id, {redirect: true, callbackUrl: "/"})}
@@ -26,9 +34,6 @@ export default function SignIn({providers}) {
                     Zaregistrovat se
                 </Button>
             </Stack>
-            <div style={{width: '100vw', height: '100vh', position: 'fixed', bottom:0, left: 0}}>
-                <Image src={"/graduation.svg"} layout={"fill"}/>
-            </div>
         </div>
     )
 }

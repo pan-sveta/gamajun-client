@@ -7,6 +7,7 @@ import {
 } from "../../../client/generated/generated-types";
 import {Paper, Skeleton, Table, Title, useMantineTheme} from "@mantine/core";
 import {IconCheck, IconEdit} from "@tabler/icons";
+import Head from "next/head";
 
 const Sandbox: NextPage = () => {
 
@@ -39,6 +40,9 @@ const Sandbox: NextPage = () => {
 
     return (
         <div>
+            <Head>
+                <title>{assignmentData?.assignmentById.title} | Gamajun</title>
+            </Head>
             {assignmentLoading ?
                 <Skeleton height={70} mb="xl"/>
                 :

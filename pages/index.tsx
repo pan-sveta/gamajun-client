@@ -2,12 +2,16 @@ import type {NextPage} from 'next'
 import {useSession} from "next-auth/react";
 import {Avatar, Badge, Center, Flex, Group, Paper, Stack, Text, Title, Tooltip} from "@mantine/core";
 import React from "react";
+import Head from "next/head";
 
 const Home: NextPage = () => {
     const {data: session} = useSession();
 
     return (
         <div>
+            <Head>
+                <title>Domovská stánka | Gamajun</title>
+            </Head>
             <Title order={1}>Vítejte v testovacím systému Gamajun</Title>
             <Center>
                 <Paper shadow="xs" p="md" my={"md"} w={"15vw"} withBorder>

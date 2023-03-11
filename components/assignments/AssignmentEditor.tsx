@@ -22,6 +22,7 @@ import {
 } from "../../client/generated/generated-types";
 import DeleteAssignmentButton from "./DeleteAssignmentButton";
 import React from "react";
+import Head from "next/head";
 
 // @ts-ignore
 const BpmnModeler = dynamic(() => {
@@ -88,6 +89,9 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
 
     return (
         <div>
+            <Head>
+                <title>{assignment.title} | Gamajun</title>
+            </Head>
             <form onSubmit={form.onSubmit((values) => submit(values))}>
                 <Grid align={"center"}>
                     <Grid.Col span={6}>

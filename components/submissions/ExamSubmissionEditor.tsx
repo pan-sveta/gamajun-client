@@ -13,7 +13,8 @@ import {
     useSubmitExamSubmissionMutation
 } from "../../client/generated/generated-types";
 import Countdown from "react-countdown";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import Head from "next/head";
 
 const BpmnModeler = dynamic(() => {
     return import("../../components/bpmn/modeler/BpmnModeler");
@@ -88,6 +89,9 @@ const ExamSubmissionEditor = ({submission}: SubmissionEditorProps) => {
 
     return (
         <div>
+            <Head>
+                <title>{submission?.exam.title} | Gamajun</title>
+            </Head>
             <form onSubmit={formo.onSubmit((values) => submitExam(values))}>
                 <Group position={"apart"}>
                     <Stack spacing={"xs"}>

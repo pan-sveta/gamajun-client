@@ -4,6 +4,7 @@ import {IconLogin, IconSchool, IconUserPlus} from "@tabler/icons";
 import Image from "next/image";
 import React from "react";
 import {useRouter} from "next/router";
+import Head from "next/head";
 
 export default function SignIn({providers}) {
     const router = useRouter();
@@ -18,6 +19,9 @@ export default function SignIn({providers}) {
             width: "100vw",
             position: "absolute"
         }}>
+            <Head>
+                <title>Přihlásit se | Gamajun</title>
+            </Head>
             <Stack align={"center"} justify={"center"} shadow={"xl"} mt={"20vh"} style={{zIndex: 1}}>
                 <Image alt={"Gamajun logo"} src={"/logo.png"} height={112} width={400} quality={100}/>
                 <Title order={1} ta={"center"}>Vítejte v testovacím systému Gamajun</Title>

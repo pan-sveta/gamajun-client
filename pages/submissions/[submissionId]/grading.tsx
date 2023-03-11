@@ -3,6 +3,8 @@ import {useSubmissionByIdGradingQuery} from "../../../client/generated/generated
 import {useRouter} from "next/router";
 import {Badge, Box, createStyles, Grid, Group, Loader, Paper, Text, Title} from "@mantine/core";
 import dynamic from "next/dynamic";
+import Head from "next/head";
+import React from "react";
 
 
 const BpmnViewer = dynamic(() => {
@@ -35,6 +37,9 @@ const SubmissionGrading: NextPage = () => {
 
     return (
         <Box>
+            <Head>
+                <title>{data?.examSubmissionById?.exam.title} | Gamajun</title>
+            </Head>
             <Group>
                 <Title order={1}>Řešení uživatele {data?.examSubmissionById?.user.name} {data?.examSubmissionById?.user.surname}</Title>
                 <Badge color={"green"}>Zkouška: {data?.examSubmissionById?.exam.title}</Badge>

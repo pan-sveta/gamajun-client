@@ -3,6 +3,7 @@ import {Stack} from "@mantine/core";
 import {useSandboxAssignmentsQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../../components/common/GamajunLoader";
 import SandboxCard from "../../components/sandbox/SandboxCard";
+import Head from "next/head";
 
 const Exams: NextPage = () => {
     const {data, loading, error} = useSandboxAssignmentsQuery();
@@ -14,6 +15,9 @@ const Exams: NextPage = () => {
 
     return (
         <Stack>
+            <Head>
+                <title>Sandbox | Gamajun</title>
+            </Head>
             {cards}
         </Stack>
     );

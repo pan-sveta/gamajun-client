@@ -8,6 +8,8 @@ import {
 import {IconPhoto, IconSettings} from "@tabler/icons";
 import SubmissionDisplay from "./SubmissionDisplay";
 import ValidatorResults from "../validatorReport/ValidatorResults";
+import Head from "next/head";
+import React from "react";
 
 interface SubmissionViewerProps {
     submission: SubmissionByIdQuery['examSubmissionById'] | SandboxSubmissionsByIdQuery['sandboxSubmissionById']
@@ -16,21 +18,26 @@ interface SubmissionViewerProps {
 const SubmissionViewer = ({submission}: SubmissionViewerProps) => {
 
     return (
-        <Tabs defaultValue={"submission"}>
-            <Tabs.List>
-                <Tabs.Tab value="submission" icon={<IconPhoto size={14}/>}>Odevzdání</Tabs.Tab>
-                <Tabs.Tab value="results" icon={<IconSettings size={14}/>}>Výsledky</Tabs.Tab>
-            </Tabs.List>
+       <div>
+           <Head>
+               <title>{submission?.assignment.title} | Gamajun</title>
+           </Head>
+           <Tabs defaultValue={"submission"}>
+               <Tabs.List>
+                   <Tabs.Tab value="submission" icon={<IconPhoto size={14}/>}>Odevzdání</Tabs.Tab>
+                   <Tabs.Tab value="results" icon={<IconSettings size={14}/>}>Výsledky</Tabs.Tab>
+               </Tabs.List>
 
-            <Tabs.Panel value="submission" pt="xs">
-                <SubmissionDisplay submission={submission}/>
-            </Tabs.Panel>
-            { submission?.validatorReport &&
-            <Tabs.Panel value="results" pt="xs">
-                <ValidatorResults validatorReport={submission.validatorReport as ValidatorReport}/>
-            </Tabs.Panel>
-            }
-        </Tabs>
+               <Tabs.Panel value="submission" pt="xs">
+                   <SubmissionDisplay submission={submission}/>
+               </Tabs.Panel>
+               { submission?.validatorReport &&
+                   <Tabs.Panel value="results" pt="xs">
+                       <ValidatorResults validatorReport={submission.validatorReport as ValidatorReport}/>
+                   </Tabs.Panel>
+               }
+           </Tabs>
+       </div>
     );
 }
 

@@ -63,6 +63,7 @@ function RegistrationForm({inviteCode,registrationSuccessful}: RegistrationFormI
                         withAsterisk
                         label="Jméno"
                         placeholder="Jan"
+                        name={"name"}
                         {...form.getInputProps('name')}
                     />
 
@@ -70,6 +71,7 @@ function RegistrationForm({inviteCode,registrationSuccessful}: RegistrationFormI
                         withAsterisk
                         label="Příjmení"
                         placeholder="Novák"
+                        name={"surname"}
                         {...form.getInputProps('surname')}
                     />
 
@@ -77,6 +79,7 @@ function RegistrationForm({inviteCode,registrationSuccessful}: RegistrationFormI
                         withAsterisk
                         label="Email"
                         placeholder="your@email.com"
+                        name={"email"}
                         {...form.getInputProps('email')}
                     />
 
@@ -84,6 +87,7 @@ function RegistrationForm({inviteCode,registrationSuccessful}: RegistrationFormI
                         withAsterisk
                         label="Uživatelské jméno"
                         placeholder="novajan5"
+                        name={"username"}
                         {...form.getInputProps('username')}
                     />
 
@@ -91,6 +95,7 @@ function RegistrationForm({inviteCode,registrationSuccessful}: RegistrationFormI
                         withAsterisk
                         label="Heslo"
                         placeholder="**********"
+                        name={"password"}
                         {...form.getInputProps('password')}
                     />
 

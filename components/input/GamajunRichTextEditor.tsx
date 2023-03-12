@@ -10,11 +10,12 @@ import SubScript from '@tiptap/extension-subscript';
 import {InputMaybe} from "../../client/generated/generated-types";
 
 interface Props{
+    id: string
     content: InputMaybe<string> | undefined
     onContentChange(newContent: string): void
 }
 
-const GamajunRichTextEditor = ({content, onContentChange} : Props) => {
+const GamajunRichTextEditor = ({content, onContentChange, id} : Props) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -36,7 +37,7 @@ const GamajunRichTextEditor = ({content, onContentChange} : Props) => {
     })
 
     return (
-        <RichTextEditor editor={editor}>
+        <RichTextEditor editor={editor} id={id}>
             <RichTextEditor.Toolbar sticky stickyOffset={60}>
                 <RichTextEditor.ControlsGroup>
                     <RichTextEditor.Bold />

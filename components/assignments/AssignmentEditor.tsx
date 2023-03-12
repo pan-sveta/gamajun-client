@@ -118,11 +118,11 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                     <Paper shadow="xs" p="md" my={"md"} withBorder>
                         <Tabs.Panel value="properties" pt="xs">
                             <Stack>
-                                <TextInput label={"Id"} {...form.getInputProps('id')} disabled={true} readOnly={true}/>
-                                <TextInput label={"Název"}
+                                <TextInput label={"Id"} name={"id"} {...form.getInputProps('id')} disabled={true} readOnly={true}/>
+                                <TextInput label={"Název"} name={"title"}
                                            placeholder="Stavba mostu" {...form.getInputProps('title')} />
                                 <Text>Popis</Text>
-                                <GamajunRichTextEditor content={form.values.description}
+                                <GamajunRichTextEditor content={form.values.description} id={"description"}
                                                        onContentChange={(newContent) => form.setFieldValue('description', newContent)}/>
                             </Stack>
                         </Tabs.Panel>

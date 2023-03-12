@@ -38,7 +38,7 @@ const SubmissionsTable = () => {
     return (
         <Skeleton visible={loading}>
             <Paper shadow="xs" p="md" my={"md"} withBorder>
-                <Table fontSize={"md"} striped={true} >
+                <Table fontSize={"md"} striped={true}>
                     <thead>
                     <tr>
                         <th>Autor</th>

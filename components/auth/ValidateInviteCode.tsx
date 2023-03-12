@@ -63,9 +63,10 @@ function ValidateInviteCode({validationSuccessful}: ValidateInviteCodeProps) {
                     <TextInput
                         label="Kód"
                         size={"xl"}
+                        name={"inviteCode"}
                         {...form.getInputProps('inviteCode')}
                     />
-                    <Button fullWidth mt="xl" type={"submit"}>
+                    <Button fullWidth mt="xl" type={"submit"} name={"submitButton"}>
                         Potvrdit
                     </Button>
                 </form>

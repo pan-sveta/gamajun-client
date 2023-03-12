@@ -46,8 +46,10 @@ const AssignmentsTable = () => {
     if (error)
         return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
+    if (loading)
+        return <Skeleton height={"25vh"}/>
+
     return (
-        <Skeleton visible={loading}>
             <Paper shadow="xs" p="md" my={"md"} withBorder>
                 <Table fontSize={"md"} striped>
                     <thead>
@@ -61,7 +63,6 @@ const AssignmentsTable = () => {
                     <tbody>{rows()}</tbody>
                 </Table>
             </Paper>
-        </Skeleton>
     );
 }
 

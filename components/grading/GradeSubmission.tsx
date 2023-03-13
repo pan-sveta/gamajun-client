@@ -44,7 +44,7 @@ const GradeSubmission = ({submission}: GradeSubmissionProps) => {
     const formo = useForm<ExamSubmissionGradeInput>({
         initialValues: {
             id: submission?.id ?? '',
-            points: submission?.points && 0,
+            points: submission?.points ?? 0.0,
             comment: submission?.comment,
         },
         validate: {

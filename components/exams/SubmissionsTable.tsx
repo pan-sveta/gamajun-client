@@ -3,6 +3,7 @@ import {ActionIcon, Paper, Skeleton, Table} from "@mantine/core";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {IconSearch} from "@tabler/icons";
+import SubmissionStatusBadge from "../grading/SubmissionStatusBadge";
 
 const SubmissionsTable = () => {
     const router = useRouter();
@@ -24,6 +25,7 @@ const SubmissionsTable = () => {
                 <td>{sub.assignment?.title}</td>
                 <td>{sub.startedAt}</td>
                 <td>{sub.submittedAt}</td>
+                <td><SubmissionStatusBadge status={sub.examSubmissionState}/></td>
                 <td>
                     <Link href={`/submissions/${sub.id}/grading`}>
                         <ActionIcon color="blue" variant="outline">
@@ -45,6 +47,7 @@ const SubmissionsTable = () => {
                         <th>Zadání</th>
                         <th>Zahájení</th>
                         <th>Odevzdáno</th>
+                        <th>Status</th>
                         <th>Akce</th>
                     </tr>
                     </thead>

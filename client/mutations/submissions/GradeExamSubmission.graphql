@@ -1,0 +1,5 @@
+mutation GradeExamSubmission($input: ExamSubmissionGradeInput!) {
+    gradeExamSubmission(input: $input){
+        id
+    }
+}

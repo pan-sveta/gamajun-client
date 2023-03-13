@@ -84,9 +84,11 @@ export type Exam = {
 export type ExamSubmission = {
   __typename?: 'ExamSubmission';
   assignment: Assignment;
+  comment?: Maybe<Scalars['String']>;
   exam: Exam;
   examSubmissionState: ExamSubmissionState;
   id: Scalars['ID'];
+  points?: Maybe<Scalars['Float']>;
   startedAt: Scalars['String'];
   submittedAt?: Maybe<Scalars['String']>;
   user: User;
@@ -97,6 +99,12 @@ export type ExamSubmission = {
 export type ExamSubmissionCheckpointInput = {
   id?: InputMaybe<Scalars['ID']>;
   xml?: InputMaybe<Scalars['String']>;
+};
+
+export type ExamSubmissionGradeInput = {
+  comment?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  points?: InputMaybe<Scalars['Float']>;
 };
 
 export enum ExamSubmissionState {
@@ -132,6 +140,8 @@ export type Mutation = {
   deleteExamSubmission?: Maybe<Scalars['Boolean']>;
   /** Delete sandbox submission */
   deleteSandboxSubmission: Scalars['Boolean'];
+  /** Grade exam submission */
+  gradeExamSubmission: ExamSubmission;
   removeUser: Classroom;
   signUp: User;
   /** Submit exam submission */
@@ -198,6 +208,11 @@ export type MutationDeleteExamSubmissionArgs = {
 
 export type MutationDeleteSandboxSubmissionArgs = {
   id: Scalars['String'];
+};
+
+
+export type MutationGradeExamSubmissionArgs = {
+  input: ExamSubmissionGradeInput;
 };
 
 
@@ -492,6 +507,13 @@ export type CheckpointExamSubmissionMutationVariables = Exact<{
 
 export type CheckpointExamSubmissionMutation = { __typename?: 'Mutation', checkpointExamSubmission: { __typename?: 'ExamSubmission', id: string } };
 
+export type GradeExamSubmissionMutationVariables = Exact<{
+  input: ExamSubmissionGradeInput;
+}>;
+
+
+export type GradeExamSubmissionMutation = { __typename?: 'Mutation', gradeExamSubmission: { __typename?: 'ExamSubmission', id: string } };
+
 export type SubmitExamSubmissionMutationVariables = Exact<{
   input: ExamSubmissionSubmitInput;
 }>;
@@ -588,21 +610,21 @@ export type SubmissionsByExamIdQueryVariables = Exact<{
 }>;
 
 
-export type SubmissionsByExamIdQuery = { __typename?: 'Query', examSubmissionsByExamId: Array<{ __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string } }> };
+export type SubmissionsByExamIdQuery = { __typename?: 'Query', examSubmissionsByExamId: Array<{ __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, user: { __typename?: 'User', name: string, surname: string, username: string }, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string } }> };
 
 export type SubmissionByIdQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type SubmissionByIdQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, xml?: string | null, user: { __typename?: 'User', username: string, name: string, surname: string }, exam: { __typename?: 'Exam', id: string, title: string, timeLimit: number }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, referenceMatchingResult: { __typename?: 'ReferenceMatchingResult', id: string, result: ReferenceMatchingResultState, isomorphismCheckResult: boolean, participantsCheckResult: boolean, participantsCheckMessage: string }, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
+export type SubmissionByIdQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, points?: number | null, comment?: string | null, xml?: string | null, user: { __typename?: 'User', username: string, name: string, surname: string }, exam: { __typename?: 'Exam', id: string, title: string, timeLimit: number }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, referenceMatchingResult: { __typename?: 'ReferenceMatchingResult', id: string, result: ReferenceMatchingResultState, isomorphismCheckResult: boolean, participantsCheckResult: boolean, participantsCheckMessage: string }, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
 
 export type SubmissionByIdGradingQueryVariables = Exact<{
   id: Scalars['String'];
 }>;
 
 
-export type SubmissionByIdGradingQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string } } | null };
+export type SubmissionByIdGradingQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, points?: number | null, comment?: string | null, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string } } | null };
 
 
 export const CreateAssignmentDocument = gql`
@@ -1102,6 +1124,39 @@ export function useCheckpointExamSubmissionMutation(baseOptions?: Apollo.Mutatio
 export type CheckpointExamSubmissionMutationHookResult = ReturnType<typeof useCheckpointExamSubmissionMutation>;
 export type CheckpointExamSubmissionMutationResult = Apollo.MutationResult<CheckpointExamSubmissionMutation>;
 export type CheckpointExamSubmissionMutationOptions = Apollo.BaseMutationOptions<CheckpointExamSubmissionMutation, CheckpointExamSubmissionMutationVariables>;
+export const GradeExamSubmissionDocument = gql`
+    mutation GradeExamSubmission($input: ExamSubmissionGradeInput!) {
+  gradeExamSubmission(input: $input) {
+    id
+  }
+}
+    `;
+export type GradeExamSubmissionMutationFn = Apollo.MutationFunction<GradeExamSubmissionMutation, GradeExamSubmissionMutationVariables>;
+
+/**
+ * __useGradeExamSubmissionMutation__
+ *
+ * To run a mutation, you first call `useGradeExamSubmissionMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useGradeExamSubmissionMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [gradeExamSubmissionMutation, { data, loading, error }] = useGradeExamSubmissionMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useGradeExamSubmissionMutation(baseOptions?: Apollo.MutationHookOptions<GradeExamSubmissionMutation, GradeExamSubmissionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<GradeExamSubmissionMutation, GradeExamSubmissionMutationVariables>(GradeExamSubmissionDocument, options);
+      }
+export type GradeExamSubmissionMutationHookResult = ReturnType<typeof useGradeExamSubmissionMutation>;
+export type GradeExamSubmissionMutationResult = Apollo.MutationResult<GradeExamSubmissionMutation>;
+export type GradeExamSubmissionMutationOptions = Apollo.BaseMutationOptions<GradeExamSubmissionMutation, GradeExamSubmissionMutationVariables>;
 export const SubmitExamSubmissionDocument = gql`
     mutation SubmitExamSubmission($input: ExamSubmissionSubmitInput!) {
   submitExamSubmission(input: $input) {
@@ -1790,6 +1845,7 @@ export const SubmissionsByExamIdDocument = gql`
     id
     startedAt
     submittedAt
+    examSubmissionState
     user {
       name
       surname
@@ -1849,6 +1905,8 @@ export const SubmissionByIdDocument = gql`
       surname
     }
     examSubmissionState
+    points
+    comment
     xml
     exam {
       id
@@ -1926,6 +1984,8 @@ export const SubmissionByIdGradingDocument = gql`
       username
     }
     examSubmissionState
+    points
+    comment
     xml
     exam {
       id

@@ -52,9 +52,11 @@ Exam submissions#
 """
 type ExamSubmission {
     assignment: Assignment!
+    comment: String
     exam: Exam!
     examSubmissionState: ExamSubmissionState!
     id: ID!
+    points: Float
     startedAt: String!
     submittedAt: String
     user: User!
@@ -83,6 +85,8 @@ type Mutation {
     deleteExamSubmission(id: String!): Boolean
     "Delete sandbox submission"
     deleteSandboxSubmission(id: String!): Boolean!
+    "Grade exam submission"
+    gradeExamSubmission(input: ExamSubmissionGradeInput!): ExamSubmission!
     removeUser(classroomId: String!, username: String!): Classroom!
     signUp(input: SignUpInput!): User!
     "Submit exam submission"
@@ -210,6 +214,12 @@ input CreateExamInput {
 input ExamSubmissionCheckpointInput {
     id: ID
     xml: String
+}
+
+input ExamSubmissionGradeInput {
+    comment: String
+    id: ID
+    points: Float
 }
 
 input ExamSubmissionSubmitInput {

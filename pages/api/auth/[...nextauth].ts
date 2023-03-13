@@ -14,6 +14,7 @@ export const authOptions: NextAuthOptions = {
             clientSecret: process.env.GAMAJUN_CLIENT_SECRET,
             clientId: process.env.GAMAJUN_CLIENT_ID,
             idToken: true,
+            checks: "pkce",
             async profile(profile, tokens) {
                 console.log("PRof")
                 console.log(profile)

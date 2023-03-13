@@ -9,6 +9,8 @@ query SubmissionById($id: String!){
             surname
         }
         examSubmissionState
+        points
+        comment
         xml
         exam {
             id

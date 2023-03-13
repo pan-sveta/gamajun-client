@@ -3,6 +3,7 @@ query SubmissionsByExamId($id: String!){
         id,
         startedAt,
         submittedAt,
+        examSubmissionState,
         user {
             name
             surname

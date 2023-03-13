@@ -9,17 +9,17 @@ const MySubmissions = () => {
 
     function draftSubmissionCards() {
         if (!data?.myExamSubmissions)
-            return null;
+            return <div>duck</div>;
         else if (data.myExamSubmissions.length < 1)
             return (
                 <Center mih={"10vh"}>
                     <Text color={"gray"}>Žádné zkoušky</Text>
                 </Center>
             );
-
-        return data.myExamSubmissions
-            .filter(ass => ass?.examSubmissionState === "Submitted")
-            .map(ass => <SubmissionCard key={ass?.id} examSubmission={ass}/>);
+        else
+            return data.myExamSubmissions
+                .filter(ass => ass?.examSubmissionState != "Draft")
+                .map(ass => <SubmissionCard key={ass?.id} examSubmission={ass}/>);
     }
 
     return (

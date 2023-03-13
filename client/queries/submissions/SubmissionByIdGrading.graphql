@@ -9,6 +9,8 @@ query SubmissionByIdGrading($id: String!){
             username
         }
         examSubmissionState
+        points
+        comment
         xml
         exam {
             id

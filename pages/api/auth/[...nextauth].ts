@@ -1,7 +1,6 @@
 import NextAuth, {NextAuthOptions} from "next-auth"
 import {btoa} from "buffer";
 import {JWT} from "next-auth/jwt";
-import React from "react";
 
 export const authOptions: NextAuthOptions = {
     // Configure one or more authentication providers

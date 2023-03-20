@@ -1,5 +1,5 @@
 import {TransferList, TransferListData, TransferListItem} from "@mantine/core";
-import {useAssignmentsPickerQuery, useClassroomsQuery} from "../../client/generated/generated-types";
+import {useClassroomsQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../common/GamajunLoader";
 
 interface ExamAssignmentPickerProps {

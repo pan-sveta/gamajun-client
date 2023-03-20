@@ -1,29 +1,17 @@
 import React from 'react';
-import {Alert, Button, Flex, Group, Loader, NumberInput, Paper, Stack, Text, Textarea, Title} from "@mantine/core";
+import {Alert, Button, NumberInput, Paper, Stack, Textarea} from "@mantine/core";
 import {
     ExamSubmissionGradeInput,
-    ExamSubmissionSubmitInput,
-    QueryExamSubmissionByIdArgs,
-    refetchExamByIdQuery,
     refetchMySubmissionsQuery,
-    refetchOpenedExamsQuery, refetchSubmissionByIdGradingQuery,
-    refetchSubmissionByIdQuery, refetchSubmissionsByExamIdQuery,
+    refetchSubmissionByIdGradingQuery,
+    refetchSubmissionByIdQuery,
+    refetchSubmissionsByExamIdQuery,
     SubmissionByIdGradingQuery,
-    SubmissionByIdQuery,
-    useGradeExamSubmissionMutation,
-    useSubmitExamSubmissionMutation
+    useGradeExamSubmissionMutation
 } from "../../client/generated/generated-types";
 import {useForm} from "@mantine/form";
 import {showNotification} from "@mantine/notifications";
-import {
-    IconAlertCircle,
-    IconAlertTriangle,
-    IconCheck,
-    IconCircleCheck,
-    IconDeviceFloppy,
-    IconX,
-    IconZoomCheck
-} from "@tabler/icons";
+import {IconAlertCircle, IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
 import {useRouter} from "next/router";
 
 interface GradeSubmissionProps {

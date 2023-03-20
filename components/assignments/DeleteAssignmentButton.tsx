@@ -4,7 +4,6 @@ import {showNotification} from "@mantine/notifications";
 import {IconCheck, IconTrash, IconX} from "@tabler/icons";
 import {useRouter} from "next/router";
 import {
-    Assignment,
     AssignmentByIdQuery,
     refetchAssignmentsQuery,
     useDeleteAssignmentMutation

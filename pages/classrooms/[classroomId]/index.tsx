@@ -1,8 +1,7 @@
-import { NextPage } from "next";
+import {NextPage} from "next";
 import {useRouter} from "next/router";
 import {useClassroomByIdQuery} from "../../../client/generated/generated-types";
 import GamajunLoader from "../../../components/common/GamajunLoader";
-import ClassroomsOverview from "../../../components/classrooms/ClassroomsOverview";
 import ClassroomViewer from "../../../components/classrooms/ClassroomViewer";
 import {IconAlertCircle} from "@tabler/icons";
 import React from "react";

@@ -1,10 +1,9 @@
 import React from 'react';
-import {IconBeach, IconCertificate, IconHome, IconSchool, IconSettings, IconTemplate} from "@tabler/icons";
+import {IconBeach, IconCertificate, IconHome, IconSchool, IconTemplate} from "@tabler/icons";
 import {Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import Link from "next/link";
 import {useSession} from "next-auth/react";
 import GamajunLoader from "../common/GamajunLoader";
-import {JSXElement} from "@babel/types";
 
 interface MainLinkProps {
     icon: React.ReactNode;

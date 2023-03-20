@@ -1,6 +1,6 @@
 import type {NextPage} from 'next'
 import {useSession} from "next-auth/react";
-import {Avatar, Badge, Center, Flex, Group, Paper, Stack, Text, Title, Tooltip} from "@mantine/core";
+import {Avatar, Badge, Center, Flex, Paper, Stack, Text, Title, Tooltip} from "@mantine/core";
 import React from "react";
 import Head from "next/head";
 

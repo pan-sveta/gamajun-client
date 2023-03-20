@@ -2,9 +2,6 @@ import {ApolloClient, ApolloLink, createHttpLink, InMemoryCache} from "@apollo/c
 import {setContext} from "@apollo/client/link/context";
 import {getSession, signOut} from "next-auth/react";
 import {onError} from "@apollo/client/link/error";
-import {router} from "next/client";
-import {useRouter} from "next/router";
-import {redirect} from "next/dist/server/api-utils";
 
 const httpLink = createHttpLink({
     uri: `${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}/graphql`,

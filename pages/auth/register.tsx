@@ -1,7 +1,6 @@
 import {NextPage} from "next";
-import React, {useState} from "react";
+import React from "react";
 import Registration from "../../components/auth/Registration";
-import {useRouter} from "next/router";
 import Head from "next/head";
 
 const Exams: NextPage = () => {

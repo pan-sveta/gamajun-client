@@ -1,7 +1,6 @@
 import {useMySubmissionsQuery} from "../../client/generated/generated-types";
 import {Center, Skeleton, Stack, Text} from "@mantine/core";
 import SubmissionCard from "./SubmissionCard";
-import GamajunLoader from "../common/GamajunLoader";
 import React from "react";
 
 const MySubmissions = () => {

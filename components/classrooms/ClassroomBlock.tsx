@@ -1,6 +1,6 @@
 import React from 'react';
-import {Classroom, ClassroomsQuery, ClassroomsQueryResult} from "../../client/generated/generated-types";
-import {Flex, Group, Paper, Text, Title} from "@mantine/core";
+import {ClassroomsQuery} from "../../client/generated/generated-types";
+import {Flex, Paper, Text, Title} from "@mantine/core";
 import {IconTicket, IconUsers} from "@tabler/icons";
 import Link from "next/link";
 

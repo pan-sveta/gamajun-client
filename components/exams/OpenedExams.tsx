@@ -1,7 +1,6 @@
 import {useOpenedExamsQuery} from "../../client/generated/generated-types";
 import {Alert, Center, Skeleton, Stack, Text} from "@mantine/core";
 import ExamCard from "./ExamCard";
-import GamajunLoader from "../common/GamajunLoader";
 import {IconAlertCircle} from "@tabler/icons";
 import React from "react";
 

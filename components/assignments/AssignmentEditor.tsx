@@ -14,10 +14,10 @@ import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
 import {
-    Assignment, AssignmentByIdQuery,
+    AssignmentByIdQuery,
     refetchAssignmentsQuery,
     refetchSandboxAssignmentsQuery,
-    UpdateAssignmentInput, useAssignmentByIdQuery,
+    UpdateAssignmentInput,
     useUpdateAssignmentMutation
 } from "../../client/generated/generated-types";
 import DeleteAssignmentButton from "./DeleteAssignmentButton";

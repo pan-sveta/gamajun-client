@@ -1,11 +1,11 @@
 import React from 'react';
 import {
     ClassroomByIdQuery,
-    refetchClassroomByIdQuery, refetchClassroomsQuery, useDeleteClassroomMutation,
-    useRemoveUserMutation
+    refetchClassroomsQuery,
+    useDeleteClassroomMutation
 } from "../../client/generated/generated-types";
-import {ActionIcon, Alert, Button, Flex, Group, Paper, Stack, Text, Title, Tooltip} from "@mantine/core";
-import {IconAlertCircle, IconBone, IconCheck, IconClipboardCopy, IconSkull, IconTrash, IconX} from "@tabler/icons";
+import {ActionIcon, Alert, Button, Flex, Stack, Text, Title, Tooltip} from "@mantine/core";
+import {IconAlertCircle, IconCheck, IconClipboardCopy, IconSkull, IconX} from "@tabler/icons";
 import StudentsTable from "./StudentsTable";
 import Head from "next/head";
 import {openConfirmModal} from "@mantine/modals";

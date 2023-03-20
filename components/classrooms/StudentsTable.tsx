@@ -2,34 +2,10 @@ import React, {ReactNode} from 'react';
 import {
     ClassroomByIdQuery,
     refetchClassroomByIdQuery,
-    useAssignmentsQuery,
     useRemoveUserMutation
 } from "../../client/generated/generated-types";
-import {
-    ActionIcon,
-    Alert, Center,
-    Group,
-    Paper,
-    Skeleton,
-    Stack,
-    Table,
-    Text,
-    Title,
-    Tooltip,
-    useMantineTheme
-} from "@mantine/core";
-import GamajunLoader from "../common/GamajunLoader";
-import {
-    IconAlertCircle,
-    IconBeach,
-    IconCheck,
-    IconEdit,
-    IconEraser,
-    IconKarate,
-    IconUserMinus,
-    IconX
-} from "@tabler/icons";
-import Link from "next/link";
+import {ActionIcon, Alert, Center, Paper, Stack, Table, Text, Title, Tooltip} from "@mantine/core";
+import {IconAlertCircle, IconCheck, IconUserMinus, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {openConfirmModal} from "@mantine/modals";
 

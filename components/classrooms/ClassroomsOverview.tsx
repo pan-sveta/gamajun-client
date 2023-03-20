@@ -1,12 +1,9 @@
 import React from 'react';
 import {useClassroomsQuery} from "../../client/generated/generated-types";
 import ClassroomBlock from "./ClassroomBlock";
-import classrooms from "../../pages/classrooms";
-import {Alert, Button, Center, Group, Skeleton, Stack, Title, Text, Flex, Box} from "@mantine/core";
-import GamajunLoader from "../common/GamajunLoader";
+import {Alert, Box, Button, Group, Skeleton, Stack, Text, Title} from "@mantine/core";
 import Link from "next/link";
 import {IconAlertCircle, IconPlus} from "@tabler/icons";
-import {JSXElement} from "@babel/types";
 
 function ClassroomsOverview(): JSX.Element {
     const {data, loading, error} = useClassroomsQuery();

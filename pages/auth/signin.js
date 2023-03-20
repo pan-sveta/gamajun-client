@@ -1,6 +1,6 @@
 import {getProviders, signIn} from "next-auth/react"
-import {Button, Paper, Stack, Title} from "@mantine/core";
-import {IconLogin, IconSchool, IconUserPlus} from "@tabler/icons";
+import {Button, Stack, Title} from "@mantine/core";
+import {IconLogin, IconUserPlus} from "@tabler/icons";
 import Image from "next/image";
 import React from "react";
 import {useRouter} from "next/router";

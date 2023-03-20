@@ -1,9 +1,9 @@
-import {Flex, Grid, Paper, Tabs, Title, Text, createStyles, Group, Center, Box} from '@mantine/core';
+import {Tabs} from '@mantine/core';
 import {
     ExamSubmission,
-    SandboxSubmission,
     SandboxSubmissionsByIdQuery,
-    SubmissionByIdQuery, ValidatorReport
+    SubmissionByIdQuery,
+    ValidatorReport
 } from "../../client/generated/generated-types";
 import {IconPhoto, IconSettings} from "@tabler/icons";
 import SubmissionDisplay from "./SubmissionDisplay";

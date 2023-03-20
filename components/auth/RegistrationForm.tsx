@@ -1,10 +1,10 @@
 import React from 'react';
-import {Button, Group, Paper, PasswordInput, TextInput, Title, Text, Flex} from "@mantine/core";
+import {Button, Paper, PasswordInput, Text, TextInput, Title} from "@mantine/core";
 import {useForm} from "@mantine/form";
-import {SignUpInput, SignUpMutationVariables, useSignUpMutation} from "../../client/generated/generated-types";
+import {SignUpInput, useSignUpMutation} from "../../client/generated/generated-types";
 import noAuthApolloClient from "../../noAuthApolloClient";
 import {showNotification} from "@mantine/notifications";
-import {IconCheck, IconTicket, IconX} from "@tabler/icons";
+import {IconX} from "@tabler/icons";
 
 interface RegistrationFormInput {
     inviteCode: string

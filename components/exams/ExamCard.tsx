@@ -4,7 +4,8 @@ import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import {
     OpenedExamsQuery,
-    refetchMySubmissionsQuery, refetchOpenedExamsQuery,
+    refetchMySubmissionsQuery,
+    refetchOpenedExamsQuery,
     useBeginExamMutation
 } from "../../client/generated/generated-types";
 import React from "react";

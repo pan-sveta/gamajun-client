@@ -1,12 +1,12 @@
 import {NextPage} from "next";
 import ExamSubmissionEditor from "../../../components/submissions/ExamSubmissionEditor";
 import SubmissionViewer from "../../../components/submissions/SubmissionViewer";
-import {ExamSubmission, useSubmissionByIdQuery} from "../../../client/generated/generated-types";
+import {useSubmissionByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
 import GamajunLoader from "../../../components/common/GamajunLoader";
 import {IconAlertCircle} from "@tabler/icons";
 import React from "react";
-import { Alert } from "@mantine/core";
+import {Alert} from "@mantine/core";
 
 const AllExams: NextPage = () => {
     const router = useRouter();

@@ -1,14 +1,12 @@
-import {Button, Grid, Group, Loader, Paper, Stack, Switch, Tabs, Text, TextInput} from "@mantine/core";
-import {IconAdjustmentsAlt, IconCheck, IconDeviceFloppy, IconPaint, IconSettings, IconX} from "@tabler/icons";
-import GamajunRichTextEditor from "../input/GamajunRichTextEditor";
-import dynamic from "next/dynamic";
+import {Button, Grid, Group, Paper, Stack, Text, TextInput} from "@mantine/core";
+import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
 import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";
 import {
-    CreateAssignmentInput, CreateClassroomInput,
-    refetchAssignmentsQuery, refetchClassroomsQuery,
-    useCreateAssignmentMutation, useCreateClassroomMutation
+    CreateClassroomInput,
+    refetchClassroomsQuery,
+    useCreateClassroomMutation
 } from "../../client/generated/generated-types";
 import React from "react";
 

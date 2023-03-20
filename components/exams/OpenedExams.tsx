@@ -1,7 +1,7 @@
 import {useOpenedExamsQuery} from "../../client/generated/generated-types";
 import {Alert, Center, Skeleton, Stack, Text} from "@mantine/core";
 import ExamCard from "./ExamCard";
-import {IconAlertCircle} from "@tabler/icons";
+import {IconAlertCircle} from "@tabler/icons-react";
 import React from "react";
 
 const OpenedExams = () => {

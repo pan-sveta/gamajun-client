@@ -1,7 +1,7 @@
 import React from 'react';
 import {ClassroomsQuery} from "../../client/generated/generated-types";
 import {Flex, Paper, Text, Title} from "@mantine/core";
-import {IconTicket, IconUsers} from "@tabler/icons";
+import {IconTicket, IconUsers} from "@tabler/icons-react";
 import Link from "next/link";
 
 interface ClassroomBlockProps {

@@ -6,7 +6,7 @@ import {
     useSandboxSubmissionsByAssignmentIdQuery
 } from "../../../client/generated/generated-types";
 import {Paper, Skeleton, Table, Title, useMantineTheme} from "@mantine/core";
-import {IconCheck, IconEdit} from "@tabler/icons";
+import {IconCheck, IconEdit} from "@tabler/icons-react";
 import Head from "next/head";
 
 const Sandbox: NextPage = () => {

@@ -4,7 +4,7 @@ import {useSandboxSubmissionsByIdQuery} from "../../../client/generated/generate
 import {useRouter} from "next/router";
 import GamajunLoader from "../../../components/common/GamajunLoader";
 import SandboxSubmissionEditor from "../../../components/submissions/SandboxSubmissionEditor";
-import {IconAlertCircle} from "@tabler/icons";
+import {IconAlertCircle} from "@tabler/icons-react";
 import React from "react";
 import {Alert} from "@mantine/core";
 

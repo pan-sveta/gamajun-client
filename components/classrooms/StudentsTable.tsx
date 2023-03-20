@@ -5,7 +5,7 @@ import {
     useRemoveUserMutation
 } from "../../client/generated/generated-types";
 import {ActionIcon, Alert, Center, Paper, Stack, Table, Text, Title, Tooltip} from "@mantine/core";
-import {IconAlertCircle, IconCheck, IconUserMinus, IconX} from "@tabler/icons";
+import {IconAlertCircle, IconCheck, IconUserMinus, IconX} from "@tabler/icons-react";
 import {showNotification} from "@mantine/notifications";
 import {openConfirmModal} from "@mantine/modals";
 

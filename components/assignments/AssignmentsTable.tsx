@@ -3,7 +3,7 @@ import {useAssignmentsQuery} from "../../client/generated/generated-types";
 import Link from "next/link";
 import GamajunLoader from "../common/GamajunLoader";
 import React, {ReactNode} from "react";
-import {IconAlertCircle, IconBeach, IconEdit} from "@tabler/icons";
+import {IconAlertCircle, IconBeach, IconEdit} from "@tabler/icons-react";
 
 const AssignmentsTable = () => {
     const {data, error, loading} = useAssignmentsQuery();

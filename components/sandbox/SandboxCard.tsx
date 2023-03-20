@@ -9,14 +9,14 @@ import {
     Button,
     Card,
     Collapse,
-    createStyles,
+    createStyles, Flex,
     Group,
     Stack,
     Text,
     Title,
     useMantineTheme
 } from "@mantine/core";
-import {IconBeach, IconCertificate, IconEdit, IconRotateClockwise2, IconRuler2, IconX} from "@tabler/icons";
+import {IconBeach, IconCertificate, IconEdit, IconRotateClockwise2, IconRuler2, IconX} from "@tabler/icons-react";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import {useState} from "react";
@@ -36,7 +36,7 @@ const useStyles = createStyles((theme) => ({
     footer: {
         display: 'flex',
         justifyContent: 'space-between',
-        padding: `${theme.spacing.sm}px ${theme.spacing.lg}px`,
+        padding: `15px`,
         borderTop: `1px solid ${
             theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
         }`,
@@ -103,13 +103,14 @@ const SandboxCard = ({assignment}: SandboxCardProps) => {
     }
 
     const navigate = (sandboxSubmissionId: string) => {
-      router.push(`/sandbox/${sandboxSubmissionId}`)
+        router.push(`/sandbox/${sandboxSubmissionId}`)
     }
 
     const previousAttempts = data?.mySandboxSubmissions.map((sub) => {
         return (
             <Group key={sub.id} spacing={3} align={"center"}>
-                <ActionIcon variant={"subtle"} color={"violet"} onClick={() => navigate(sub.id)}>{sub.submittedAt ? <IconCertificate/> : <IconEdit/>}</ActionIcon>
+                <ActionIcon variant={"subtle"} color={"violet"} onClick={() => navigate(sub.id)}>{sub.submittedAt ?
+                    <IconCertificate/> : <IconEdit/>}</ActionIcon>
                 <Text>{new Date(sub.startedAt).toLocaleString()}</Text>
 
             </Group>
@@ -129,13 +130,15 @@ const SandboxCard = ({assignment}: SandboxCardProps) => {
 
             <Card.Section className={classes.footer}>
 
-                    <Button leftIcon={<IconRuler2/>} color={"yellow"}
-                            onClick={() => createSubmission()}
-                            loading={createLoading}>Vyzkoušet</Button>
-                    <ActionIcon color="violet" variant="subtle" size={"lg"} onClick={() => setSubmissionDisplayed(!submissionDisplayed)}
-                            loading={mySubmissionLoading} >
-                        <IconRotateClockwise2/>
-                    </ActionIcon>
+                <Button leftIcon={<IconRuler2/>} color={"yellow"}
+                        onClick={() => createSubmission()}
+                        loading={createLoading}>Vyzkoušet</Button>
+                <ActionIcon color="violet" variant="subtle" size={"lg"}
+                            onClick={() => setSubmissionDisplayed(!submissionDisplayed)}
+                            loading={mySubmissionLoading}>
+                    <IconRotateClockwise2/>
+                </ActionIcon>
+
 
             </Card.Section>
 

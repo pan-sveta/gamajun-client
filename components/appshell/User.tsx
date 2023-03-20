@@ -1,5 +1,5 @@
 import React from 'react';
-import {IconLogin, IconLogout} from "@tabler/icons";
+import {IconLogin, IconLogout} from "@tabler/icons-react";
 import {Avatar, Box, Button, Group, Text, UnstyledButton, useMantineTheme} from '@mantine/core';
 import {signIn, signOut, useSession} from "next-auth/react";
 

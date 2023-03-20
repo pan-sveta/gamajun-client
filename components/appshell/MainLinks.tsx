@@ -1,5 +1,5 @@
 import React from 'react';
-import {IconBeach, IconCertificate, IconHome, IconSchool, IconTemplate} from "@tabler/icons";
+import {IconBeach, IconCertificate, IconHome, IconSchool, IconTemplate} from "@tabler/icons-react";
 import {Group, Text, ThemeIcon, UnstyledButton} from '@mantine/core';
 import Link from "next/link";
 import {useSession} from "next-auth/react";
@@ -14,7 +14,7 @@ interface MainLinkProps {
 
 export default function MainLink({icon, color, label, uri}: MainLinkProps) {
     return (
-        <Link href={uri}>
+        <Link href={uri} style={{ textDecoration: 'none' }}>
             <UnstyledButton
                 sx={(theme) => ({
                     display: 'block',

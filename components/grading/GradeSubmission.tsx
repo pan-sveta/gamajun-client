@@ -11,7 +11,7 @@ import {
 } from "../../client/generated/generated-types";
 import {useForm} from "@mantine/form";
 import {showNotification} from "@mantine/notifications";
-import {IconAlertCircle, IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
+import {IconAlertCircle, IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons-react";
 import {useRouter} from "next/router";
 
 interface GradeSubmissionProps {

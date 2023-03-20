@@ -1,7 +1,7 @@
 import {Button, Group, Loader, Paper} from '@mantine/core';
 import {useForm} from "@mantine/form";
 import {showNotification} from "@mantine/notifications";
-import {IconCheck, IconX, IconZoomCheck} from "@tabler/icons";
+import {IconCheck, IconX, IconZoomCheck} from "@tabler/icons-react";
 import dynamic from "next/dynamic";
 import {useRouter} from "next/router";
 import {

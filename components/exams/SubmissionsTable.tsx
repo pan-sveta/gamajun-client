@@ -2,7 +2,7 @@ import {useSubmissionsByExamIdQuery} from "../../client/generated/generated-type
 import {ActionIcon, Paper, Skeleton, Table} from "@mantine/core";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {IconSearch} from "@tabler/icons";
+import {IconSearch} from "@tabler/icons-react";
 import SubmissionStatusBadge from "../grading/SubmissionStatusBadge";
 
 const SubmissionsTable = () => {

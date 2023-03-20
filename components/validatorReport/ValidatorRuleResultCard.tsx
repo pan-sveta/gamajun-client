@@ -1,5 +1,5 @@
 import {Box, Collapse, createStyles, Divider, Flex, Group, Loader, Text, ThemeIcon} from "@mantine/core";
-import {IconCheck, IconChevronDown, IconX} from "@tabler/icons";
+import {IconCheck, IconChevronDown, IconX} from "@tabler/icons-react";
 import {ValidatorRuleResult} from "../../client/generated/generated-types";
 import {useState} from "react";
 import dynamic from "next/dynamic";

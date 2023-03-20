@@ -3,7 +3,7 @@ import {useRouter} from "next/router";
 import {useClassroomByIdQuery} from "../../../client/generated/generated-types";
 import GamajunLoader from "../../../components/common/GamajunLoader";
 import ClassroomViewer from "../../../components/classrooms/ClassroomViewer";
-import {IconAlertCircle} from "@tabler/icons";
+import {IconAlertCircle} from "@tabler/icons-react";
 import React from "react";
 import {Alert} from "@mantine/core";
 

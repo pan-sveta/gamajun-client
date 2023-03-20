@@ -4,7 +4,7 @@ import SubmissionViewer from "../../../components/submissions/SubmissionViewer";
 import {useSubmissionByIdQuery} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
 import GamajunLoader from "../../../components/common/GamajunLoader";
-import {IconAlertCircle} from "@tabler/icons";
+import {IconAlertCircle} from "@tabler/icons-react";
 import React from "react";
 import {Alert} from "@mantine/core";
 

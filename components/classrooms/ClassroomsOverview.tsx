@@ -2,7 +2,7 @@ import React from 'react';
 import {useClassroomsQuery} from "../../client/generated/generated-types";
 import ClassroomBlock from "./ClassroomBlock";
 import classrooms from "../../pages/classrooms";
-import {Alert, Button, Group, Skeleton, Stack, Title} from "@mantine/core";
+import {Alert, Button, Center, Group, Skeleton, Stack, Title, Text, Flex, Box} from "@mantine/core";
 import GamajunLoader from "../common/GamajunLoader";
 import Link from "next/link";
 import {IconAlertCircle, IconPlus} from "@tabler/icons";
@@ -30,9 +30,10 @@ function ClassroomsOverview(): JSX.Element {
                     <Button leftIcon={<IconPlus/>} color={"green"}>Nová třída</Button>
                 </Link>
             </Group>
-            <Group>
-                {classroomsBlocks}
-            </Group>
+            {classroomsBlocks && classroomsBlocks.length > 0 ?
+                <Group>classroomsBlocks</Group>
+                :
+                <Box pt={"xl"}><Text ta={"center"} size={"xl"} fw={"bold"}>Dosud žádné třídy</Text></Box>}
         </Stack>
     );
 }

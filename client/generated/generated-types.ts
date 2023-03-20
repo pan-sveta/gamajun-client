@@ -134,6 +134,7 @@ export type Mutation = {
   createSandboxSubmission: SandboxSubmission;
   /** Delete assignment */
   deleteAssignment: Scalars['Boolean'];
+  deleteClassroom: Scalars['Boolean'];
   /** Delete exam */
   deleteExam: Scalars['Boolean'];
   /** Delete exam submission */
@@ -192,6 +193,11 @@ export type MutationCreateSandboxSubmissionArgs = {
 
 
 export type MutationDeleteAssignmentArgs = {
+  id: Scalars['String'];
+};
+
+
+export type MutationDeleteClassroomArgs = {
   id: Scalars['String'];
 };
 
@@ -449,6 +455,13 @@ export type CreateClassroomMutationVariables = Exact<{
 
 
 export type CreateClassroomMutation = { __typename?: 'Mutation', createClassroom: { __typename?: 'Classroom', id: string, name: string, inviteCode: string } };
+
+export type DeleteClassroomMutationVariables = Exact<{
+  id: Scalars['String'];
+}>;
+
+
+export type DeleteClassroomMutation = { __typename?: 'Mutation', deleteClassroom: boolean };
 
 export type RemoveUserMutationVariables = Exact<{
   username: Scalars['String'];
@@ -815,6 +828,37 @@ export function useCreateClassroomMutation(baseOptions?: Apollo.MutationHookOpti
 export type CreateClassroomMutationHookResult = ReturnType<typeof useCreateClassroomMutation>;
 export type CreateClassroomMutationResult = Apollo.MutationResult<CreateClassroomMutation>;
 export type CreateClassroomMutationOptions = Apollo.BaseMutationOptions<CreateClassroomMutation, CreateClassroomMutationVariables>;
+export const DeleteClassroomDocument = gql`
+    mutation DeleteClassroom($id: String!) {
+  deleteClassroom(id: $id)
+}
+    `;
+export type DeleteClassroomMutationFn = Apollo.MutationFunction<DeleteClassroomMutation, DeleteClassroomMutationVariables>;
+
+/**
+ * __useDeleteClassroomMutation__
+ *
+ * To run a mutation, you first call `useDeleteClassroomMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteClassroomMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteClassroomMutation, { data, loading, error }] = useDeleteClassroomMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteClassroomMutation(baseOptions?: Apollo.MutationHookOptions<DeleteClassroomMutation, DeleteClassroomMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteClassroomMutation, DeleteClassroomMutationVariables>(DeleteClassroomDocument, options);
+      }
+export type DeleteClassroomMutationHookResult = ReturnType<typeof useDeleteClassroomMutation>;
+export type DeleteClassroomMutationResult = Apollo.MutationResult<DeleteClassroomMutation>;
+export type DeleteClassroomMutationOptions = Apollo.BaseMutationOptions<DeleteClassroomMutation, DeleteClassroomMutationVariables>;
 export const RemoveUserDocument = gql`
     mutation RemoveUser($username: String!, $classroomId: String!) {
   removeUser(username: $username, classroomId: $classroomId) {

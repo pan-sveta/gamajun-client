@@ -79,6 +79,7 @@ type Mutation {
     createSandboxSubmission(assignmentId: String!): SandboxSubmission!
     "Delete assignment"
     deleteAssignment(id: String!): Boolean!
+    deleteClassroom(id: String!): Boolean!
     "Delete exam"
     deleteExam(id: String!): Boolean!
     "Delete exam submission"

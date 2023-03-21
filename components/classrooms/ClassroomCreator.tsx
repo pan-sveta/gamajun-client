@@ -1,5 +1,5 @@
 import {Button, Grid, Group, Paper, Stack, Text, TextInput} from "@mantine/core";
-import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons-react";
+import {IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
 import {useForm} from "@mantine/form";
 import {useRouter} from "next/router";
 import {showNotification} from "@mantine/notifications";

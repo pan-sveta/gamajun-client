@@ -3,7 +3,7 @@ import {Button, Paper, TextInput, Title} from "@mantine/core";
 import {useForm} from "@mantine/form";
 import {useValidateCodeLazyQuery} from "../../client/generated/generated-types";
 import {showNotification} from "@mantine/notifications";
-import {IconX} from "@tabler/icons-react";
+import {IconX} from "@tabler/icons";
 import noAuthApolloClient from "../../noAuthApolloClient";
 
 interface ValidateInviteCodeProps {

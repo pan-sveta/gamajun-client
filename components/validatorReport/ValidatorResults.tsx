@@ -14,7 +14,7 @@ import {
 } from "@mantine/core";
 import {ReferenceMatchingResultState, ValidatorReport,} from "../../client/generated/generated-types";
 import ValidatorRuleResultCard from "./ValidatorRuleResultCard";
-import {IconAlertTriangle, IconCheck, IconX} from "@tabler/icons-react";
+import {IconAlertTriangle, IconCheck, IconX} from "@tabler/icons";
 
 const useStyles = createStyles((theme) => ({
     box: {

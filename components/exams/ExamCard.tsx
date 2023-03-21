@@ -1,5 +1,5 @@
 import {Alert, Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
-import {IconAlertCircle, IconAlertTriangle, IconReport, IconX} from "@tabler/icons-react";
+import {IconAlertCircle, IconAlertTriangle, IconReport, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import {

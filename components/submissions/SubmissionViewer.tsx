@@ -5,7 +5,7 @@ import {
     SubmissionByIdQuery,
     ValidatorReport
 } from "../../client/generated/generated-types";
-import {IconPhoto, IconSettings} from "@tabler/icons-react";
+import {IconPhoto, IconSettings} from "@tabler/icons";
 import SubmissionDisplay from "./SubmissionDisplay";
 import ValidatorResults from "../validatorReport/ValidatorResults";
 import Head from "next/head";

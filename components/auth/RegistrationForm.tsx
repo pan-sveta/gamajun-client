@@ -4,7 +4,7 @@ import {useForm} from "@mantine/form";
 import {SignUpInput, useSignUpMutation} from "../../client/generated/generated-types";
 import noAuthApolloClient from "../../noAuthApolloClient";
 import {showNotification} from "@mantine/notifications";
-import {IconX} from "@tabler/icons-react";
+import {IconX} from "@tabler/icons";
 
 interface RegistrationFormInput {
     inviteCode: string

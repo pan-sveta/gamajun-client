@@ -1,7 +1,7 @@
 import {openConfirmModal} from "@mantine/modals";
 import {Button, Text} from "@mantine/core";
 import {showNotification} from "@mantine/notifications";
-import {IconCheck, IconTrash, IconX} from "@tabler/icons-react";
+import {IconCheck, IconTrash, IconX} from "@tabler/icons";
 import {useRouter} from "next/router";
 import {ExamByIdQuery, refetchExamsQuery, useDeleteExamMutation} from "../../client/generated/generated-types";
 

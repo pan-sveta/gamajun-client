@@ -3,7 +3,7 @@ import {useClassroomsQuery} from "../../client/generated/generated-types";
 import ClassroomBlock from "./ClassroomBlock";
 import {Alert, Box, Button, Group, Skeleton, Stack, Text, Title} from "@mantine/core";
 import Link from "next/link";
-import {IconAlertCircle, IconPlus} from "@tabler/icons-react";
+import {IconAlertCircle, IconPlus} from "@tabler/icons";
 
 function ClassroomsOverview(): JSX.Element {
     const {data, loading, error} = useClassroomsQuery();

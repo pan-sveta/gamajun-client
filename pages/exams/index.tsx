@@ -1,7 +1,7 @@
 import {NextPage} from "next";
 import Link from "next/link";
 import {Button, Group, Stack, Title} from "@mantine/core";
-import {IconPlus} from "@tabler/icons-react";
+import {IconPlus} from "@tabler/icons";
 import ExamsTable from "../../components/exams/ExamsTable";
 import Head from "next/head";
 

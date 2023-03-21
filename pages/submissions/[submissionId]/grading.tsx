@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import Head from "next/head";
 import React from "react";
 import GradeSubmission from "../../../components/grading/GradeSubmission";
-import {IconAlertCircle} from "@tabler/icons-react";
+import {IconAlertCircle} from "@tabler/icons";
 import SubmissionStatusBadge from "../../../components/grading/SubmissionStatusBadge";
 
 

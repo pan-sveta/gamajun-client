@@ -3,7 +3,7 @@ import {ColorScheme, ColorSchemeProvider, MantineProvider} from "@mantine/core";
 import GamajunAppShell from "../components/appshell/GamajunAppShell";
 import {useState} from "react";
 import {SessionProvider} from "next-auth/react";
-import {Notifications} from "@mantine/notifications";
+import {NotificationsProvider} from "@mantine/notifications";
 import {ModalsProvider} from "@mantine/modals";
 import {RouterTransition} from "../components/appshell/RouterTransition";
 import {ApolloProvider} from "@apollo/client";
@@ -40,13 +40,14 @@ function MyApp({Component, pageProps: {session, ...pageProps}}: AppProps) {
         <SessionProvider session={session}>
             <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
                 <MantineProvider withGlobalStyles withNormalizeCSS theme={{colorScheme: colorScheme}}>
-                    <Notifications/>
-                    <ModalsProvider>
-                        <ApolloProvider client={gamajunApolloClient}>
-                            <RouterTransition/>
-                            {layoutRemoval()}
-                        </ApolloProvider>
-                    </ModalsProvider>
+                    <NotificationsProvider>
+                        <ModalsProvider>
+                            <ApolloProvider client={gamajunApolloClient}>
+                                <RouterTransition/>
+                                {layoutRemoval()}
+                            </ApolloProvider>
+                        </ModalsProvider>
+                    </NotificationsProvider>
                 </MantineProvider>
             </ColorSchemeProvider>
         </SessionProvider>

@@ -7,7 +7,7 @@ import {
     IconPaint,
     IconSettings,
     IconX
-} from "@tabler/icons-react";
+} from "@tabler/icons";
 import GamajunRichTextEditor from "../input/GamajunRichTextEditor";
 import dynamic from "next/dynamic";
 import {useForm} from "@mantine/form";

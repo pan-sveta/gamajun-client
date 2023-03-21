@@ -1,7 +1,7 @@
 import {Alert, Button, Grid, Group, NumberInput, Paper, Stack, Text, TextInput,} from "@mantine/core";
 import {DatePicker, TimeInput} from "@mantine/dates";
 import {useForm} from "@mantine/form";
-import {IconAlertCircle, IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons-react";
+import {IconAlertCircle, IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {useRouter} from "next/router";
 import {

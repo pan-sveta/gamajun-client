@@ -1,6 +1,6 @@
 import {ActionIcon, Alert, Group, Paper, Skeleton, Table} from "@mantine/core";
 import Link from "next/link";
-import {IconAlertCircle, IconPencil, IconReportAnalytics} from "@tabler/icons-react";
+import {IconAlertCircle, IconPencil, IconReportAnalytics} from "@tabler/icons";
 import {useExamsQuery} from "../../client/generated/generated-types";
 import React, {ReactNode} from "react";
 

@@ -9,12 +9,12 @@ import {
     useMantineColorScheme,
     useMantineTheme
 } from "@mantine/core";
+import {IconMoonStars, IconSun} from "@tabler/icons";
 import {MainLinks} from "./MainLinks";
 
 import {useState} from "react";
 import User from "./User";
 import Logo from "./Logo";
-import {IconMoonStars, IconSun} from "@tabler/icons-react";
 
 type Props = {
     children: JSX.Element,

@@ -4,6 +4,6 @@ import Image from "next/image";
 
 export default function Logo({ colorScheme }: { colorScheme: ColorScheme }) {
     return (
-        <Image alt={"Gamajun logo"} src={"/logo.png"} height={"37"} width={"133"} quality={100}/>
+        <Image alt={"Gamajun logo"} src={"/logo.png"} height={"37px"} width={"133px"} quality={100}/>
     );
 }

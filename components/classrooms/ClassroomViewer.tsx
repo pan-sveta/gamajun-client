@@ -5,7 +5,7 @@ import {
     useDeleteClassroomMutation
 } from "../../client/generated/generated-types";
 import {ActionIcon, Alert, Button, Flex, Stack, Text, Title, Tooltip} from "@mantine/core";
-import {IconAlertCircle, IconCheck, IconClipboardCopy, IconSkull, IconX} from "@tabler/icons-react";
+import {IconAlertCircle, IconCheck, IconClipboardCopy, IconSkull, IconX} from "@tabler/icons";
 import StudentsTable from "./StudentsTable";
 import Head from "next/head";
 import {openConfirmModal} from "@mantine/modals";

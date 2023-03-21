@@ -1,5 +1,5 @@
 import {Badge, Button, Card, createStyles, Text, useMantineTheme} from '@mantine/core';
-import {IconPlayerPlay, IconSearch} from "@tabler/icons-react";
+import {IconPlayerPlay, IconSearch} from "@tabler/icons";
 import Link from "next/link";
 import {MySubmissionsQuery} from "../../client/generated/generated-types";
 

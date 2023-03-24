@@ -28,7 +28,7 @@ function ClassroomsOverview(): JSX.Element {
                 </Link>
             </Group>
             {classroomsBlocks && classroomsBlocks.length > 0 ?
-                <Group>classroomsBlocks</Group>
+                <Group>{classroomsBlocks}</Group>
                 :
                 <Box pt={"xl"}><Text ta={"center"} size={"xl"} fw={"bold"}>Dosud žádné třídy</Text></Box>}
         </Stack>

@@ -39,7 +39,7 @@ export const authOptions: NextAuthOptions = {
             // Initial sign in
             if (account && user) {
                 return {
-                    accessToken: account.access_token ?? "" ,
+                    accessToken: account.access_token ?? "",
                     accessTokenExpires: account.expires_at ? account.expires_at * 1000 : -1,
                     refreshToken: account.refresh_token ?? "",
                     user,
@@ -61,6 +61,15 @@ export const authOptions: NextAuthOptions = {
 
             return session
         },
+        async redirect({url, baseUrl}) {
+            // Allows relative callback URLs
+            if (url.startsWith("/")) return `${baseUrl}${url}`
+            // Allows callback URLs on the same origin
+            else if (new URL(url).origin === baseUrl) return url
+            //Allow callback URLs from gamajun server
+            else if (new URL(url).origin === process.env.NEXT_PUBLIC_GAMAJUN_API_URL) return url
+            return baseUrl
+        }
     },
     pages: {
         signIn: '/auth/signin',

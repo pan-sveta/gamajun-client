@@ -2,10 +2,12 @@ import React from 'react';
 import {IconLogin, IconLogout} from "@tabler/icons";
 import {Avatar, Box, Button, Group, Text, UnstyledButton, useMantineTheme} from '@mantine/core';
 import {signIn, signOut, useSession} from "next-auth/react";
+import {useRouter} from "next/router";
 
 export default function User() {
     const theme = useMantineTheme();
     const {data: session} = useSession();
+    const router = useRouter();
 
     let actionButton;
     if (!session)
@@ -36,7 +38,7 @@ export default function User() {
                             {session.user?.email}
                         </Text>
                     </Box>
-                    <UnstyledButton onClick={() => signOut()}>
+                    <UnstyledButton onClick={() => signOut({callbackUrl: `${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}/logout?callbackUrl=${location.protocol + '//' + location.host}`})}>
                         <IconLogout color="red"/>
                     </UnstyledButton>
 

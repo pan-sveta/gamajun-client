@@ -72,7 +72,7 @@ type Mutation {
     checkpointExamSubmission(input: ExamSubmissionCheckpointInput!): ExamSubmission!
     "Create assignment"
     createAssignment(input: CreateAssignmentInput!): Assignment!
-    createClassroom(input: CreateClassroomInput!): Classroom!
+    createClassroom(input: CreateClassroomInput!): Classroom
     "Create exam"
     createExam(input: CreateExamInput!): Exam!
     "Create sandbox submission"

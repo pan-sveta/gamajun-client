@@ -1,6 +1,5 @@
+import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-import {gql} from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -128,7 +127,7 @@ export type Mutation = {
   checkpointExamSubmission: ExamSubmission;
   /** Create assignment */
   createAssignment: Assignment;
-  createClassroom: Classroom;
+  createClassroom?: Maybe<Classroom>;
   /** Create exam */
   createExam: Exam;
   /** Create sandbox submission */
@@ -455,7 +454,7 @@ export type CreateClassroomMutationVariables = Exact<{
 }>;
 
 
-export type CreateClassroomMutation = { __typename?: 'Mutation', createClassroom: { __typename?: 'Classroom', id: string, name: string, inviteCode: string } };
+export type CreateClassroomMutation = { __typename?: 'Mutation', createClassroom?: { __typename?: 'Classroom', id: string, name: string, inviteCode: string } | null };
 
 export type DeleteClassroomMutationVariables = Exact<{
   id: Scalars['String'];

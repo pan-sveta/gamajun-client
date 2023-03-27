@@ -37,7 +37,7 @@ const ClassroomCreator = () => {
             .then(classroom => {
                 showNotification({
                     title: "Třída úspěšně vytvořena",
-                    message: `Třída "${classroom.data?.createClassroom.name}"`,
+                    message: `Třída "${classroom.data?.createClassroom?.name}"`,
                     color: "green",
                     icon: <IconCheck/>
                 });

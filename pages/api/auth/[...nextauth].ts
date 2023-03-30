@@ -9,9 +9,9 @@ export const authOptions: NextAuthOptions = {
             id: "gamajun",
             name: "Gamajun",
             type: "oauth",
-            wellKnown: `${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}/.well-known/openid-configuration`,
-            clientSecret: process.env.CLIENT_SECRET,
-            clientId: process.env.CLIENT_ID,
+            wellKnown: `${process.env.OAUTH2_PROVIDER_URL}/.well-known/openid-configuration`,
+            clientSecret: process.env.OAUTH2_CLIENT_SECRET,
+            clientId: process.env.OAUTH2_CLIENT_ID,
             idToken: true,
             checks: "pkce",
             async profile(profile, tokens) {
@@ -81,8 +81,8 @@ async function refreshAccessToken(token: JWT) {
 
     try {
         const params = new URLSearchParams({
-            client_id: process.env.CLIENT_ID ?? "",
-            client_secret: process.env.CLIENT_SECRET ?? "",
+            client_id: process.env.OAUTH2_CLIENT_ID ?? "",
+            client_secret: process.env.OAUTH2_CLIENT_SECRET ?? "",
             grant_type: "refresh_token",
             refresh_token: token.refreshToken,
         });
@@ -94,7 +94,7 @@ async function refreshAccessToken(token: JWT) {
         const response = await fetch(url, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
-                "Authorization": `Basic ${btoa(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`)}`
+                "Authorization": `Basic ${btoa(`${process.env.OAUTH2_CLIENT_ID}:${process.env.OAUTH2_CLIENT_SECRET}`)}`
             },
             method: "POST",
         })

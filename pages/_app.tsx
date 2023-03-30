@@ -36,6 +36,8 @@ function MyApp({Component, pageProps: {session, ...pageProps}}: AppProps) {
             );
     }
 
+    console.log(`GAMAJUN URL: ${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}/graphql XXX ${process.env.NEXT_PUBLIC_GAMAJUN_API_URL}`)
+
     return (
         <SessionProvider session={session}>
             <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>

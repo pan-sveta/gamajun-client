@@ -112,7 +112,6 @@ const AssignmentCreator = () => {
                     <Tabs.Panel value="diagram" pt="xs">
                         <BpmnModeler xml={form.values.xml}
                                      onXmlChange={(newXml) => form.setFieldValue<string>('xml', newXml)}/>
-                        <div>{JSON.stringify(form.values.xml)}</div>
                     </Tabs.Panel>
                     <Tabs.Panel value="settings" pt="xs">
                         <Switch

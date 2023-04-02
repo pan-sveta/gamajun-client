@@ -12,6 +12,9 @@ const AllExams: NextPage = () => {
     const router = useRouter();
     const {submissionId} = router.query
 
+    console.log(submissionId)
+    console.log(typeof submissionId)
+
     const {data, loading, error} = useSubmissionByIdQuery({
         variables: {
             id: typeof submissionId === 'string' ? submissionId : "NO ID"

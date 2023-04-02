@@ -29,7 +29,7 @@ const BpmnModeler = dynamic(() => {
     return import("../../components/bpmn/modeler/BpmnModeler");
 }, {
     loading: () => <Loader variant="bars"/>,
-    ssr: false
+    ssr: false,
 });
 
 interface AssignmentEditor {
@@ -129,7 +129,6 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                         <Tabs.Panel value="diagram" pt="xs">
                             <BpmnModeler xml={form.values.xml}
                                          onXmlChange={(newXml) => form.setFieldValue<string>('xml', newXml)}/>
-                            <div>{JSON.stringify(form.values.xml)}</div>
                         </Tabs.Panel>
                         <Tabs.Panel value="settings" pt="xs">
                             <Switch

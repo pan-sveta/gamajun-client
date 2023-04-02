@@ -78,7 +78,7 @@ const data = [
         color: 'yellow',
         label: 'Sandbox',
         uri: '/sandbox',
-        requiredRole: "GAMAJUN_STUDENT"
+        requiredRole: null
     }
 ];
 

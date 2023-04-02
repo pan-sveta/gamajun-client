@@ -106,15 +106,19 @@ const SandboxCard = ({assignment}: SandboxCardProps) => {
       router.push(`/sandbox/${sandboxSubmissionId}`)
     }
 
-    const previousAttempts = data?.mySandboxSubmissions.map((sub) => {
-        return (
-            <Group key={sub.id} spacing={3} align={"center"}>
-                <ActionIcon variant={"subtle"} color={"violet"} onClick={() => navigate(sub.id)}>{sub.submittedAt ? <IconCertificate/> : <IconEdit/>}</ActionIcon>
-                <Text>{new Date(sub.startedAt).toLocaleString()}</Text>
+    let previousAttempts;
+    if (!data || data?.mySandboxSubmissions?.length < 1)
+        previousAttempts = <Text ta={"center"} color={"gray"}>Žádné předchozí pokusy, čas to změnit!</Text>
+    else
+        previousAttempts = data?.mySandboxSubmissions.map((sub) => {
+            return (
+                <Group key={sub.id} spacing={3} align={"center"}>
+                    <ActionIcon variant={"subtle"} color={"violet"} onClick={() => navigate(sub.id)}>{sub.submittedAt ? <IconCertificate/> : <IconEdit/>}</ActionIcon>
+                    <Text>{new Date(sub.startedAt).toLocaleString()}</Text>
 
-            </Group>
-        )
-    })
+                </Group>
+            )
+        })
 
     return (
         <Card withBorder className={classes.card}>

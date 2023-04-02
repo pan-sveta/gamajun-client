@@ -12,9 +12,6 @@ const AllExams: NextPage = () => {
     const router = useRouter();
     const {submissionId} = router.query
 
-    console.log(submissionId)
-    console.log(typeof submissionId)
-
     const {data, loading, error} = useSubmissionByIdQuery({
         variables: {
             id: typeof submissionId === 'string' ? submissionId : "NO ID"
@@ -24,7 +21,6 @@ const AllExams: NextPage = () => {
     if (error)
         return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
-    //TODO: Fix
     if (!data?.examSubmissionById || loading)
         return <GamajunLoader/>;
 

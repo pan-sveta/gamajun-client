@@ -1,12 +1,37 @@
-import {TransferList, TransferListData, TransferListItem} from "@mantine/core";
+import {
+    Checkbox,
+    Group, Text,
+    TransferList,
+    TransferListData,
+    TransferListItem,
+    TransferListItemComponent,
+    TransferListItemComponentProps
+} from "@mantine/core";
 import {useClassroomsQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../common/GamajunLoader";
+import {IconBeach, IconUsers} from "@tabler/icons";
+import React from "react";
 
 interface ExamAssignmentPickerProps {
     value: Array<string>
 
     onChange?(data: Array<string>): void
 }
+
+const ItemComponent: TransferListItemComponent = ({
+                                                      data,
+                                                      selected,
+                                                  }: TransferListItemComponentProps) => (
+    <Group noWrap >
+        <Checkbox checked={selected} onChange={() => {}} tabIndex={-1} sx={{ pointerEvents: 'none' }} />
+        <div style={{ display: "flex", alignItems: "center" }}>
+            <IconUsers color={"purple"}/>
+            <Text ml={"5px"} size="sm" weight={500} mr={"5px"}>
+                {data.label}
+            </Text>
+        </div>
+    </Group>
+);
 
 const ExamAssignmentPicker = ({value, onChange}: ExamAssignmentPickerProps) => {
 
@@ -22,10 +47,10 @@ const ExamAssignmentPicker = ({value, onChange}: ExamAssignmentPickerProps) => {
     let classrooms = data?.classrooms;
 
     function TransferListItemFromAssignmentId(id: string): TransferListItem {
-        let assignment = classrooms?.find(x => x.id == id);
+        let classroom = classrooms?.find(x => x.id == id);
         return {
-            value: assignment?.id || "N/A",
-            label: assignment?.name || "N/A"
+            value: classroom?.id || "N/A",
+            label: classroom?.name || "N/A"
         }
     }
 
@@ -51,8 +76,9 @@ const ExamAssignmentPicker = ({value, onChange}: ExamAssignmentPickerProps) => {
         <TransferList
             value={read()}
             onChange={(value) => write(value)}
+            itemComponent={ItemComponent}
             searchPlaceholder="Hledat..."
-            nothingFound="Zde nic není"
+            nothingFound="Žádná třída"
             titles={['Dostupné', 'Přidělené']}
             breakpoint="sm"
         />

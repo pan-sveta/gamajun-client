@@ -10,12 +10,15 @@ import StudentsTable from "./StudentsTable";
 import Head from "next/head";
 import {openConfirmModal} from "@mantine/modals";
 import {showNotification} from "@mantine/notifications";
+import {useRouter} from "next/router";
 
 interface ClassroomViewerProps {
     classroom: ClassroomByIdQuery['classroomById']
 }
 
 const ClassroomViewer = ({classroom}: ClassroomViewerProps) => {
+    const router = useRouter();
+
     function copyLink() {
         navigator.clipboard.writeText(classroom.inviteCode).then(r => {
         });
@@ -54,6 +57,7 @@ const ClassroomViewer = ({classroom}: ClassroomViewerProps) => {
                 color: "green",
                 icon: <IconCheck/>,
             })
+            router.push("/classrooms");
         })
             .catch(err => showNotification({
                 title: "Chyba při odstraňování třídy",

@@ -1,12 +1,38 @@
-import {TransferList, TransferListData, TransferListItem} from "@mantine/core";
+import {
+    Avatar, Checkbox,
+    Group,
+    TransferList,
+    TransferListData,
+    TransferListItem,
+    TransferListItemComponent,
+    TransferListItemComponentProps,
+    Text, Box
+} from "@mantine/core";
 import {useAssignmentsPickerQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../common/GamajunLoader";
+import {IconBeach} from "@tabler/icons";
+import React from "react";
 
 interface ExamAssignmentPickerProps {
     value: Array<string>
 
     onChange?(data: Array<string>): void
 }
+
+const ItemComponent: TransferListItemComponent = ({
+                                                      data,
+                                                      selected,
+                                                  }: TransferListItemComponentProps) => (
+    <Group noWrap>
+        <Checkbox checked={selected} onChange={() => {}} tabIndex={-1} sx={{ pointerEvents: 'none' }} />
+        <div style={{ display: "flex" }}>
+            <Text size="sm" weight={500}>
+                {data.label}
+            </Text>
+            {data.sandbox && <Box ml={"5px"}><IconBeach size={20} color={"rgb(255, 212, 59)"}/></Box>}
+        </div>
+    </Group>
+);
 
 const ExamAssignmentPicker = ({value, onChange}: ExamAssignmentPickerProps) => {
 
@@ -25,7 +51,8 @@ const ExamAssignmentPicker = ({value, onChange}: ExamAssignmentPickerProps) => {
         let assignment = assignments?.find(x => x.id == id);
         return {
             value: assignment?.id || "N/A",
-            label: assignment?.title || "N/A"
+            label: assignment?.title || "N/A",
+            sandbox: assignment?.sandbox || false
         }
     }
 
@@ -51,8 +78,9 @@ const ExamAssignmentPicker = ({value, onChange}: ExamAssignmentPickerProps) => {
         <TransferList
             value={read()}
             onChange={(value) => write(value)}
+            itemComponent={ItemComponent}
             searchPlaceholder="Hledat..."
-            nothingFound="Zde nic není"
+            nothingFound="Žádné zadání"
             titles={['Dostupné', 'Přidělené']}
             breakpoint="sm"
         />

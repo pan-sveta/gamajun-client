@@ -91,7 +91,7 @@ const SandboxCard = ({assignment}: SandboxCardProps) => {
             }
         })
             .then((sandboxSubmission) => {
-                router.push(`/sandbox/${sandboxSubmission.data?.createSandboxSubmission.id}`)
+                router.push(`/sandbox/${sandboxSubmission.data?.createSandboxSubmission?.id}`)
             })
             .catch(err => showNotification({
                 title: "Nepodařilo se zahájit zkoušku",

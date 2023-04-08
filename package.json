@@ -36,6 +36,7 @@
     "dayjs": "^1.11.7",
     "gamajun-bpmn-js": "^1.0.3",
     "graphql": "^16.6.0",
+    "mantine-react-table": "^1.0.0-beta.2",
     "next": "12.2.5",
     "next-auth": "^4.10.3",
     "react": "18.2.0",

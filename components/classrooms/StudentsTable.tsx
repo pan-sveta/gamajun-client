@@ -1,13 +1,17 @@
-import React, {ReactNode} from 'react';
+import React, {ReactNode, useMemo} from 'react';
 import {
+    AssignmentsQuery,
     ClassroomByIdQuery,
     refetchClassroomByIdQuery,
     useRemoveUserMutation
 } from "../../client/generated/generated-types";
-import {ActionIcon, Alert, Center, Paper, Stack, Table, Text, Title, Tooltip} from "@mantine/core";
-import {IconAlertCircle, IconCheck, IconUserMinus, IconX} from "@tabler/icons";
+import {ActionIcon, Alert, Button, Center, Menu, Paper, Stack, Table, Text, Title, Tooltip} from "@mantine/core";
+import {IconAlertCircle, IconBeach, IconCheck, IconEdit, IconUserMinus, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {openConfirmModal} from "@mantine/modals";
+import {MantineReactTable, MRT_ColumnDef} from "mantine-react-table";
+import {MRT_Localization_CS} from "mantine-react-table/locales/cs";
+import Link from "next/link";
 
 interface StudentsTableProps {
     classroomId: ClassroomByIdQuery['classroomById']['id']
@@ -28,7 +32,7 @@ const StudentsTable = ({users, classroomId}: StudentsTableProps) => {
                         Opravdu si přejete vyloučit uživatele {username}?
                     </Text>
                     <Alert icon={<IconAlertCircle size={16}/>} title="VAROVÁNÍ!" color="red">
-                        Touto akcí dojde ke smazání uživatele a všech výsledků
+                        Touto akcí dojde ke smazání uživatele a všech jeho výsledků
                     </Alert>
                 </Stack>
             ),
@@ -60,48 +64,52 @@ const StudentsTable = ({users, classroomId}: StudentsTableProps) => {
                 }));
         }
 
-        if (users.length < 1)
-            return (
-                <Center>
-                    <Text color={"gray"}>Žádní registrovaní studenti</Text>
-                </Center>
-            )
+        const columns = useMemo<MRT_ColumnDef<ClassroomByIdQuery['classroomById']['users'][0]>[]>(
+            () => [
+                {
+                    accessorKey: 'username',
+                    header: 'Uživatelské jméno',
+                },
+                {
+                    accessorFn: ({name,surname}) => `${name} ${surname}`,
+                    header: 'Jméno',
+                },
+                {
+                    accessorKey: 'email',
+                    header: 'Uživatelské jméno',
+                    Cell: ({renderedCellValue}) => <a href={`mailto:${renderedCellValue}`}>{renderedCellValue}</a>,
+                },
+            ],
+            [],
+        );
 
-        const rows = (): ReactNode => {
-            return users?.map((user) => (
-                <tr key={user.username}>
-                    <td>{user.username}</td>
-                    <td>{user.name} {user?.surname}</td>
-                    <td><a href={`mailto:${user?.email}`}>{user.email}</a></td>
-                    <td>
-                        <Tooltip label={`Vyloučit studenta ${user.surname}`}>
-                            <ActionIcon color={"red"} variant={"outline"} loading={loading}
-                                        onClick={() => removeUserModal(user.username)}>
-                                <IconUserMinus/>
-                            </ActionIcon>
-                        </Tooltip>
-                    </td>
-                </tr>
-
-            ));
-        }
+        if (error)
+            return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
         return (
-            <Paper shadow="xs" p="md" my={"md"} withBorder>
-                <Title order={2} mb={"md"}>Studenti</Title>
-                <Table fontSize={"md"} striped>
-                    <thead>
-                    <tr>
-                        <th>Uživatelské jméno</th>
-                        <th>Jméno</th>
-                        <th>Email</th>
-                        <th>Akce</th>
-                    </tr>
-                    </thead>
-                    <tbody>{rows()}</tbody>
-                </Table>
-            </Paper>
-
+            <MantineReactTable
+                columns={columns}
+                data={users ?? []}
+                enableColumnOrdering
+                enableGlobalFilter={false}
+                mantineTableProps={{
+                    striped: true,
+                }}
+                initialState={{density: 'xs'}}
+                state={{isLoading: loading}}
+                enableFullScreenToggle={false}
+                enableRowActions={true}
+                positionActionsColumn="last"
+                localization={MRT_Localization_CS}
+                renderRowActions={({row}) => (
+                    <Tooltip label={`Vyloučit studenta ${row.getValue("surname")}`}>
+                        <Button color={"red"} loading={loading} leftIcon={<IconUserMinus/>}
+                                    onClick={() => removeUserModal(row.getValue("username"))}>
+                            Vyloučit uživatele
+                        </Button>
+                    </Tooltip>
+                )}
+            />
         );
     }
 ;

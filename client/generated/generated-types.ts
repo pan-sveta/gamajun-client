@@ -126,12 +126,12 @@ export type Mutation = {
   /** Checkpoint exam submission */
   checkpointExamSubmission: ExamSubmission;
   /** Create assignment */
-  createAssignment: Assignment;
+  createAssignment?: Maybe<Assignment>;
   createClassroom?: Maybe<Classroom>;
   /** Create exam */
-  createExam: Exam;
+  createExam?: Maybe<Exam>;
   /** Create sandbox submission */
-  createSandboxSubmission: SandboxSubmission;
+  createSandboxSubmission?: Maybe<SandboxSubmission>;
   /** Delete assignment */
   deleteAssignment: Scalars['Boolean'];
   deleteClassroom: Scalars['Boolean'];
@@ -144,7 +144,7 @@ export type Mutation = {
   /** Grade exam submission */
   gradeExamSubmission: ExamSubmission;
   removeUser: Classroom;
-  signUp: User;
+  signUp?: Maybe<User>;
   /** Submit exam submission */
   submitExamSubmission: ExamSubmission;
   /** Submit sandbox submission */
@@ -426,7 +426,7 @@ export type CreateAssignmentMutationVariables = Exact<{
 }>;
 
 
-export type CreateAssignmentMutation = { __typename?: 'Mutation', createAssignment: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string, sandbox: boolean, author: { __typename?: 'User', name: string, surname: string, username: string } } };
+export type CreateAssignmentMutation = { __typename?: 'Mutation', createAssignment?: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string, sandbox: boolean, author: { __typename?: 'User', name: string, surname: string, username: string } } | null };
 
 export type DeleteAssignmentMutationVariables = Exact<{
   id: Scalars['String'];
@@ -447,7 +447,7 @@ export type SignUpMutationVariables = Exact<{
 }>;
 
 
-export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', username: string, name: string, surname: string, roles: Array<{ __typename?: 'Role', name: string }> } };
+export type SignUpMutation = { __typename?: 'Mutation', signUp?: { __typename?: 'User', username: string, name: string, surname: string, roles: Array<{ __typename?: 'Role', name: string }> } | null };
 
 export type CreateClassroomMutationVariables = Exact<{
   input: CreateClassroomInput;
@@ -483,7 +483,7 @@ export type CreateExamMutationVariables = Exact<{
 }>;
 
 
-export type CreateExamMutation = { __typename?: 'Mutation', createExam: { __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, author: { __typename?: 'User', name: string, surname: string, username: string }, assignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, xml: string, author: { __typename?: 'User', name: string, surname: string, username: string } }>, classrooms: Array<{ __typename?: 'Classroom', id: string, name: string }> } };
+export type CreateExamMutation = { __typename?: 'Mutation', createExam?: { __typename?: 'Exam', id: string, title: string, accessibleFrom: string, accessibleTo: string, author: { __typename?: 'User', name: string, surname: string, username: string }, assignments: Array<{ __typename?: 'Assignment', id: string, title: string, description: string, xml: string, author: { __typename?: 'User', name: string, surname: string, username: string } }>, classrooms: Array<{ __typename?: 'Classroom', id: string, name: string }> } | null };
 
 export type DeleteExamMutationVariables = Exact<{
   id: Scalars['String'];
@@ -504,7 +504,7 @@ export type CreateSandboxSubmissionMutationVariables = Exact<{
 }>;
 
 
-export type CreateSandboxSubmissionMutation = { __typename?: 'Mutation', createSandboxSubmission: { __typename?: 'SandboxSubmission', id: string } };
+export type CreateSandboxSubmissionMutation = { __typename?: 'Mutation', createSandboxSubmission?: { __typename?: 'SandboxSubmission', id: string } | null };
 
 export type SubmitSandboxSubmissionMutationVariables = Exact<{
   input: SandboxSubmissionSubmitInput;

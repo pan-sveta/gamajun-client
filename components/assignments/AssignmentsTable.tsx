@@ -1,70 +1,69 @@
-import {ActionIcon, Alert, Group, Paper, Skeleton, Table, useMantineTheme} from "@mantine/core";
-import {useAssignmentsQuery} from "../../client/generated/generated-types";
+import {ActionIcon, Alert, Box, Button, Group, Menu, Paper, Skeleton, Table, Text, useMantineTheme} from "@mantine/core";
+import {AssignmentsQuery, useAssignmentsQuery} from "../../client/generated/generated-types";
 import Link from "next/link";
 import GamajunLoader from "../common/GamajunLoader";
-import React, {ReactNode} from "react";
-import {IconAlertCircle, IconBeach, IconEdit} from "@tabler/icons";
+import React, {ReactNode, useMemo} from "react";
+import {IconAlertCircle, IconBeach, IconCheck, IconCross, IconEdit, IconX} from "@tabler/icons";
+import {MantineReactTable, MRT_ColumnDef} from "mantine-react-table";
+import {MRT_Localization_CS} from "mantine-react-table/locales/cs";
 
 const AssignmentsTable = () => {
     const {data, error, loading} = useAssignmentsQuery();
-    const theme = useMantineTheme();
 
-
-
-    const rows = (): ReactNode => {
-        if (!data?.assignments)
-            return <GamajunLoader/>
-
-        return data?.assignments.map((assignment) => (
-            <tr key={assignment?.id}>
-                <td>
-                    {assignment?.title}
-                    {assignment.sandbox &&
-                    <IconBeach style={{position: "absolute"}} color={theme.colors.yellow[4]}/>}</td>
-                <td>{assignment?.id}</td>
-                <td>{assignment?.author.name} {assignment?.author.surname}</td>
-                <td>
-                    <Group spacing={"xs"}>
-                        <Link href={`/assignments/${assignment?.id}`}>
-                            <ActionIcon color="orange" variant="outline">
-                                <IconEdit size={18}/>
-                            </ActionIcon>
-                        </Link>
-                        {
-                            assignment.sandbox &&
-                            <Link href={`/assignments/${assignment?.id}/sandbox`}>
-                                <ActionIcon color={"yellow"} variant="outline">
-                                    <IconBeach size={18}/>
-                                </ActionIcon>
-                            </Link>
-                        }
-                    </Group>
-                </td>
-            </tr>
-
-        ));
-    }
+    const columns = useMemo<MRT_ColumnDef<AssignmentsQuery["assignments"][0]>[]>(
+        () => [
+            {
+                header: 'Název',
+                accessorFn: ({title}) => <Text fw={"bold"}>{title}</Text>,
+            },
+            {
+                accessorKey: 'id',
+                header: 'Id',
+            },
+            {
+                accessorFn: ({author}) => `${author.name} ${author.surname}`,
+                header: 'Autor',
+            },
+            {
+                accessorKey: 'sandbox',
+                header: 'Sandboxové zadání?',
+                Cell: ({renderedCellValue}) => renderedCellValue ? <IconCheck color={"green"}/> : <IconX color={"red"}/>,
+            }
+        ],
+        [],
+    );
 
     if (error)
         return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
-    if (loading)
-        return <Skeleton height={"25vh"}/>
-
     return (
-            <Paper shadow="xs" p="md" my={"md"} withBorder>
-                <Table fontSize={"md"} striped>
-                    <thead>
-                    <tr>
-                        <th>Popis</th>
-                        <th>Id</th>
-                        <th>Autor</th>
-                        <th>Akce</th>
-                    </tr>
-                    </thead>
-                    <tbody>{rows()}</tbody>
-                </Table>
-            </Paper>
+        <MantineReactTable
+            columns={columns}
+            data={data?.assignments ?? []}
+            enableColumnOrdering
+            enableGlobalFilter={false}
+            mantineTableProps={{
+                striped: true,
+            }}
+            initialState={{ density: 'xs' }}
+            state={{ isLoading: loading }}
+            enableFullScreenToggle={false}
+            enableRowActions={true}
+            positionActionsColumn="first"
+            localization={MRT_Localization_CS}
+            renderRowActionMenuItems={({row}) => (
+                <>
+                    <Link href={`/assignments/${row.getValue("id")}`}>
+                        <Menu.Item icon={<IconEdit />}>Upravit</Menu.Item>
+                    </Link>
+                    {row.getValue("sandbox") &&
+                        <Link href={`/assignments/${row.getValue("id")}/sandbox`}>
+                            <Menu.Item color={"yellow"} icon={<IconBeach />}>Sandbox přehled</Menu.Item>
+                        </Link>
+                    }
+                </>
+            )}
+        />
     );
 }
 

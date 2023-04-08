@@ -1,66 +1,73 @@
-import {ActionIcon, Alert, Group, Paper, Skeleton, Table} from "@mantine/core";
+import {ActionIcon, Alert, Group, Menu, Paper, Skeleton, Table, Text} from "@mantine/core";
 import Link from "next/link";
-import {IconAlertCircle, IconPencil, IconReportAnalytics} from "@tabler/icons";
-import {useExamsQuery} from "../../client/generated/generated-types";
-import React, {ReactNode} from "react";
+import {IconAlertCircle, IconBeach, IconCheck, IconEdit, IconPencil, IconReportAnalytics, IconX} from "@tabler/icons";
+import {AssignmentsQuery, ExamsQuery, useExamsQuery} from "../../client/generated/generated-types";
+import React, {ReactNode, useMemo} from "react";
+import {MantineReactTable, MRT_ColumnDef} from "mantine-react-table";
+import {MRT_Localization_CS} from "mantine-react-table/locales/cs";
 
 const ExamsTable = () => {
     const {data, error, loading} = useExamsQuery();
-    const exams = (): ReactNode => {
-        if (!data?.exams)
-            return;
-
-        return data?.exams.map((exams) => (
-
-            <tr key={exams?.id}>
-                <td>{exams?.id}</td>
-                <td>{exams?.title}</td>
-                <td>{exams?.author.name} {exams?.author.surname}</td>
-                <td>{new Date(exams?.accessibleFrom ?? "N/A").toLocaleString()}</td>
-                <td>{new Date(exams?.accessibleTo ?? "N/A").toLocaleString()}</td>
-                <td>
-                    <Group spacing={"sm"}>
-                        <Link key={exams?.id} href={`/exams/${exams?.id}/edit`}>
-                            <ActionIcon color="orange" variant="outline">
-                                <IconPencil size={18}/>
-                            </ActionIcon>
-                        </Link>
-                        <Link key={exams?.id} href={`/exams/${exams?.id}/grading`}>
-                            <ActionIcon color="blue" variant="outline">
-                                <IconReportAnalytics size={18}/>
-                            </ActionIcon>
-                        </Link>
-                    </Group>
-                </td>
-            </tr>
-
-        ));
-    }
+    const columns = useMemo<MRT_ColumnDef<ExamsQuery["exams"][0]>[]>(
+        () => [
+            {
+                header: 'Název',
+                accessorFn: ({title}) => <Text fw={"bold"}>{title}</Text>,
+            },
+            {
+                accessorKey: 'id',
+                header: 'Id',
+            },
+            {
+                accessorFn: ({author}) => `${author.name} ${author.surname}`,
+                header: 'Autor',
+            },
+            {
+                accessorKey: 'accessibleFrom',
+                header: 'Dostupné od',
+                //@ts-ignore
+                Cell: ({renderedCellValue}) => <Text>{new Date(renderedCellValue).toLocaleString()}</Text>,
+            },
+            {
+                accessorKey: 'accessibleTo',
+                header: 'Dostupné do',
+                //@ts-ignore
+                Cell: ({renderedCellValue}) => <Text>{new Date(renderedCellValue).toLocaleString()}</Text>,
+            }
+        ],
+        [],
+    );
 
     if (error)
         return <Alert icon={<IconAlertCircle size={16}/>} title="Chyba!" color="red">{error.message}</Alert>
 
     return (
-        <Skeleton visible={loading}>
-            <Paper shadow="xs" p="md" my={"md"} withBorder>
-                <Table fontSize={"md"} striped highlightOnHover>
-                    <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Popis</th>
-                        <th>Autor</th>
-                        <th>Dostupné od</th>
-                        <th>Dostupné do</th>
-                        <th>Akce</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {exams()}
-                    </tbody>
-                </Table>
-            </Paper>
-        </Skeleton>
-    )
+        <MantineReactTable
+            columns={columns}
+            data={data?.exams ?? []}
+            enableColumnOrdering
+            enableGlobalFilter={false}
+            mantineTableProps={{
+                striped: true,
+            }}
+            initialState={{density: 'xs'}}
+            state={{isLoading: loading}}
+            enableFullScreenToggle={false}
+            enableRowActions={true}
+            positionActionsColumn="first"
+            localization={MRT_Localization_CS}
+            renderRowActionMenuItems={({row}) => (
+                <>
+                    <Link href={`/exams/${row.getValue("id")}/edit`}>
+                        <Menu.Item color={"orange"} icon={<IconEdit/>}>Upravit</Menu.Item>
+                    </Link>
+                    <Link href={`/exams/${row.getValue("id")}/grading`}>
+                        <Menu.Item color={"blue"} icon={<IconReportAnalytics/>}>Výsledky</Menu.Item>
+                    </Link>
+                </>
+            )}
+        />
+    );
 }
 
 export default ExamsTable

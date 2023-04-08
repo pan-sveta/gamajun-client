@@ -71,12 +71,12 @@ type Mutation {
     "Checkpoint exam submission"
     checkpointExamSubmission(input: ExamSubmissionCheckpointInput!): ExamSubmission!
     "Create assignment"
-    createAssignment(input: CreateAssignmentInput!): Assignment!
+    createAssignment(input: CreateAssignmentInput!): Assignment
     createClassroom(input: CreateClassroomInput!): Classroom
     "Create exam"
-    createExam(input: CreateExamInput!): Exam!
+    createExam(input: CreateExamInput!): Exam
     "Create sandbox submission"
-    createSandboxSubmission(assignmentId: String!): SandboxSubmission!
+    createSandboxSubmission(assignmentId: String!): SandboxSubmission
     "Delete assignment"
     deleteAssignment(id: String!): Boolean!
     deleteClassroom(id: String!): Boolean!
@@ -89,7 +89,7 @@ type Mutation {
     "Grade exam submission"
     gradeExamSubmission(input: ExamSubmissionGradeInput!): ExamSubmission!
     removeUser(classroomId: String!, username: String!): Classroom!
-    signUp(input: SignUpInput!): User!
+    signUp(input: SignUpInput!): User
     "Submit exam submission"
     submitExamSubmission(input: ExamSubmissionSubmitInput!): ExamSubmission!
     "Submit sandbox submission"

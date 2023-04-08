@@ -1,5 +1,5 @@
 import {Alert, Button, Grid, Group, NumberInput, Paper, Stack, Text, TextInput,} from "@mantine/core";
-import {DatePicker, TimeInput} from "@mantine/dates";
+import {DatePicker, DateTimePicker, TimeInput} from "@mantine/dates";
 import {useForm} from "@mantine/form";
 import {IconAlertCircle, IconCheck, IconDeviceFloppy, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
@@ -80,16 +80,15 @@ const ExamCreator = () => {
                 <Paper shadow="xs" p="md" my={"md"} withBorder>
                     <Stack>
                         <TextInput label={"Název"} {...formo.getInputProps('title')}/>
-                        <DatePicker label={"Platné od"} value={new Date(formo.values?.accessibleFrom)}
-                                    onChange={(date) => date ? formo.setFieldValue('accessibleFrom', date.toISOString()) : null}
-                                    locale="cs"/>
-                        <TimeInput value={new Date(formo.values?.accessibleFrom)}
-                                   onChange={(date) => formo.setFieldValue('accessibleFrom', date.toISOString())}/>
-                        <DatePicker label={"Platné do"} value={new Date(formo.values?.accessibleTo)}
-                                    onChange={(date) => date ? formo.setFieldValue('accessibleTo', date.toISOString()) : null}
-                                    locale="cs"/>
-                        <TimeInput value={new Date(formo.values?.accessibleTo)}
-                                   onChange={(date) => formo.setFieldValue('accessibleTo', date.toISOString())}/>
+                        <DateTimePicker label={"Platné od"}
+                                        value={new Date(formo.values?.accessibleFrom)}
+                                        locale="cs"
+                                        onChange={(date) => date ? formo.setFieldValue('accessibleFrom', date.toISOString()) : null}/>
+
+                        <DateTimePicker label={"Platné od"}
+                                        value={new Date(formo.values?.accessibleTo)}
+                                        locale="cs"
+                                        onChange={(date) => date ? formo.setFieldValue('accessibleTo', date.toISOString()) : null}/>
                         <NumberInput
                             {...formo.getInputProps('timeLimit')}
                             label={"Časový limit"}

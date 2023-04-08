@@ -37,7 +37,7 @@ const SandboxSubmissionEditor = ({submission}: SandboxSubmissionEditorProps) => 
             xml: submission?.xml,
         },
         validate: {
-            xml: (value: string) => (value == undefined ? 'Diagram nesmí být prázdný.' : null),
+            xml: (value) => (value == undefined ? 'Diagram nesmí být prázdný.' : null),
         },
     });
 

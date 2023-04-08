@@ -51,10 +51,10 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
             sandbox: assignment.sandbox
         },
         validate: {
-            title: (value: string) => (value.length < 5 ? 'Název musí být alespoň 5 znaků dlouhý' : null),
-            description: (value: string) => (value.length < 20 ? 'Popis musí být alespoň 20 znaků dlouhý' : null),
-            xml: (value: string) => (value == undefined ? 'Diagram nesmí být prázdný.' : null),
-            sandbox: (value: boolean) => (value == undefined ? 'Sandbox nastavení nesmí být prázdné.' : null),
+            title: (value) => (value == undefined || value.length < 5 ? 'Název musí být alespoň 5 znaků dlouhý' : null),
+            description: (value) => (value == undefined || value?.length < 20 ? 'Popis musí být alespoň 20 znaků dlouhý' : null),
+            xml: (value) => (value == undefined ? 'Diagram nesmí být prázdný.' : null),
+            sandbox: (value) => (value == undefined ? 'Sandbox nastavení nesmí být prázdné.' : null),
         },
     });
 
@@ -122,7 +122,7 @@ const AssignmentEditor = ({assignment}: AssignmentEditor) => {
                                 <TextInput label={"Název"} name={"title"}
                                            placeholder="Stavba mostu" {...form.getInputProps('title')} />
                                 <Text>Popis</Text>
-                                <GamajunRichTextEditor content={form.values.description} id={"description"}
+                                <GamajunRichTextEditor id={"description"} title={"Hello"} content={form.getInputProps('description').value}
                                                        onContentChange={(newContent) => form.setFieldValue('description', newContent)}/>
                             </Stack>
                         </Tabs.Panel>

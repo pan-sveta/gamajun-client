@@ -7,15 +7,15 @@ import Underline from '@tiptap/extension-underline';
 import TextAlign from '@tiptap/extension-text-align';
 import Superscript from '@tiptap/extension-superscript';
 import SubScript from '@tiptap/extension-subscript';
-import {InputMaybe} from "../../client/generated/generated-types";
 
 interface Props{
     id: string
-    content: InputMaybe<string> | undefined
+    content: string
     onContentChange(newContent: string): void
+    title: string
 }
 
-const GamajunRichTextEditor = ({content, onContentChange, id} : Props) => {
+const GamajunRichTextEditor = ({content, onContentChange, id, title} : Props) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
@@ -37,7 +37,7 @@ const GamajunRichTextEditor = ({content, onContentChange, id} : Props) => {
     })
 
     return (
-        <RichTextEditor editor={editor} id={id}>
+        <RichTextEditor editor={editor} id={id} title={title}>
             <RichTextEditor.Toolbar sticky stickyOffset={60}>
                 <RichTextEditor.ControlsGroup>
                     <RichTextEditor.Bold />

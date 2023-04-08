@@ -9,6 +9,8 @@ const AssignmentsTable = () => {
     const {data, error, loading} = useAssignmentsQuery();
     const theme = useMantineTheme();
 
+
+
     const rows = (): ReactNode => {
         if (!data?.assignments)
             return <GamajunLoader/>

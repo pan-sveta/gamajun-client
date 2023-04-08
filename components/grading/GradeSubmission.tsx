@@ -36,8 +36,8 @@ const GradeSubmission = ({submission}: GradeSubmissionProps) => {
             comment: submission?.comment,
         },
         validate: {
-            id: (value: string) => (value == undefined ? 'ID nesmí být prázdný.' : null),
-            points: (value: number) => (value < 0 ? 'Bodů musí být více než 0! Na záporné to snad nikdo nenapsal' : null),
+            id: (value) => (value == undefined ? 'ID nesmí být prázdný.' : null),
+            points: (value) => (value == undefined || value < 0 ? 'Bodů musí být více než 0! Na záporné to snad nikdo nenapsal' : null),
         },
     });
 

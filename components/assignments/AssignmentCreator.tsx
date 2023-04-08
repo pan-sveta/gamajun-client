@@ -43,9 +43,10 @@ const AssignmentCreator = () => {
             sandbox: false
         },
         validate: {
-            title: (value: string) => (value.length < 5 ? 'Název musí být alespoň 5 znaků dlouhý' : null),
-            description: (value: string) => (value.length < 20 ? 'Popis musí být alespoň 20 znaků dlouhý' : null),
-            xml: (value: string) => (value == undefined ? 'Diagram nesmí být prázdný.' : null),
+            title: (value) => (value == undefined || value.length < 5 ? 'Název musí být alespoň 5 znaků dlouhý' : null),
+            description: (value) => (value == undefined || value?.length < 20 ? 'Popis musí být alespoň 20 znaků dlouhý' : null),
+            xml: (value) => (value == undefined ? 'Diagram nesmí být prázdný.' : null),
+            sandbox: (value) => (value == undefined ? 'Sandbox nastavení nesmí být prázdné.' : null),
         },
     });
 
@@ -105,7 +106,7 @@ const AssignmentCreator = () => {
                                        name={"title"}
                                        placeholder="Stavba mostu" {...form.getInputProps('title')} />
                             <Text>Popis</Text>
-                            <GamajunRichTextEditor id={"description"} title={"Hello"} {...form.getInputProps('description')}
+                            <GamajunRichTextEditor id={"description"} title={"Hello"} content={form.getInputProps('description').value}
                                                    onContentChange={(newContent) => form.setFieldValue('description', newContent)}/>
                         </Stack>
                     </Tabs.Panel>

@@ -23,7 +23,7 @@ const useStyles = createStyles((theme) => ({
     footer: {
         display: 'flex',
         justifyContent: 'space-between',
-        padding: `${theme.spacing.sm}px ${theme.spacing.lg}px`,
+        padding: `${theme.spacing.sm} ${theme.spacing.lg}`,
         borderTop: `1px solid ${
             theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[2]
         }`,

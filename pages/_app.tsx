@@ -39,7 +39,13 @@ function MyApp({Component, pageProps: {session, ...pageProps}}: AppProps) {
     return (
         <SessionProvider session={session}>
             <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-                <MantineProvider withGlobalStyles withNormalizeCSS theme={{colorScheme: colorScheme}}>
+                <MantineProvider withGlobalStyles withNormalizeCSS theme={{
+                    colorScheme: colorScheme,
+                    colors: {
+                        brand: ['#7793b4','#6081a8','#496f9b','#335d8f','#1c4b82','#1c4b82','#194475','#163c68','#14355b','#112d4e'],
+                    },
+                    primaryColor: 'brand',
+                }}>
                         <ModalsProvider>
                             <ApolloProvider client={gamajunApolloClient}>
                                 <Notifications/>

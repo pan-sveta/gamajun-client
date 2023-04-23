@@ -133,14 +133,14 @@ export type Mutation = {
   /** Create sandbox submission */
   createSandboxSubmission?: Maybe<SandboxSubmission>;
   /** Delete assignment */
-  deleteAssignment: Scalars['Boolean'];
-  deleteClassroom: Scalars['Boolean'];
+  deleteAssignment?: Maybe<Scalars['Boolean']>;
+  deleteClassroom?: Maybe<Scalars['Boolean']>;
   /** Delete exam */
-  deleteExam: Scalars['Boolean'];
+  deleteExam?: Maybe<Scalars['Boolean']>;
   /** Delete exam submission */
   deleteExamSubmission?: Maybe<Scalars['Boolean']>;
   /** Delete sandbox submission */
-  deleteSandboxSubmission: Scalars['Boolean'];
+  deleteSandboxSubmission?: Maybe<Scalars['Boolean']>;
   /** Grade exam submission */
   gradeExamSubmission: ExamSubmission;
   removeUser: Classroom;
@@ -433,7 +433,7 @@ export type DeleteAssignmentMutationVariables = Exact<{
 }>;
 
 
-export type DeleteAssignmentMutation = { __typename?: 'Mutation', deleteAssignment: boolean };
+export type DeleteAssignmentMutation = { __typename?: 'Mutation', deleteAssignment?: boolean | null };
 
 export type UpdateAssignmentMutationVariables = Exact<{
   input: UpdateAssignmentInput;
@@ -461,7 +461,7 @@ export type DeleteClassroomMutationVariables = Exact<{
 }>;
 
 
-export type DeleteClassroomMutation = { __typename?: 'Mutation', deleteClassroom: boolean };
+export type DeleteClassroomMutation = { __typename?: 'Mutation', deleteClassroom?: boolean | null };
 
 export type RemoveUserMutationVariables = Exact<{
   username: Scalars['String'];
@@ -490,7 +490,7 @@ export type DeleteExamMutationVariables = Exact<{
 }>;
 
 
-export type DeleteExamMutation = { __typename?: 'Mutation', deleteExam: boolean };
+export type DeleteExamMutation = { __typename?: 'Mutation', deleteExam?: boolean | null };
 
 export type UpdateExamMutationVariables = Exact<{
   input: UpdateExamInput;

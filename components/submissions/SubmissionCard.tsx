@@ -68,10 +68,10 @@ const SubmissionCard = ({examSubmission}: SubmissionCardProps) => {
                         {examSubmission.exam?.title}
                     </Text>
                     <Text mt="sm" mb="md" color="dimmed" size="xs">
-                        Zahájeno: {examSubmission?.startedAt?.toLocaleString()}
+                        Zahájeno: {new Date(examSubmission?.startedAt).toLocaleString()}
                     </Text>
                     {examSubmission?.submittedAt ? <Text mt="sm" mb="md" color="dimmed" size="xs">
-                        Odevzdáno: {examSubmission?.submittedAt?.toLocaleString()}
+                        Odevzdáno: {new Date(examSubmission?.submittedAt).toLocaleString()}
                     </Text> : null}
                 </div>
                 {statusBadge()}

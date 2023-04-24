@@ -60,23 +60,23 @@ const SubmissionGrading: NextPage = () => {
 
 
             <Grid>
-                <Grid.Col span={8}>
+                <Grid.Col xs={12} md={8}>
                     <Paper shadow="xs" p="md" withBorder>
                         <Text
                             dangerouslySetInnerHTML={{__html: data?.examSubmissionById?.assignment.description ?? "N/A"}}/>
                     </Paper>
                 </Grid.Col>
-                <Grid.Col span={4}>
+                <Grid.Col xs={12} md={4}>
                     <GradeSubmission submission={data?.examSubmissionById}/>
                 </Grid.Col>
 
-                <Grid.Col span={6}>
+                <Grid.Col xs={12} md={6}>
                     <Paper shadow="xs" p="md" withBorder>
                         <Text align={"center"} weight={"bold"}>Referenční řešení</Text>
                         <BpmnViewer xml={data?.examSubmissionById?.assignment.xml}/>
                     </Paper>
                 </Grid.Col>
-                <Grid.Col span={6}>
+                <Grid.Col xs={12} md={6}>
                     <Paper shadow="xs" p="md" withBorder>
                         <Text align={"center"} weight={"bold"}>Uživatelské řešení</Text>
                         {data?.examSubmissionById?.xml ? <BpmnViewer xml={data?.examSubmissionById?.xml}/> :

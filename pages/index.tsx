@@ -28,7 +28,7 @@ const Home: NextPage = () => {
             </Head>
             <Title ta={"center"} order={1}>Vítejte v testovacím systému Gamajun</Title>
             <Center>
-                <Paper shadow="xs" p="md" my={"md"} w={"15vw"} withBorder>
+                <Paper shadow="xs" px="xl" py="md" my={"md"} miw={"15vw"} withBorder>
                     <Stack spacing={"sm"} align={"center"}>
                         <Avatar src={session?.user?.image}/>
                         <div>

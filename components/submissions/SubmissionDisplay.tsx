@@ -19,7 +19,7 @@ const SubmissionDisplay = ({submission} : SubmissionDisplayProps) => {
       <div>
           <Group position={"apart"}>
               <h1>{submission?.assignment?.title}</h1>
-              <Text>Odevzdáno: {submission?.submittedAt}</Text>
+              <Text>Odevzdáno: {new Date(submission?.submittedAt ?? "").toLocaleString()}</Text>
           </Group>
           <Paper shadow="xs" p="md" my={"md"} withBorder>
               <div dangerouslySetInnerHTML={{__html: submission?.assignment?.description ?? "N/A"}}/>

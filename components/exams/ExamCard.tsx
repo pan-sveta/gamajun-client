@@ -89,7 +89,7 @@ const ExamCard = ({exam}: ExamCardProps) => {
                         {exam.title}
                     </Text>
                     <Text mt="sm" mb="md" color="dimmed" size="xs">
-                        Dostupné od {exam.accessibleFrom?.toLocaleString()} do {exam.accessibleTo?.toLocaleString()}
+                        Dostupné od {new Date(exam.accessibleFrom).toLocaleString()} do {new Date(exam.accessibleTo).toLocaleString()}
                     </Text>
                 </div>
                 <IconReport size={"5vh"} color={theme.colors.gray[5]}/>

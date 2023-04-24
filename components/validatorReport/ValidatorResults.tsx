@@ -83,7 +83,7 @@ const ValidatorResults = ({validatorReport}: ValidatorResultsProps) => {
 
     return (
         <Grid>
-            <Grid.Col span={4}>
+            <Grid.Col xs={12} md={4}>
                 <Paper shadow="xs" p="xl">
                     <Title order={2} mb={"md"}>Shoda s referenčním zadáním</Title>
                     <Stack spacing={"sm"}>
@@ -110,7 +110,7 @@ const ValidatorResults = ({validatorReport}: ValidatorResultsProps) => {
                     </Stack>
                 </Paper>
             </Grid.Col>
-            <Grid.Col span={8}>
+            <Grid.Col xs={12} md={8}>
                 <Paper shadow="xs" p="xl">
                     <Title order={2} mb={"md"}>Výsledky validátoru</Title>
                     <Stack spacing={"sm"}>

@@ -18,6 +18,9 @@ import React from "react";
 
 const ExamCreator = () => {
     const router = useRouter();
+    const defaultDate = new Date();
+    defaultDate.setSeconds(0);
+    defaultDate.setMilliseconds(0);
 
     const [createExam, {loading, error}] = useCreateExamMutation({
         refetchQueries: [refetchExamsQuery(), refetchOpenedExamsQuery(), refetchMySubmissionsQuery()],
@@ -26,8 +29,8 @@ const ExamCreator = () => {
     const formo = useForm<CreateExamInput>({
         initialValues: {
             title: "",
-            accessibleFrom: new Date().toISOString(),
-            accessibleTo: new Date().toISOString(),
+            accessibleFrom: defaultDate.toLocaleString(),
+            accessibleTo: defaultDate.toLocaleString(),
             timeLimit: 30,
             assignmentIds: [],
             classroomIds: []

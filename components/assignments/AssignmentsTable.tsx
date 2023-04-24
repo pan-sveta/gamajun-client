@@ -1,9 +1,8 @@
-import {ActionIcon, Alert, Box, Button, Group, Menu, Paper, Skeleton, Table, Text, useMantineTheme} from "@mantine/core";
+import {Alert, Menu, Text} from "@mantine/core";
 import {AssignmentsQuery, useAssignmentsQuery} from "../../client/generated/generated-types";
 import Link from "next/link";
-import GamajunLoader from "../common/GamajunLoader";
-import React, {ReactNode, useMemo} from "react";
-import {IconAlertCircle, IconBeach, IconCheck, IconCross, IconEdit, IconX} from "@tabler/icons";
+import React, {useMemo} from "react";
+import {IconAlertCircle, IconBeach, IconCheck, IconEdit, IconX} from "@tabler/icons";
 import {MantineReactTable, MRT_ColumnDef} from "mantine-react-table";
 import {MRT_Localization_CS} from "mantine-react-table/locales/cs";
 

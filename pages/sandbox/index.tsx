@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import {Alert, Center, Stack, Text} from "@mantine/core";
+import {Alert, Stack, Text} from "@mantine/core";
 import {useSandboxAssignmentsQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../../components/common/GamajunLoader";
 import SandboxCard from "../../components/sandbox/SandboxCard";

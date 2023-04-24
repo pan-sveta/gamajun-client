@@ -1,12 +1,13 @@
 import {
-    Avatar, Checkbox,
+    Box,
+    Checkbox,
     Group,
+    Text,
     TransferList,
     TransferListData,
     TransferListItem,
     TransferListItemComponent,
-    TransferListItemComponentProps,
-    Text, Box
+    TransferListItemComponentProps
 } from "@mantine/core";
 import {useAssignmentsPickerQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../common/GamajunLoader";

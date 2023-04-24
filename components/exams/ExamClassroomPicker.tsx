@@ -1,6 +1,7 @@
 import {
     Checkbox,
-    Group, Text,
+    Group,
+    Text,
     TransferList,
     TransferListData,
     TransferListItem,
@@ -9,7 +10,7 @@ import {
 } from "@mantine/core";
 import {useClassroomsQuery} from "../../client/generated/generated-types";
 import GamajunLoader from "../common/GamajunLoader";
-import {IconBeach, IconUsers} from "@tabler/icons";
+import {IconUsers} from "@tabler/icons";
 import React from "react";
 
 interface ExamAssignmentPickerProps {

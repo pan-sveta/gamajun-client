@@ -1,8 +1,8 @@
-import {ExamsQuery, SubmissionByIdQuery, useSubmissionsByExamIdQuery} from "../../client/generated/generated-types";
-import {ActionIcon, Alert, Button, Menu, Paper, Skeleton, Table, Text} from "@mantine/core";
+import {SubmissionByIdQuery, useSubmissionsByExamIdQuery} from "../../client/generated/generated-types";
+import {Alert, Button, Paper, Skeleton, Table, Text} from "@mantine/core";
 import Link from "next/link";
 import {useRouter} from "next/router";
-import {IconAlertCircle, IconEdit, IconReportAnalytics, IconSearch} from "@tabler/icons";
+import {IconAlertCircle, IconSearch} from "@tabler/icons";
 import SubmissionStatusBadge from "../grading/SubmissionStatusBadge";
 import React, {useMemo} from "react";
 import {MantineReactTable, MRT_ColumnDef} from "mantine-react-table";

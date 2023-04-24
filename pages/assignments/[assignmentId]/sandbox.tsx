@@ -2,12 +2,11 @@ import React, {useMemo} from 'react';
 import {NextPage} from "next";
 import {useRouter} from "next/router";
 import {
-    ClassroomByIdQuery, SandboxSubmissionsByAssignmentIdQuery,
+    SandboxSubmissionsByAssignmentIdQuery,
     useAssignmentByIdQuery,
     useSandboxSubmissionsByAssignmentIdQuery
 } from "../../../client/generated/generated-types";
-import {Button, Paper, Skeleton, Table, Text, Title, Tooltip, useMantineTheme} from "@mantine/core";
-import {IconCheck, IconEdit, IconUserMinus} from "@tabler/icons";
+import {Paper, Skeleton, Text, Title, useMantineTheme} from "@mantine/core";
 import Head from "next/head";
 import {MantineReactTable, MRT_ColumnDef} from "mantine-react-table";
 import {MRT_Localization_CS} from "mantine-react-table/locales/cs";

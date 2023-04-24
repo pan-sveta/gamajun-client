@@ -1,17 +1,15 @@
-import React, {ReactNode, useMemo} from 'react';
+import React, {useMemo} from 'react';
 import {
-    AssignmentsQuery,
     ClassroomByIdQuery,
     refetchClassroomByIdQuery,
     useRemoveUserMutation
 } from "../../client/generated/generated-types";
-import {ActionIcon, Alert, Button, Center, Menu, Paper, Stack, Table, Text, Title, Tooltip} from "@mantine/core";
-import {IconAlertCircle, IconBeach, IconCheck, IconEdit, IconUserMinus, IconX} from "@tabler/icons";
+import {Alert, Button, Stack, Text, Tooltip} from "@mantine/core";
+import {IconAlertCircle, IconCheck, IconUserMinus, IconX} from "@tabler/icons";
 import {showNotification} from "@mantine/notifications";
 import {openConfirmModal} from "@mantine/modals";
 import {MantineReactTable, MRT_ColumnDef} from "mantine-react-table";
 import {MRT_Localization_CS} from "mantine-react-table/locales/cs";
-import Link from "next/link";
 
 interface StudentsTableProps {
     classroomId: ClassroomByIdQuery['classroomById']['id']

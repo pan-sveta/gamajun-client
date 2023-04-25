@@ -40,3 +40,5 @@ The following environment variables are required to run the application:
 - NEXTAUTH_URL - the URL of the Gamajun Client Application
 - NEXTAUTH_SECRET - the secret used to encrypt the session cookie
 - NEXT_PUBLIC_GAMAJUN_API_URL - the URL of the Gamajun API server
+
+Just copy the ```.env.example``` file and rename it to ```.env```. Then, fill in the required values.

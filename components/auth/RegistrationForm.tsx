@@ -2,7 +2,7 @@ import React from 'react';
 import {Button, Paper, PasswordInput, Text, TextInput, Title} from "@mantine/core";
 import {useForm} from "@mantine/form";
 import {SignUpInput, useSignUpMutation} from "../../client/generated/generated-types";
-import noAuthApolloClient from "../../noAuthApolloClient";
+import noAuthApolloClient from "../../apollo/noAuthApolloClient";
 import {showNotification} from "@mantine/notifications";
 import {IconX} from "@tabler/icons";
 

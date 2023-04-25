@@ -4,7 +4,7 @@ import {useForm} from "@mantine/form";
 import {useValidateCodeLazyQuery} from "../../client/generated/generated-types";
 import {showNotification} from "@mantine/notifications";
 import {IconX} from "@tabler/icons";
-import noAuthApolloClient from "../../noAuthApolloClient";
+import noAuthApolloClient from "../../apollo/noAuthApolloClient";
 
 interface ValidateInviteCodeProps {
     validationSuccessful: (code: string) => void

@@ -7,7 +7,7 @@ import {Notifications} from "@mantine/notifications";
 import {ModalsProvider} from "@mantine/modals";
 import {RouterTransition} from "../components/appshell/RouterTransition";
 import {ApolloProvider} from "@apollo/client";
-import gamajunApolloClient from "../gamajunApolloClient";
+import gamajunApolloClient from "../apollo/gamajunApolloClient";
 
 import 'dayjs/locale/cs';
 import {useRouter} from "next/router";

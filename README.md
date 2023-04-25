@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Gamajun Client Application
 
-## Getting Started
+![Logo](public/logo.png)
 
-First, run the development server:
+The Gamajun Client Application is a part of the Gamajun BPMN testing system.
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+The Gamajun Client Application is specifically designed for educators who are teaching BPMN modeling.
+This application aims to facilitate an interactive learning experience by offering a comprehensive system to train and verify the knowledge of BPMN diagrams.
+Instructors can use this tool to create engaging lessons that reinforce students' understanding of business process modeling and notations, while students can benefit from a hands-on approach to mastering the intricacies of BPMN diagrams.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Table of Contents
 
-You can start editing the page by modifying `pages/new.tsx`. The page auto-updates as you edit the file.
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Environment Variables](#environment-variables)
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Requirements
+- Node.js 14.18.0 or newer
+- MacOS, Windows (including WSL), and Linux are supported
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Installation
+### Local Installation
+1. Clone the repository ```git clone git@github.com:pan-sveta/gamajun-client.git```
+2. Install dependencies ```yarn install```
+3. Configure environment variables (see [Environment Variables](#environment-variables))
+4. Run the development server ```yarn dev```
 
-## Learn More
+### Docker Installation
+1. Clone the repository ```git clone git@github.com:pan-sveta/gamajun-client.git```
+2. Build the image ```docker build -t gamajun-client .```
+3. Run the container ```docker run -p 3000:3000 gamajun-client```
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
+The following environment variables are required to run the application:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- OAUTH2_CLIENT_ID - the client ID of the OAuth2 client
+- OAUTH2_CLIENT_SECRET - the client secret of the OAuth2 client
+- OAUTH2_PROVIDER_URL - the URL of the OAuth2 provider
+- NEXTAUTH_URL - the URL of the Gamajun Client Application
+- NEXTAUTH_SECRET - the secret used to encrypt the session cookie
+- NEXT_PUBLIC_GAMAJUN_API_URL - the URL of the Gamajun API server

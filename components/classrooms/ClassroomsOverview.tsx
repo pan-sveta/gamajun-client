@@ -30,7 +30,7 @@ function ClassroomsOverview(): JSX.Element {
             {classroomsBlocks && classroomsBlocks.length > 0 ?
                 <Group>{classroomsBlocks}</Group>
                 :
-                <Box pt={"xl"}><Text ta={"center"} size={"xl"} fw={"bold"}>Dosud žádné třídy</Text></Box>}
+                <Text fz={"xl"} ta={"center"} color={"gray"} mt={"15vh"}>Žádné dostupné třídy</Text>}
         </Stack>
     );
 }

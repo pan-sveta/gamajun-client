@@ -1,4 +1,4 @@
-name: Update submodule in Gamajun-platform repository
+name: Update submodule in Gamajun-system repository
 
 on:
   push:
@@ -12,8 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with: 
-          repository: org/parent_repository
-          token: ${{ secrets.PRIVATE_TOKEN_GITHUB }}
+          repository: pan-sveta/gamajun-system
           submodules: true
 
       - name: Pull & update submodules recursively

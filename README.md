@@ -27,8 +27,9 @@ Instructors can use this tool to create engaging lessons that reinforce students
 
 ### Docker Installation
 1. Clone the repository ```git clone git@github.com:pan-sveta/gamajun-client.git```
-2. Build the image ```docker build -t gamajun-client .```
-3. Run the container ```docker run -p 3000:3000 gamajun-client```
+2. Configure environment variables (see [Environment Variables](#environment-variables))
+3. Build the image ```docker build -t gamajun-client .```
+4. Run the container ```docker run -p 3000:3000 gamajun-client```
 
 ## Environment Variables
 The following environment variables are required to run the application:

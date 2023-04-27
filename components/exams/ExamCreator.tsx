@@ -29,8 +29,8 @@ const ExamCreator = () => {
     const formo = useForm<CreateExamInput>({
         initialValues: {
             title: "",
-            accessibleFrom: defaultDate.toLocaleString(),
-            accessibleTo: defaultDate.toLocaleString(),
+            accessibleFrom: defaultDate.toISOString(),
+            accessibleTo: defaultDate.toISOString(),
             timeLimit: 30,
             assignmentIds: [],
             classroomIds: []

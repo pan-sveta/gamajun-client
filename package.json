@@ -34,7 +34,7 @@
     "@tiptap/react": "^2.0.2",
     "@tiptap/starter-kit": "^2.0.2",
     "dayjs": "^1.11.7",
-    "gamajun-bpmn-js": "^1.0.3",
+    "gamajun-bpmn-js": "^1.0.7",
     "graphql": "^16.6.0",
     "mantine-react-table": "^1.0.0-beta.2",
     "next": "12.2.5",

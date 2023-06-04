@@ -1,6 +1,5 @@
+import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
-import {gql} from '@apollo/client';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -638,7 +637,7 @@ export type SubmissionByIdGradingQueryVariables = Exact<{
 }>;
 
 
-export type SubmissionByIdGradingQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, points?: number | null, comment?: string | null, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string } } | null };
+export type SubmissionByIdGradingQuery = { __typename?: 'Query', examSubmissionById?: { __typename?: 'ExamSubmission', id: string, startedAt: string, submittedAt?: string | null, examSubmissionState: ExamSubmissionState, points?: number | null, comment?: string | null, xml?: string | null, user: { __typename?: 'User', name: string, surname: string, username: string }, exam: { __typename?: 'Exam', id: string, title: string }, assignment: { __typename?: 'Assignment', id: string, title: string, description: string, xml: string }, validatorReport?: { __typename?: 'ValidatorReport', id: string, referenceMatchingResult: { __typename?: 'ReferenceMatchingResult', id: string, result: ReferenceMatchingResultState, isomorphismCheckResult: boolean, participantsCheckResult: boolean, participantsCheckMessage: string }, validatorRuleResults: Array<{ __typename?: 'ValidatorRuleResult', id: string, message?: string | null, valid: boolean, validatorRule: { __typename?: 'ValidatorRule', id: string, name: string, description: string } }> } | null } | null };
 
 
 export const CreateAssignmentDocument = gql`
@@ -2041,6 +2040,26 @@ export const SubmissionByIdGradingDocument = gql`
       title
       description
       xml
+    }
+    validatorReport {
+      id
+      referenceMatchingResult {
+        id
+        result
+        isomorphismCheckResult
+        participantsCheckResult
+        participantsCheckMessage
+      }
+      validatorRuleResults {
+        id
+        message
+        valid
+        validatorRule {
+          id
+          name
+          description
+        }
+      }
     }
   }
 }

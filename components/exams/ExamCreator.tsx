@@ -35,7 +35,13 @@ const ExamCreator = () => {
             assignmentIds: [],
             classroomIds: []
         },
-        validate: {},
+        validate: {
+            timeLimit: (value) => (value < 1 && value > 1440 ? 'Časový limit musí být v rozsahu 1 až 1440' : null),
+            assignmentIds: (value) => (value.length < 1 ? "Musíte vybrat alespoň jedno zadání" : null),
+            classroomIds: (value) => (value.length < 1 ? "Musíte vybrat alespoň jednu třídu" : null),
+            accessibleFrom: (value) => (value == "" ? "Dostupné od nesmí být prázdné" : null),
+            accessibleTo: (value) => (value == "" ? "Dostupné do nesmí být prázdné" : null),
+        },
     });
 
     let submit = (input: CreateExamInput) => {
@@ -88,7 +94,7 @@ const ExamCreator = () => {
                                         locale="cs"
                                         onChange={(date) => date ? formo.setFieldValue('accessibleFrom', date.toISOString()) : null}/>
 
-                        <DateTimePicker label={"Platné od"}
+                        <DateTimePicker label={"Platné do"}
                                         value={new Date(formo.values?.accessibleTo)}
                                         locale="cs"
                                         onChange={(date) => date ? formo.setFieldValue('accessibleTo', date.toISOString()) : null}/>

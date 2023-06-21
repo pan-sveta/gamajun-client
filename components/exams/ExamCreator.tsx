@@ -36,6 +36,7 @@ const ExamCreator = () => {
             classroomIds: []
         },
         validate: {
+            title: (value) => (value.length < 1 ? "Zkouška musí mít název" : null),
             timeLimit: (value) => (value < 1 && value > 1440 ? 'Časový limit musí být v rozsahu 1 až 1440' : null),
             assignmentIds: (value) => (value.length < 1 ? "Musíte vybrat alespoň jedno zadání" : null),
             classroomIds: (value) => (value.length < 1 ? "Musíte vybrat alespoň jednu třídu" : null),

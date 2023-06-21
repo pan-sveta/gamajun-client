@@ -22,5 +22,25 @@ query SubmissionByIdGrading($id: String!){
             description
             xml
         }
+        validatorReport {
+                    id
+                    referenceMatchingResult {
+                        id
+                        result
+                        isomorphismCheckResult
+                        participantsCheckResult
+                        participantsCheckMessage
+                    }
+                    validatorRuleResults {
+                        id
+                        message
+                        valid
+                        validatorRule {
+                            id
+                            name
+                            description
+                        }
+                    }
+                }
     }
 }

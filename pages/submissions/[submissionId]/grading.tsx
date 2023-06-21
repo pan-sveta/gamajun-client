@@ -1,5 +1,5 @@
 import {NextPage} from "next";
-import {useSubmissionByIdGradingQuery} from "../../../client/generated/generated-types";
+import {useSubmissionByIdGradingQuery, ValidatorReport} from "../../../client/generated/generated-types";
 import {useRouter} from "next/router";
 import {Alert, Badge, Box, createStyles, Grid, Group, Loader, Paper, Skeleton, Text, Title} from "@mantine/core";
 import dynamic from "next/dynamic";
@@ -8,6 +8,7 @@ import React from "react";
 import GradeSubmission from "../../../components/grading/GradeSubmission";
 import {IconAlertCircle} from "@tabler/icons";
 import SubmissionStatusBadge from "../../../components/grading/SubmissionStatusBadge";
+import ValidatorResults from "../../../components/validatorReport/ValidatorResults";
 
 
 const BpmnViewer = dynamic(() => {
@@ -83,8 +84,8 @@ const SubmissionGrading: NextPage = () => {
                             <Text>No filled yet</Text>}
                     </Paper>
                 </Grid.Col>
-
             </Grid>
+            <ValidatorResults validatorReport={data?.examSubmissionById?.validatorReport as ValidatorReport}/>
         </Box>
     );
 }
